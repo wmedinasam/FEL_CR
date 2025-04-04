@@ -8,10 +8,10 @@ using System.Windows;
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
 [assembly: AssemblyTitle("FELRD")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Monitor para documentos electrónicos RDOM")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FELRD")]
+[assembly: AssemblyProduct("Monitor FEL RDOM")]
 [assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
