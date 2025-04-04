@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WIS_Security", "WIS_Securit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTECore", "DTECore\DTECore.csproj", "{C9E478AA-C98C-4BCF-881A-40C55D77D379}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceCore", "ServiceCore\ServiceCore.csproj", "{A0395469-3D95-47AC-889F-7245AE5ECADD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C9E478AA-C98C-4BCF-881A-40C55D77D379}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9E478AA-C98C-4BCF-881A-40C55D77D379}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9E478AA-C98C-4BCF-881A-40C55D77D379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0395469-3D95-47AC-889F-7245AE5ECADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0395469-3D95-47AC-889F-7245AE5ECADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0395469-3D95-47AC-889F-7245AE5ECADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0395469-3D95-47AC-889F-7245AE5ECADD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
