@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="WIS_Security\WIS_Security.csproj">
+      <Project>{b622b39e-b365-461d-abc5-f0781734ebed}</Project>
+      <Name>WIS_Security</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
