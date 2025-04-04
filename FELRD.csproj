@@ -95,6 +95,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="DTECore\DTECore.csproj">
+      <Project>{c9e478aa-c98c-4bcf-881a-40c55d77d379}</Project>
+      <Name>DTECore</Name>
+    </ProjectReference>
     <ProjectReference Include="WIS_Security\WIS_Security.csproj">
       <Project>{b622b39e-b365-461d-abc5-f0781734ebed}</Project>
       <Name>WIS_Security</Name>
