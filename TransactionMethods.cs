@@ -34,10 +34,10 @@ namespace FELRD
                         if (responseGetSaeFelData.Success)
                         {
                             HandleLogs.SaveLog("Log", "Obteniendo datos del SAE");
-                            Document rDDocument = new Document();
-                            var responseDocument = rDDocument.MakeDocument(responseGetSaeFelData.Object); // crear DT con datos desde SAE
-                            if (responseDocument.Success)
-                            {
+                            //Document rDDocument = new Document();
+                            //var responseDocument = rDDocument.MakeDocument(responseGetSaeFelData.Object); // crear DT con datos desde SAE
+                            //if (responseDocument.Success)
+                            //{
                                 HandleLogs.SaveLog("Log", "Creando el JSON Request");
                                 //InfileService infileService = new InfileService();
                                 //    CertificadorModel cert = new CertificadorModel();
@@ -90,14 +90,14 @@ namespace FELRD
                                 //    HandleLogs.SaveLog("Debug", transaction.Result);
                                 //}
 
-                            }
-                            else
-                            {
-                                transaction.Status = "RECHAZADO";
-                                transaction.Result = "Problemas para obtener la factura desde SAE documento con Serie: " + transaction.SAESerial + " y Numero: " + transaction.SAENumber + " Error: " + responseGetSaeFelData.Message;
-                                var response = model.ActionTransaction("ChangeStatusResult", transaction);
-                                HandleLogs.SaveLog("Debug", transaction.Result);
-                            }
+                            //}
+                            //else
+                            //{
+                            //    transaction.Status = "RECHAZADO";
+                            //    transaction.Result = "Problemas para obtener la factura desde SAE documento con Serie: " + transaction.SAESerial + " y Numero: " + transaction.SAENumber + " Error: " + responseGetSaeFelData.Message;
+                            //    var response = model.ActionTransaction("ChangeStatusResult", transaction);
+                            //    HandleLogs.SaveLog("Debug", transaction.Result);
+                            //}
                         }
                         else
                         {

@@ -42,8 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Document.cs" />
+    <Compile Include="Models\IDocumentStrategy.cs" />
+    <Compile Include="Models\InvoiceDocumentStrategy.cs" />
     <Compile Include="Models\RD_Document.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WIS_Security\WIS_Security.csproj">

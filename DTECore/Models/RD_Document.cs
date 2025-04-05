@@ -175,24 +175,24 @@ public partial class ECFEncabezado
 public partial class ECFEncabezadoIdDoc
 {
 
-    private byte tipoeCFField;
+    private int tipoeCFField;
 
     private string eNCFField;
 
     private string fechaVencimientoSecuenciaField;
 
-    private byte indicadorMontoGravadoField;
+    private string indicadorMontoGravadoField;
 
-    private byte tipoIngresosField;
+    private string tipoIngresosField;
 
-    private byte tipoPagoField;
+    private string tipoPagoField;
 
     private ECFEncabezadoIdDocTablaFormasPago tablaFormasPagoField;
 
     private string[] textField;
 
     /// <remarks/>
-    public byte TipoeCF
+    public int TipoeCF
     {
         get
         {
@@ -231,7 +231,7 @@ public partial class ECFEncabezadoIdDoc
     }
 
     /// <remarks/>
-    public byte IndicadorMontoGravado
+    public string IndicadorMontoGravado
     {
         get
         {
@@ -244,7 +244,7 @@ public partial class ECFEncabezadoIdDoc
     }
 
     /// <remarks/>
-    public byte TipoIngresos
+    public string TipoIngresos
     {
         get
         {
@@ -257,7 +257,7 @@ public partial class ECFEncabezadoIdDoc
     }
 
     /// <remarks/>
-    public byte TipoPago
+    public string TipoPago
     {
         get
         {
@@ -696,11 +696,11 @@ public partial class ECFEncabezadoEmisor
 
     private string direccionEmisorField;
 
-    private ushort municipioField;
+    private string municipioField;
 
-    private ushort provinciaField;
+    private string provinciaField;
 
-    private ECFEncabezadoEmisorTablaTelefonoEmisor tablaTelefonoEmisorField;
+    private string[] tablaTelefonoEmisorField;
 
     private string webSiteField;
 
@@ -769,7 +769,7 @@ public partial class ECFEncabezadoEmisor
     }
 
     /// <remarks/>
-    public ushort Municipio
+    public string Municipio
     {
         get
         {
@@ -782,7 +782,7 @@ public partial class ECFEncabezadoEmisor
     }
 
     /// <remarks/>
-    public ushort Provincia
+    public string Provincia
     {
         get
         {
@@ -795,7 +795,8 @@ public partial class ECFEncabezadoEmisor
     }
 
     /// <remarks/>
-    public ECFEncabezadoEmisorTablaTelefonoEmisor TablaTelefonoEmisor
+    [System.Xml.Serialization.XmlArrayItemAttribute("TelefonoEmisor", IsNullable = false)]
+    public string[] TablaTelefonoEmisor
     {
         get
         {
@@ -940,9 +941,9 @@ public partial class ECFEncabezadoComprador
 
     private string direccionCompradorField;
 
-    private ushort municipioCompradorField;
+    private string municipioCompradorField;
 
-    private ushort provinciaCompradorField;
+    private string provinciaCompradorField;
 
     private string fechaEntregaField;
 
@@ -1024,7 +1025,7 @@ public partial class ECFEncabezadoComprador
     }
 
     /// <remarks/>
-    public ushort MunicipioComprador
+    public string MunicipioComprador
     {
         get
         {
@@ -1037,7 +1038,7 @@ public partial class ECFEncabezadoComprador
     }
 
     /// <remarks/>
-    public ushort ProvinciaComprador
+    public string ProvinciaComprador
     {
         get
         {
@@ -1292,19 +1293,19 @@ public partial class ECFEncabezadoTotales
 public partial class ECFItem
 {
 
-    private byte numeroLineaField;
+    private int numeroLineaField;
 
-    private byte indicadorFacturacionField;
+    private int indicadorFacturacionField;
 
     private ECFDetallesItemsItemRetencion retencionField;
 
     private string nombreItemField;
 
-    private byte indicadorBienoServicioField;
+    private int indicadorBienoServicioField;
 
     private decimal cantidadItemField;
 
-    private byte unidadMedidaField;
+    private int unidadMedidaField;
 
     private decimal precioUnitarioItemField;
 
@@ -1321,7 +1322,7 @@ public partial class ECFItem
     private decimal montoItemField;
 
     /// <remarks/>
-    public byte NumeroLinea
+    public int NumeroLinea
     {
         get
         {
@@ -1334,7 +1335,7 @@ public partial class ECFItem
     }
 
     /// <remarks/>
-    public byte IndicadorFacturacion
+    public int IndicadorFacturacion
     {
         get
         {
@@ -1373,7 +1374,7 @@ public partial class ECFItem
     }
 
     /// <remarks/>
-    public byte IndicadorBienoServicio
+    public int IndicadorBienoServicio
     {
         get
         {
@@ -1399,7 +1400,7 @@ public partial class ECFItem
     }
 
     /// <remarks/>
-    public byte UnidadMedida
+    public int UnidadMedida
     {
         get
         {
