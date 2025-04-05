@@ -15,7 +15,7 @@ namespace WIS_Security
             ResponseModel<DateTime> responseDate = new ResponseModel<DateTime>();
             try
             {
-                var date = DateTime.Now;
+                var date = DateTime.UtcNow; // Use UTC to avoid regional settings
                 var formattedDate = date.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture);
 
                 responseDate.Success = true;

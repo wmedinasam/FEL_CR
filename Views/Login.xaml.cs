@@ -1,18 +1,8 @@
 ﻿using FELRD.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WIS_Security;
 
 namespace FELRD.Views
@@ -28,7 +18,7 @@ namespace FELRD.Views
         public Login()
         {
             InitializeComponent();
-            //ValidationConfigurationFile();
+            ValidationConfigurationFile();
             lblVersion.Content = appVersion;
             lblAppName.Text = appName;
         }
@@ -73,8 +63,8 @@ namespace FELRD.Views
             if (!file.CfgExists(config.path))
             {
                 MessageBox.Show("No existe archivo de configuración, para iniciar el sistema debe configuralo primero.", "ADVERTENCIA", MessageBoxButton.OK, MessageBoxImage.Warning);
-                //Dashboard dashboard = new Dashboard(userModel, true);
-                //dashboard.ShowDialog();
+                Dashboard dashboard = new Dashboard(userModel, true);
+                dashboard.ShowDialog();
                 Application.Current.Shutdown();
             }
 
@@ -90,6 +80,8 @@ namespace FELRD.Views
             {
                 UserModel userModel = new UserModel();
                 var response = userModel.GetUserByUserName(txtUsername.Text);
+                
+
                 if (response.Success)
                 {
                     if (response.Object != null)
@@ -98,8 +90,8 @@ namespace FELRD.Views
                         if (decryptedPassword == txtPassword.Password)
                         {
                             this.Hide();
-                            //Dashboard dasboard = new Dashboard(response.Object, false);
-                            //dasboard.ShowDialog();
+                            Dashboard dashboard = new Dashboard(response.Object, false);
+                            dashboard.ShowDialog();
                             //Application.Current.Shutdown();
                         }
                         else

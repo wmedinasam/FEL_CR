@@ -1,0 +1,177 @@
+﻿<Page x:Class="FELRD.Views.Pages.Monitor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:FELRD.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Monitor" Loaded="Page_Loaded"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+
+    <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}">
+        <Grid>
+
+            <TextBlock Text="Monitoreo de Documentos" FontSize="25"
+                   FontWeight="SemiBold"
+                   Margin="10 10 0 0"
+                   HorizontalAlignment="Left"
+                   />
+            <StackPanel Orientation="Vertical"  VerticalAlignment="Top" Margin="10" HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Text="Iniciar Monitor" FontSize="20" 
+                   Style="{DynamicResource MaterialDesignBody1TextBlock}"
+                   FontWeight="SemiBold"
+                   Margin="0 0 15 0"
+                   />
+                    <ToggleButton x:Name="btnIniciar"
+                        HorizontalAlignment="Right"
+                        TextBlock.FontSize="25"
+                        TextBlock.Foreground="{DynamicResource PrimaryTextColor}"
+                          Click="btnIniciar_Click"
+                          Checked="btnIniciar_Checked"
+                          Unchecked="btnIniciar_Unchecked"
+                        />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Text="Estado:" FontSize="20" 
+                   Style="{DynamicResource MaterialDesignBody1TextBlock}"
+                   FontWeight="SemiBold"
+                   Margin="0 0 15 0"
+                   />
+                    <materialDesign:Card x:Name="cardEstado" UniformCornerRadius="8" 
+                                 Width="110" Height="30"
+                                 Background="{Binding CardColor}"
+                                 >
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <materialDesign:PackIcon x:Name="iconState" Kind="{Binding IconType, Delay=1}" 
+                                             Width="14" Foreground="{Binding IconColor}" 
+                                             Height="18" Margin="0 0 4 0" />
+                            <TextBlock x:Name="txtState" Foreground="{Binding TextColor}" FontSize="12"/>
+
+                        </StackPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+            </StackPanel>
+
+            <!--BEGIN DATA GRIDS-->
+
+
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--DATAGRID DOCUMENTS SUCCESS-->
+                <DataGrid x:Name="dgvSuccess" Margin="10,90,2.5,9.6"  
+                      Grid.Column="0" Grid.Row="0"
+                      Background="{DynamicResource PrimaryBackgroundColor}" 
+                      CanUserAddRows="False"
+                      CanUserSortColumns="True"
+                      AutoGenerateColumns="False"                          
+                      >
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="Copy"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Foreground="#fff" Header="Empresa" Binding="{Binding Company.Name}"  />
+                        <DataGridTextColumn Foreground="#fff" Header="Docto" Binding="{Binding SAEDocumentId}"  />
+                        <DataGridTextColumn Foreground="#fff" Header="Tipo" Binding="{Binding DocumentType}" />
+                        <DataGridTextColumn Foreground="#fff" Header="UUID" Binding="{Binding UUID}" />
+                        <DataGridTextColumn Foreground="#fff" Header="Numero de control" Binding="{Binding ControlNumber}" />
+                        <DataGridTemplateColumn Header="Accion">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <!--<Button x:Name="btnConsultar" Content="{materialDesign:PackIcon Kind=FilePdf, Size=20}"  ToolTip="Descargar PDF"  Foreground="#74D5FA" Background="#030E18"  BorderThickness="1" Cursor="Arrow" Width="30" Height="25" HorizontalAlignment="Center" Padding="1,1,1,2"  CommandParameter="{Binding UUID}" Visibility="{Binding btnPDF}" Click="btnConsultar_Click">
+                                    </Button>
+                                    <Grid Width="10"></Grid>-->
+                                        <Button x:Name="btnAnular" Foreground="#FAB3AE" Background="#180605" BorderBrush="#f44336" ToolTip="Anular Documento" BorderThickness="1" Cursor="Arrow" Height="25" Padding="1,1,1,2"  Width="85" HorizontalAlignment="Center"  Visibility="{Binding btnAnulacion}" Click="btnAnular_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Grid>
+                                                    <!--<iconPacks:PackIconMaterial Kind="BlockHelper" Width="14" HorizontalAlignment="Left"></iconPacks:PackIconMaterial>-->
+                                                </Grid>
+                                                <Grid Width="10"></Grid>
+                                                <TextBlock HorizontalAlignment="Center">Anular</TextBlock>
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!--DATAGRID DOCUMENTS REFUSED-->
+                <DataGrid x:Name="grdRejected" Margin="2.5,90,10,10"  
+                      Grid.Column="1" Grid.Row="0"
+                  AutoGenerateColumns="False"
+                      CanUserSortColumns="True"
+                      Background="{DynamicResource PrimaryBackgroundColor}" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Foreground="#fff" Header="Empresa" Binding="{Binding Company.Name}"  />
+                        <DataGridTextColumn Foreground="#fff" Header="Docto" Binding="{Binding SAEDocumentId}"  />
+                        <DataGridTextColumn Foreground="#fff" Header="Tipo" Binding="{Binding DocumentType}" />
+                        <DataGridTemplateColumn Header="Accion" CanUserResize="False" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <Button x:Name="btnRetry" Content="{materialDesign:PackIcon Kind=Restart, Size=19}"  ToolTip="Reprocesar Transaccion" Foreground="#B7DFB9" Background="#071107"   BorderThickness="1"  Cursor="Arrow" Padding="0" Height="25" Width="30" Click="btnRetry_Click">
+                                        </Button>
+                                        <Grid Width="10"></Grid>
+                                        <Button x:Name="btnError" ToolTip="Ver Error" Foreground="#FAB3AE" Background="#180605"  BorderThickness="1" Cursor="Arrow"  Height="25" Width="70"  HorizontalAlignment="Center" Padding="1,1,1,2" Click="btnError_Click" >
+                                            <StackPanel Orientation="Horizontal">
+                                                <Grid>
+                                                    <!--<iconPacks:PackIconBoxIcons Kind="RegularBug" Width="14" HorizontalAlignment="Left"></iconPacks:PackIconBoxIcons>-->
+                                                </Grid>
+                                                <Grid Width="10"></Grid>
+                                                <TextBlock HorizontalAlignment="Center">Error</TextBlock>
+                                            </StackPanel>
+                                        </Button>
+                                        <Grid Width="10"></Grid>
+
+                                        <Button x:Name="btnDescartar"   ToolTip="Descartar Transaccion" Background="#FF190F00" BorderBrush="White" Foreground="#DDFFD599"  BorderThickness="1"  Cursor="Arrow" Padding="2" Height="25" Width="100" Click="btnDescartar_Click">
+                                            <Button.Content>
+
+                                                <StackPanel Orientation="Horizontal">
+                                                    <materialDesign:PackIcon Kind="FileCancel" Width="20" Height="20" />
+                                                    <Label x:Name="lblDescartar" Content="Descartar" Padding="0" Margin="6,0" Foreground="#DDFFD599"  FontSize="14" />
+                                                </StackPanel>
+
+                                            </Button.Content>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+
+            </Grid>
+            <!--END DATA GRIDS-->
+        </Grid>
+    </Border>
+
+</Page>

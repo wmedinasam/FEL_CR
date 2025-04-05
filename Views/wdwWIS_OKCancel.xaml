@@ -1,0 +1,28 @@
+﻿<Window x:Class="FELRD.Views.wdwWIS_OKCancel"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:ctls="clr-namespace:FELRD.Controls" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FELRD.Views"
+        xmlns:pages="clr-namespace:FELRD.Views.Pages"
+        mc:Ignorable="d"
+        Title="Confirmación"
+        WindowStartupLocation="CenterScreen"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"        
+        Height="220" Width="450"
+        WindowStyle="None" 
+        ResizeMode="NoResize" FontFamily="Poppins">
+    <StackPanel Orientation="Vertical" Background="{DynamicResource SecundaryBackgroundColor}">
+        <Grid>
+            <Label x:Name="lblTitle" Content="TITULO" HorizontalAlignment="Left" VerticalAlignment="Top" Width="322" FontFamily="Century Gothic" FontSize="16" FontWeight="Bold" Margin="10,0,0,0"/>
+            <TextBox x:Name="txtContent" IsReadOnly="True" HorizontalAlignment="Left" Height="142" Margin="10,28,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="357" CaretBrush="{x:Null}" Foreground="White" BorderThickness="0" FontFamily="Century Gothic" FontSize="12" VerticalContentAlignment="Center" TextAlignment="Justify"/>
+            <materialDesign:PackIcon Kind="ProgressQuestion"  Margin="372,22,0,0" Width="68" Height="158" Foreground="{DynamicResource PrimaryTextColor}"/>
+        </Grid>
+        <Grid DockPanel.Dock="Bottom" Height="40">
+            <Button x:Name="btnOk" Content="Ok" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="102" BorderBrush="White" Background="#93c54b" Margin="0,0,120,0" Click="btnOk_Click"/>
+            <Button x:Name="btnCancel" Content="Cancelar" HorizontalAlignment="Right" VerticalAlignment="Top" Width="102" BorderBrush="White" Background="#d9534f" Click="btnCancel_Click" Margin="0,0,10,0"/>
+        </Grid>
+    </StackPanel>
+</Window>

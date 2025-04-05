@@ -1,0 +1,18 @@
+﻿<Window x:Class="FELRD.Views.Pages.FilePDF"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FELRD.Views.Pages"
+        mc:Ignorable="d"
+        Height="200" Width="600"
+        Title="Descarga de Documento PDF" FontFamily="Century Gothic" FontSize="14" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Closing="Window_Closing"
+        >
+    <DockPanel LastChildFill="True" Background="#201f1f">
+        <Grid Background="{DynamicResource DarkBackground}" Margin="0,13,0,0">
+            <WebBrowser x:Name="wbPDF" Margin="10,76,12,17" Visibility="Hidden"/>
+            <Rectangle HorizontalAlignment="Left" Height="64" Margin="21,0,0,0" RadiusY="15.1" RadiusX="15.1" Stroke="White" VerticalAlignment="Top" Width="210" OpacityMask="#FF272C34" Fill="#FF131C21"/>
+            <Label x:Name="lblTituloPDF" Content="Descargar PDF" Height="64" VerticalAlignment="Top" Margin="33,0,374,0" FontSize="24" FontWeight="Bold" VerticalContentAlignment="Center"/>
+        </Grid>
+    </DockPanel>
+</Window>
