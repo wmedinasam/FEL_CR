@@ -228,7 +228,7 @@ namespace FELRD.Views.Pages
         {
             var item = sender as Button;
             var model = item.DataContext as TransactionModel;
-            FilePDF filePDF = new FilePDF(model.Company.Certificador.EndPointVerDoc, model.UUID);
+            FilePDF filePDF = new FilePDF(model.Company.Certificador.EndPoint, model.UUID);
             filePDF.ShowDialog();
             //string remoteUri = model.Company.Certificador.EndPointVerDoc + model.UUID + "&formato=pdf";
             //wbPDF.Navigate(remoteUri);

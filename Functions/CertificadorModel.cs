@@ -32,16 +32,12 @@ namespace FELRD.Models
                 {
                     Id = Int32.Parse(fila["Id"].ToString()),
                     Name = fila["Name"].ToString(),
-                    EndPointToken = fila["EndPointToken"].ToString(),
-                    EndPointRegDoc = fila["EndPointRegDoc"].ToString(),
-                    EndPointFirma = fila["EndPointFirma"].ToString(),
-                    EndPointVerDoc = fila["EndPointVerDoc"].ToString(),
-                    EndPointAnularDoc = fila["EndPointAnularDoc"].ToString(),
-                    EndPointEnvioContingencia = fila["EndPointEnvioContingencia"].ToString(),
+                    EndPoint = fila["EndPoint"].ToString(),                    
                     CommercialName = fila["CommercialName"].ToString(),
                     Nit = fila["Nit"].ToString(),
                     UsuarioWS = fila["UsuarioWS"].ToString(),
                     PasswordWS = fila["PasswordWS"].ToString(),
+                    SecurityKey = fila["SecurityKey"].ToString(),
                 }).ToList<CertificadorModel>();
             }
             catch (Exception ex)
@@ -75,16 +71,12 @@ namespace FELRD.Models
                 {
                     Id = Int32.Parse(fila["Id"].ToString()),
                     Name = fila["Name"].ToString(),
-                    EndPointToken = fila["EndPointToken"].ToString(),
-                    EndPointRegDoc = fila["EndPointRegDoc"].ToString(),
-                    EndPointFirma = fila["EndPointFirma"].ToString(),
-                    EndPointVerDoc = fila["EndPointVerDoc"].ToString(),
-                    EndPointAnularDoc = fila["EndPointAnularDoc"].ToString(),
-                    EndPointEnvioContingencia = fila["EndPointEnvioContingencia"].ToString(),
+                    EndPoint = fila["EndPoint"].ToString(),                   
                     CommercialName = fila["CommercialName"].ToString(),
                     Nit = fila["Nit"].ToString(),
                     UsuarioWS = fila["UsuarioWS"].ToString(),
                     PasswordWS = fila["PasswordWS"].ToString(),
+                    SecurityKey = fila["SecurityKey"].ToString(),
                 }).ToList<CertificadorModel>();
             }
             catch (Exception ex)

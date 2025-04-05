@@ -19,7 +19,7 @@ namespace FELRD
 
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("El Usuario no puede estar vacío!");
+                   throw new ArgumentException("El Usuario no puede estar vacío!");
                 }
                 OnPropertyChanged(ref _username, value);
 

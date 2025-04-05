@@ -12,18 +12,8 @@ namespace FELRD.Models
 
         public string Name { get; set; }
 
-        public string EndPointToken { get; set; }
-
-        public string EndPointRegDoc { get; set; }
-
-        public string EndPointFirma { get; set; }
-
-        public string EndPointVerDoc { get; set; }
-
-        public string EndPointAnularDoc { get; set; }
-
-        public string EndPointEnvioContingencia { get; set; }
-
+        public string EndPoint { get; set; }
+        
         public string CommercialName { get; set; }
 
         public string Nit { get; set; }
@@ -31,5 +21,7 @@ namespace FELRD.Models
         public string UsuarioWS { get; set; }
 
         public string PasswordWS { get; set; }
+
+        public string SecurityKey { get; set; }
     }
 }

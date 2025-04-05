@@ -1,0 +1,241 @@
+﻿<Page x:Class="FELRD.Views.Pages.Company"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:FELRD.Views.Pages" 
+      xmlns:all="clr-namespace:FELRD"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Company"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+
+    <Page.DataContext>
+        <all:RegistrationVM/>
+    </Page.DataContext>
+
+    <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}">
+
+
+
+
+        <StackPanel Orientation="Vertical" >
+            <Grid>
+                <materialDesign:PackIcon Kind="Company"  Margin="20 10 0 0" Width="50" Height="50" Foreground="{DynamicResource PrimaryTextColor}"/>
+                <TextBlock Text="Datos Generales de la Empresa" Margin="80 25 0 0" FontSize="18" FontWeight="SemiBold" />
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <materialDesign:PackIcon Kind="CardAccountDetails"  Margin="29,19,17,24" 
+                                    Width="Auto" Height="30"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalAlignment="Stretch"
+                                    Grid.Column="0" Grid.Row="3"
+                                    Foreground="{DynamicResource PrimaryTextColor}"/>
+                <Button x:Name="btnNew" 
+                   Grid.Row="1" 
+                       Grid.Column="5" 
+                   HorizontalAlignment="Left" 
+                   Margin="11,9,0,0" 
+                   Padding="0" Width="100" 
+                   Click="btnNew_Click" Height="32" VerticalAlignment="Top">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="UserAdd"  Margin="0 0 5 0" 
+                        Width="25" Height="25"
+                        Foreground="{DynamicResource PrimaryTextColor}"/>
+
+                            <TextBlock Text="Nuevo" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                    </Button.Content>
+                </Button>
+
+                <TextBox 
+               Text="{Binding TaxId, ValidatesOnExceptions=True, 
+               UpdateSourceTrigger=PropertyChanged}"
+               MaxLength="15"
+               Margin="8,14,11,10"
+               x:Name="txtTaxId" 
+               Grid.Column="1" Grid.Row="2"
+               Grid.ColumnSpan="2"
+               Background="{StaticResource PrimaryBackgroundColor}"
+               FontSize="14" materialDesign:HintAssist.Hint="Ingrese Nit" 
+               BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
+               Style="{StaticResource MaterialDesignOutlinedTextBox}" 
+               materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
+               />
+                <TextBox 
+Text="{Binding TaxId, ValidatesOnExceptions=True, 
+UpdateSourceTrigger=PropertyChanged}"
+MaxLength="15"
+Margin="8,14,11,10"
+x:Name="txtName" 
+Grid.Column="3" Grid.Row="2"
+Grid.ColumnSpan="2"
+Background="{StaticResource PrimaryBackgroundColor}"
+FontSize="14" materialDesign:HintAssist.Hint="Nombre" 
+BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
+Style="{StaticResource MaterialDesignOutlinedTextBox}" 
+materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
+/>
+
+                <TextBox 
+               Text="{Binding Prefix, ValidatesOnExceptions=True, 
+               UpdateSourceTrigger=PropertyChanged}"  
+                x:Name="txtPrefix"
+               MaxLength="50"
+               Grid.Column="5" Grid.Row="2"
+               Margin="12,14,40,12"
+               Grid.ColumnSpan="2"
+               Background="{StaticResource PrimaryBackgroundColor}"
+               FontSize="14" materialDesign:HintAssist.Hint="Ingrese Prefijo" 
+               BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}"
+               materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
+               Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+
+                <ComboBox x:Name="cbCertifiers"
+                Grid.Column="1"
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                HorizontalContentAlignment="Center"
+                Margin="10, 14,10,12"
+                 FontSize="14"
+                         Background="{StaticResource PrimaryBackgroundColor}"
+                         BorderThickness="2" 
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" 
+                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                         VerticalAlignment="Stretch"
+                         materialDesign:HintAssist.Hint="Seleccione Certificador" 
+                         materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
+                         >
+                </ComboBox>
+
+                <TextBox 
+                   Text="{Binding DTEFolder, ValidatesOnExceptions=True, 
+                   UpdateSourceTrigger=PropertyChanged}"  
+                   x:Name="txtDTEFolder"
+                   MaxLength="250"
+                   Margin="9,6,41,13"
+                   Grid.Column="3" Grid.Row="3"
+                   Grid.ColumnSpan="4"
+                   Background="{StaticResource PrimaryBackgroundColor}"
+                   FontSize="14" materialDesign:HintAssist.Hint="Ingrese Folder DTE" 
+                   BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
+                   Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                   materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
+                   />
+
+
+
+                <TextBox 
+               Text="{Binding DBSae, ValidatesOnExceptions=True, 
+               UpdateSourceTrigger=PropertyChanged}"  
+               x:Name="txtDBSae"
+               HorizontalContentAlignment="Center"
+               MaxLength="50"
+               Grid.Column="1" Grid.Row="4"
+               Margin="9,11,5,9"
+               Background="{StaticResource PrimaryBackgroundColor}"
+               FontSize="14" materialDesign:HintAssist.Hint="Base de datos SAE" materialDesign:TextFieldAssist.LeadingIcon="AboutCircle"
+               BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
+               materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
+               Style="{StaticResource MaterialDesignOutlinedTextBox}" Grid.ColumnSpan="3" />
+
+
+                <TextBox 
+                    Text="{Binding SuffixTable, ValidatesOnExceptions=True, 
+                    UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalContentAlignment="Center"
+                    Grid.Column="4" Grid.Row="4"
+                    MaxLength="2"
+                    Margin="9,12,40,8"
+                    x:Name="txtSuffixTable" 
+                    Background="{StaticResource PrimaryBackgroundColor}"
+                    FontSize="14" materialDesign:HintAssist.Hint="Sufijo de Tabla" 
+                    BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}"
+                    materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}" Grid.ColumnSpan="3" 
+                   />
+
+                <materialDesign:PackIcon Kind="Company"  Margin="25,26,21,24" 
+                                    Width="Auto" Height="30"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalAlignment="Stretch"
+                                    Grid.Column="0" Grid.Row="2"
+                                    Foreground="{DynamicResource PrimaryTextColor}"/>
+
+                <Button Margin="10,10,40,7" 
+                   x:Name="btnAceptar" 
+                   Style="{StaticResource MaterialDesignFlatMidBgButton}" 
+                   materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                   Grid.Column="5" Grid.Row="5"
+                   Grid.ColumnSpan="2"
+                   materialDesign:ButtonAssist.CornerRadius="10" 
+                   FontSize="18" Click="btnAceptar_Click">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ContentSave"  Margin="0 0 10 0" 
+                                    Width="25" Height="25"
+                                    Foreground="{DynamicResource PrimaryTextColor}"/>
+
+                            <TextBlock Text="Guardar"/>
+                        </StackPanel>
+
+                    </Button.Content>
+
+                </Button>
+                <materialDesign:PackIcon Kind="CardBulleted"  Margin="27,23,19,22" 
+                   Width="Auto" Height="30"
+                   VerticalAlignment="Stretch"
+                   HorizontalAlignment="Stretch"
+                   Grid.Column="0" Grid.Row="4"
+                   Foreground="{DynamicResource PrimaryTextColor}"/>
+
+                <DataGrid x:Name="grdCompany"
+                       Background="{DynamicResource PrimaryBackgroundColor}"
+                   Margin="10,5,40,10" Grid.Column="1" Grid.Row="6"
+                   CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="6" Height="140">
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Header="Nit" Binding="{Binding Nit}"/>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding Name}"/>
+                        <DataGridTemplateColumn Header="Acción">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" ScrollViewer.CanContentScroll="True">
+                                        <Button  BorderBrush="White" ToolTip="Editar Registro" BorderThickness="1" Cursor="Arrow" Width="30" Padding="0" Height="25" Click="Button_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Edit" Height="18" Width="14"></materialDesign:PackIcon>
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+        </StackPanel>
+
+    </Border>
+</Page>
