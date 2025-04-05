@@ -175,6 +175,9 @@
     <Compile Include="Views\Pages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\Subsidiary.xaml.cs">
+      <DependentUpon>Subsidiary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\wdwWIS_OKCancel.xaml.cs">
       <DependentUpon>wdwWIS_OKCancel.xaml</DependentUpon>
     </Compile>
@@ -219,6 +222,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Subsidiary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
