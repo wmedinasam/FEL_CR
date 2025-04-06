@@ -311,6 +311,9 @@
   <ItemGroup>
     <Resource Include="Assets\user.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Script Master\SM1-2025-04-5 - Create Tables.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
