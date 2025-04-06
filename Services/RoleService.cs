@@ -30,7 +30,7 @@ namespace FELRD.Services
         public DataSet Update(RoleModel role)
         {
             string query = string.Empty;
-            query = string.Format($"Update dbo.[Role] Set Name = '{role.Name}', State= '{role.State}', CanAccessMonitor='{role.CanAccessMonitor}', CanCancel='{role.CanCancel}',CanAccessDocuments= '{role.CanAccessDocuments}',CanAccessCompanies = '{role.CanAccessCompanies}',CanAccessUsers = '{role.CanAccessUsers}', CanAccessLogs = '{role.CanAccessLogs}', CanAccessConfigurations = '{role.CanAccessConfigurations}',CanSign = '{role.CanSign}', CanAccessRoles = '{role.CanAccessRoles}', '{role.CanAccessCertifiers}' Where Id = {role.Id}; SELECT '' AS Message, 'True' AS Success;");
+            query = string.Format($"Update dbo.[Role] Set Name = '{role.Name}', State= '{role.State}', CanAccessMonitor='{role.CanAccessMonitor}', CanCancel='{role.CanCancel}',CanAccessDocuments= '{role.CanAccessDocuments}',CanAccessCompanies = '{role.CanAccessCompanies}',CanAccessUsers = '{role.CanAccessUsers}', CanAccessLogs = '{role.CanAccessLogs}', CanAccessConfigurations = '{role.CanAccessConfigurations}',CanSign = '{role.CanSign}', CanAccessRoles = '{role.CanAccessRoles}',CanAccessCertifiers= '{role.CanAccessCertifiers}' Where Id = {role.Id}; SELECT '' AS Message, 'True' AS Success;");
             var ds = DaoActions.GetMSSqlDataFromQuery(query);
             return ds;
         }

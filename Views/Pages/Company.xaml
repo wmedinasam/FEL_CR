@@ -23,7 +23,7 @@
         <StackPanel Orientation="Vertical" >
             <Grid>
                 <materialDesign:PackIcon Kind="Company"  Margin="20 10 0 0" Width="50" Height="50" Foreground="{DynamicResource PrimaryTextColor}"/>
-                <TextBlock Text="Datos Generales de la Empresa" Margin="80 25 0 0" FontSize="18" FontWeight="SemiBold" />
+                <TextBlock Text="Datos Generales de la Empresa" Margin="80 25 0 0" FontSize="18" FontWeight="SemiBold" Foreground="White" />
             </Grid>
 
             <Grid>

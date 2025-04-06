@@ -172,6 +172,9 @@
     <Compile Include="Views\Pages\Monitor.xaml.cs">
       <DependentUpon>Monitor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\Role.xaml.cs">
+      <DependentUpon>Role.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -218,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Monitor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Role.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
