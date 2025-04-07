@@ -18,9 +18,14 @@ namespace FELRD.Views
         public Login()
         {
             InitializeComponent();
-            ValidationConfigurationFile();
+            this.Loaded += Login_Loaded;
             lblVersion.Content = appVersion;
             lblAppName.Text = appName;
+        }
+
+        public void Login_Loaded(object sender, RoutedEventArgs e)
+        {
+            ValidationConfigurationFile();
         }
 
         #region Functions
@@ -65,7 +70,11 @@ namespace FELRD.Views
                 MessageBox.Show("No existe archivo de configuración, para iniciar el sistema debe configuralo primero.", "ADVERTENCIA", MessageBoxButton.OK, MessageBoxImage.Warning);
                 Dashboard dashboard = new Dashboard(userModel, true);
                 dashboard.ShowDialog();
-                Application.Current.Shutdown();
+                if (Application.Current != null)
+                    Application.Current.Shutdown();
+
+                return;
+
             }
 
             var responseConfiguration = config.GetConfiguration();
@@ -80,7 +89,7 @@ namespace FELRD.Views
             {
                 UserModel userModel = new UserModel();
                 var response = userModel.GetUserByUserName(txtUsername.Text);
-                
+
 
                 if (response.Success)
                 {
@@ -124,5 +133,8 @@ namespace FELRD.Views
         {
             this.DragMove();
         }
+
+
+
     }
 }
