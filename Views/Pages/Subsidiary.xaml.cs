@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WIS_Security;
+using FELRD.Helpers;
+using System.Xml.Linq;
 
 namespace FELRD.Views.Pages
 {
@@ -26,9 +28,10 @@ namespace FELRD.Views.Pages
         public Subsidiary()
         {
             InitializeComponent();
-            GetCompanies();
             GetCountries();
+            GetCompanies();
             GetSubsidiaries();
+            DisableControllers();
         }
 
         private void GetCompanies()
@@ -49,7 +52,10 @@ namespace FELRD.Views.Pages
 
         private void GetCountries()
         {
-            cbCountry.ItemsSource = Enum.GetValues(typeof(Models.Helpers.Countries)).Cast<Models.Helpers.Countries>();
+            cbCountry.ItemsSource = EnumHelper.GetEnumItems<Models.Helpers.Countries>();
+            cbCountry.DisplayMemberPath = "Description";
+            cbCountry.SelectedValuePath = "Code";
+            cbCountry.Items.Refresh();
         }
 
 
@@ -86,6 +92,7 @@ namespace FELRD.Views.Pages
             cbCountry.IsEnabled = true;
             txtSubsidiaryFolder.IsEnabled = true;
             btnAceptar.IsEnabled = true;
+            btnFolder.IsEnabled = true;
         }
         private void DisableControllers()
         {
@@ -96,6 +103,7 @@ namespace FELRD.Views.Pages
             cbCountry.IsEnabled = false;
             txtSubsidiaryFolder.IsEnabled = false;
             btnAceptar.IsEnabled = false;
+            btnFolder.IsEnabled = false;
         }
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
@@ -105,13 +113,30 @@ namespace FELRD.Views.Pages
 
         private void btnAceptar_Click(object sender, RoutedEventArgs e)
         {
+
+            var fieldsToValidate = new List<Control>
+            {
+                txtEstablishmentCode,
+                txtPostalCode,
+                txtEstablishmentName,
+                txtSubsidiaryFolder,
+                cbCompanies,
+                cbCountry
+            };
+
+            if (ValidationHelper.HasValidationErrors(fieldsToValidate))
+            {
+                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             SubsidiaryModel subsidiaryModel = new SubsidiaryModel();
             subsidiaryModel.Id = _id;
             subsidiaryModel.Company = cbCompanies.SelectedItem as CompanyModel;
             subsidiaryModel.EstablishmentName = txtEstablishmentName.Text;
             subsidiaryModel.EstablishmentCode = txtEstablishmentCode.Text;
             subsidiaryModel.PostalCode = txtPostalCode.Text;
-            subsidiaryModel.Country = cbCountry.Text;
+            subsidiaryModel.Country = cbCountry.SelectedValue?.ToString();
             subsidiaryModel.SubsidiaryFolder = txtSubsidiaryFolder.Text;
             ResponseModel<SubsidiaryModel> response = new ResponseModel<SubsidiaryModel>();
             if (_id == 0)
@@ -149,6 +174,22 @@ namespace FELRD.Views.Pages
                 cbCountry.Text = model.Country;
                 txtSubsidiaryFolder.Text = model.SubsidiaryFolder;
                 EnableControllers();
+            }
+        }
+
+        private void cbCountry_Loaded(object sender, RoutedEventArgs e)
+        {
+            cbCountry.Items.Refresh();
+        }
+
+        private void BrowseSubsidiaryFolder_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    txtSubsidiaryFolder.Text = dialog.SelectedPath;
+                }
             }
         }
     }

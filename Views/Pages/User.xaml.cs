@@ -1,7 +1,11 @@
-﻿using FELRD.Models;
+﻿using FELRD.Helpers;
+using FELRD.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,49 +21,87 @@ using WIS_Security;
 
 namespace FELRD.Views.Pages
 {
-    /// <summary>
-    /// Lógica de interacción para User.xaml
-    /// </summary>
-    public partial class User : Page
+    public partial class User : Page, INotifyPropertyChanged
     {
         private int _id = 0;
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
 
         public User()
         {
             InitializeComponent();
-            GetUsers();
-            GetRoles();
+            Loaded += User_Loaded;
             DisableControls();
         }
 
-        private void GetUsers()
+        private async void User_Loaded(object sender, RoutedEventArgs e)
         {
-            UserModel userModel = new UserModel();
-            var response = userModel.GetUsers();
-            if (response.Success)
-            {
-                grdUser.ItemsSource = response.Object;
-            }
-            else
-            {
-                MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            await GetRolesAsync();
+            await GetUsersAsync();
+            DisableControls();
         }
 
-        private void GetRoles()
+
+
+        private async Task GetUsersAsync()
         {
-            RoleModel roleModel = new RoleModel();
-            var response = roleModel.Get();
-            if (response.Success)
+            loadingBar.Visibility = Visibility.Visible;
+
+            await Task.Run(() =>
             {
-                cbRoles.ItemsSource = response.Object;
-                cbRoles.DisplayMemberPath = "Name";
-                cbRoles.SelectedValuePath = "Id";
-            }
-            else
+                UserModel userModel = new UserModel();
+                var response = userModel.GetUsers();
+
+                Dispatcher.Invoke(() =>
+                {
+                    if (response.Success)
+                    {
+                        grdUser.ItemsSource = response.Object;
+                    }
+                    else
+                    {
+                        MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    loadingBar.Visibility = Visibility.Collapsed;
+                });
+            });
+        }
+
+        private async Task GetRolesAsync()
+        {
+            loadingBar.Visibility = Visibility.Visible;
+
+            await Task.Run(() =>
             {
-                MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                RoleModel roleModel = new RoleModel();
+                var response = roleModel.Get();
+
+                Dispatcher.Invoke(() =>
+                {
+                    if (response.Success)
+                    {
+                        cbRoles.ItemsSource = response.Object;
+                        cbRoles.DisplayMemberPath = "Name";
+                        cbRoles.SelectedValuePath = "Id";
+                    }
+                    else
+                    {
+                        MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    loadingBar.Visibility = Visibility.Collapsed;
+                });
+            });
         }
 
         private void EnableControls()
@@ -72,6 +114,7 @@ namespace FELRD.Views.Pages
             cbRoles.IsEnabled = true;
             btnAceptar.IsEnabled = true;
         }
+
         private void DisableControls()
         {
             txtName.IsEnabled = false;
@@ -81,10 +124,39 @@ namespace FELRD.Views.Pages
             btnStatus.IsEnabled = false;
             btnAceptar.IsEnabled = false;
             cbRoles.IsEnabled = false;
-
         }
+
         private void btnAceptar_Click(object sender, RoutedEventArgs e)
         {
+            var fieldsToValidate = new List<Control>
+            {
+                txtName,
+                txtUsername,
+                txtPassword,
+                txtConfirmPassword
+            };
+
+            if (ValidationHelper.HasValidationErrors(fieldsToValidate))
+            {
+                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            string password = txtPassword.Password;
+            string confirmPassword = txtConfirmPassword.Password;
+
+            if (!ValidationHelper.IsPasswordComplex(txtPassword))
+            {
+                MessageBox.Show("La contraseña debe tener al menos 6 caracteres, una mayúscula, un número y un símbolo.", "Contraseña no segura", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!ValidationHelper.ArePasswordsMatching(txtPassword, txtConfirmPassword))
+            {
+                MessageBox.Show("Las contraseñas no coinciden.", "Error de confirmación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             UserModel model = new UserModel();
             model.Id = _id;
             model.FullName = txtName.Text;
@@ -106,7 +178,7 @@ namespace FELRD.Views.Pages
             if (response.Success)
             {
                 MessageBox.Show("Usuario guardado correctamente", "Sistema", MessageBoxButton.OK, MessageBoxImage.Information);
-                GetUsers();
+                _ = GetUsersAsync();
 
                 _id = 0;
                 txtName.Text = string.Empty;
@@ -147,6 +219,12 @@ namespace FELRD.Views.Pages
             cbRoles.SelectedValue = model.role.Id;
 
             EnableControls();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

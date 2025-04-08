@@ -1,4 +1,6 @@
-﻿using FELRD.Models;
+﻿using FELRD.Helpers;
+using FELRD.Models;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using WIS_Security;
@@ -72,6 +74,7 @@ namespace FELRD.Views.Pages
             btnAceptar.IsEnabled = true;
             cbCertifiers.IsEnabled = true;
             txtName.IsEnabled = true;
+            btnFolder.IsEnabled = true;
         }
         private void DisableControllers()
         {
@@ -83,10 +86,29 @@ namespace FELRD.Views.Pages
             btnAceptar.IsEnabled = false;
             cbCertifiers.IsEnabled = false;
             txtName.IsEnabled = false;
+            btnFolder.IsEnabled = false;
         }
 
         private void btnAceptar_Click(object sender, RoutedEventArgs e)
         {
+
+            var fieldsToValidate = new List<Control>
+            {
+                txtTaxId,
+                txtName,
+                txtPrefix,
+                txtDBSae,
+                txtSuffixTable,
+                txtDTEFolder,
+                cbCertifiers
+            };
+
+            if (ValidationHelper.HasValidationErrors(fieldsToValidate))
+            {
+                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             CompanyModel companyModel = new CompanyModel();
             companyModel.Id = _id;
             companyModel.Nit = txtTaxId.Text;
@@ -107,6 +129,7 @@ namespace FELRD.Views.Pages
             }
             if (response.Success)
             {
+                MessageBox.Show("Empresa guardada correctamente", "Sistema", MessageBoxButton.OK, MessageBoxImage.Information);
                 GetCompanies();
                 ClearControllers();
                 DisableControllers();
@@ -139,6 +162,19 @@ namespace FELRD.Views.Pages
         {
             ClearControllers();
             EnableControllers();
+        }
+
+
+
+        private void BrowseCompanyFolder_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+
+            if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
+            {
+                txtDTEFolder.Text = dialog.SelectedPath;
+            }
         }
     }
 }

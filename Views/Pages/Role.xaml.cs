@@ -3,6 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using static FELRD.Models.Helpers;
 using WIS_Security;
+using FELRD.Helpers;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace FELRD.Views.Pages
 {
@@ -17,6 +20,7 @@ namespace FELRD.Views.Pages
         {
             InitializeComponent();
             GetRoles();
+            DisableControls();
         }
 
 
@@ -63,6 +67,7 @@ namespace FELRD.Views.Pages
             btnAceptar.IsEnabled = false;
             btnCanSign.IsEnabled = false;
             btnCanAccessRoles.IsEnabled = false;
+            btnCanAccessCertifiers.IsEnabled = false;
         }
 
         private void New()
@@ -78,10 +83,22 @@ namespace FELRD.Views.Pages
             btnCanSettings.IsChecked = false;
             btnCanSign.IsChecked = false;
             btnCanAccessRoles.IsChecked = false;
+            btnCanAccessCertifiers.IsChecked = false;
         }
 
         private void btnAceptar_Click(object sender, RoutedEventArgs e)
         {
+
+            var fieldsToValidate = new List<Control>
+            {
+                txtRoleName
+            };
+
+            if (ValidationHelper.HasValidationErrors(fieldsToValidate))
+            {
+                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             RoleModel model = new RoleModel();
             model.Id = _id;
             model.Name = txtRoleName.Text;

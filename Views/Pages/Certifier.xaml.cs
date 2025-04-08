@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static FELRD.Models.Helpers;
 using WIS_Security;
+using FELRD.Helpers;
 
 namespace FELRD.Views.Pages
 {
@@ -29,6 +30,7 @@ namespace FELRD.Views.Pages
         {
             InitializeComponent();
             GetCertifiers();
+            DisableControls();
         }
 
         private void GetCertifiers()
@@ -48,33 +50,47 @@ namespace FELRD.Views.Pages
         private void EnableControls()
         {
             txtName.IsEnabled = true;
-            txtEndPoint.IsEnabled = true;            
+            txtEndPoint.IsEnabled = true;
             txtCommercialName.IsEnabled = true;
             txtNit.IsEnabled = true;
             txtUsuarioWS.IsEnabled = true;
-            txtPasswordWS.IsEnabled = true;    
+            txtPasswordWS.IsEnabled = true;
             txtSecurityKey.IsEnabled = true;
         }
 
         private void DisableControls()
         {
             txtName.IsEnabled = false;
-            txtEndPoint.IsEnabled = false;            
+            txtEndPoint.IsEnabled = false;
             txtCommercialName.IsEnabled = false;
             txtNit.IsEnabled = false;
             txtUsuarioWS.IsEnabled = false;
             txtPasswordWS.IsEnabled = false;
             txtSecurityKey.IsEnabled = false;
+            btnSave.IsEnabled = false;
 
         }
 
 
         private void btnAceptar_Click(object sender, RoutedEventArgs e)
         {
+
+            var fieldsToValidate = new List<Control>
+            {
+                txtName,
+                txtCommercialName,
+
+            };
+            if (ValidationHelper.HasValidationErrors(fieldsToValidate))
+            {
+                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             CertificadorModel model = new CertificadorModel();
             model.Id = _id;
             model.Name = txtName.Text;
-            model.EndPoint = txtEndPoint.Text;            
+            model.EndPoint = txtEndPoint.Text;
             model.CommercialName = txtCommercialName.Text;
             model.Nit = txtNit.Text;
             model.UsuarioWS = txtUsuarioWS.Text;
@@ -98,7 +114,7 @@ namespace FELRD.Views.Pages
 
                 _id = 0;
                 txtName.Text = string.Empty;
-                txtEndPoint.Text = string.Empty;                
+                txtEndPoint.Text = string.Empty;
                 txtCommercialName.Text = string.Empty;
                 txtNit.Text = string.Empty;
                 txtUsuarioWS.Text = string.Empty;
@@ -116,7 +132,7 @@ namespace FELRD.Views.Pages
         {
             _id = 0;
             txtName.Text = string.Empty;
-            txtEndPoint.Text = string.Empty;            
+            txtEndPoint.Text = string.Empty;
             txtCommercialName.Text = string.Empty;
             txtNit.Text = string.Empty;
             txtUsuarioWS.Text = string.Empty;
@@ -131,7 +147,7 @@ namespace FELRD.Views.Pages
             var model = item.DataContext as CertificadorModel;
             _id = model.Id;
             txtName.Text = model.Name;
-            txtEndPoint.Text = model.EndPoint;            
+            txtEndPoint.Text = model.EndPoint;
             txtCommercialName.Text = model.CommercialName;
             txtNit.Text = model.Nit;
             txtUsuarioWS.Text = model.UsuarioWS;

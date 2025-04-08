@@ -8,10 +8,13 @@
         xmlns:local="clr-namespace:FELRD.Views"
         xmlns:pages="clr-namespace:FELRD.Views.Pages"
         mc:Ignorable="d"
-        Title="Dashboard" Height="650" Width="1000"
-        WindowStartupLocation="CenterScreen" WindowStyle="None"
-        Background="Transparent" AllowsTransparency="True"
-        ResizeMode="NoResize" FontFamily="Poppins"
+        Title="Dashboard"
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None"
+        Background="Transparent" 
+        AllowsTransparency="True"
+        ResizeMode="CanResize" 
+        FontFamily="Poppins"
         IsVisibleChanged="Window_IsVisibleChanged"
         StateChanged="Window_StateChanged"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
@@ -43,7 +46,7 @@
                       Width="35" Height="40"
                       HorizontalAlignment="Left">
                             <Border.Background>
-                                <ImageBrush ImageSource="../Assets/abstract.png" Stretch="Uniform"/>
+                                <ImageBrush ImageSource="/Assets/rep-dom-flag.png" Stretch="Uniform"/>
                             </Border.Background>
                         </Border>
 
@@ -51,7 +54,7 @@
                             <Label Content="FEL República Dominicana"
                                    Foreground="{DynamicResource PrimaryTextColor}"
                                    FontWeight="Bold"
-                                   FontSize="12"/>  
+                                   FontSize="12"/>
                         </Viewbox>
                     </Grid>
 
@@ -150,19 +153,19 @@
 
                 <Frame Grid.Row="1"
                Name="fContainer"
-               Margin="20"
+               Margin="10"
                NavigationUIVisibility="Hidden">
 
                 </Frame>
                 <Frame Grid.Row="1"
                Name="fContainerHome"
-               Margin="20"
+               Margin="10"
                NavigationUIVisibility="Hidden">
 
                 </Frame>
                 <Frame Grid.Row="1"
                Name="fContainerMonitor"
-               Margin="20"
+               Margin="10"
                NavigationUIVisibility="Hidden">
 
                 </Frame>
