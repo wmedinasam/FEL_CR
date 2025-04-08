@@ -9,13 +9,51 @@
       d:DesignHeight="550" d:DesignWidth="800"
       Title="Settings" Loaded="Page_Loaded">
 
+    <Page.Resources>
+        <!-- TextBox Estilo Limpio -->
+        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignDivider}"/>
+            <Setter Property="Background" Value="{DynamicResource PrimaryBackgroundColor}"/>
+            <Setter Property="materialDesign:HintAssist.Background" Value="{DynamicResource PrimaryBackgroundColor}"/>
+            <Setter Property="materialDesign:HintAssist.Foreground" Value="White"/>
+            <Setter Property="materialDesign:HintAssist.FloatingScale" Value="1"/>
+            <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
+        </Style>
+
+
+
+        <!-- PasswordBox Estilo Limpio -->
+        <Style TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignOutlinedPasswordBox}">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Height" Value="55" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="{StaticResource PrimaryBackgroundColor}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignDivider}" />
+
+            <!-- Hint -->
+            <Setter Property="materialDesign:HintAssist.Foreground" Value="White" />
+            <Setter Property="materialDesign:HintAssist.Background" Value="{x:Null}" />
+            <Setter Property="materialDesign:HintAssist.FloatingScale" Value="1" />
+            <Setter Property="materialDesign:HintAssist.IsFloating" Value="True" />
+        </Style>
+
+    </Page.Resources>
+
     <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}">
 
         <StackPanel x:Name="mainPanel" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <Grid>
                     <materialDesign:PackIcon Kind="Settings"  Margin="20 10 0 0" Width="50" Height="50" Foreground="{DynamicResource PrimaryTextColor}"/>
-                    <TextBlock Text="Configuracion del Sistema" Margin="80 25 0 0" FontSize="18" FontWeight="SemiBold" />
+                    <TextBlock Text="Configuracion del Sistema" Margin="80 25 0 0" FontSize="18" FontWeight="SemiBold" Foreground="White" />
                 </Grid>
             </StackPanel>
             <Grid x:Name="principalGrid">
@@ -54,11 +92,7 @@
             MaxLength="50"
             Margin="60,10,6.4,0.2"
             Grid.Column="0" Grid.Row="0"
-            Background="{StaticResource PrimaryBackgroundColor}"
-             materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-            FontSize="14" materialDesign:HintAssist.Hint="Usuario SQL" 
-            BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
-            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+            materialDesign:HintAssist.Hint="Usuario SQL" 
             />
 
                 <materialDesign:PackIcon Kind="Lock"  Margin="20 20 0 0" 
@@ -76,11 +110,8 @@
             Height="55"
             Margin="60,20,6.4,73.2"
             Grid.Column="0" Grid.Row="1"
-            Background="{StaticResource PrimaryBackgroundColor}"
-            materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-            FontSize="14" materialDesign:HintAssist.Hint="Password SQL" 
-            BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
-            Style="{StaticResource MaterialDesignOutlinedPasswordBox}" Grid.RowSpan="2"
+           materialDesign:HintAssist.Hint="Password SQL" 
+ Grid.RowSpan="2"
             />
 
                 <materialDesign:PackIcon Kind="Key"  Margin="20 20 0 0" 
@@ -98,11 +129,8 @@
             Height="55"
             Margin="60,20.4,6.4,0.4"
             Grid.Column="0" Grid.Row="2"
-            Background="{StaticResource PrimaryBackgroundColor}"
-             materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-            FontSize="14" materialDesign:HintAssist.Hint="Master Password" 
-            BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
-            Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+            materialDesign:HintAssist.Hint="Master Password" 
+           
             />
 
                 <materialDesign:PackIcon Kind="Sync"  Margin="20 20 0 0" 
@@ -117,6 +145,7 @@
                    Width="190"
                    HorizontalAlignment="Center"
                    Grid.Column="0" Grid.Row="3" Grid.RowSpan="2"
+                           Foreground="White"
                        />
 
                 <Slider x:Name="SyncTime"
@@ -142,30 +171,26 @@
             VerticalAlignment="Stretch"
             Margin="60,19.6,6.4,0"
             Grid.Column="0" Grid.Row="4"
-            Background="{StaticResource PrimaryBackgroundColor}"
-            materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-            FontSize="14" materialDesign:HintAssist.Hint="Llave Sistema" 
-            BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
-            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+         materialDesign:HintAssist.Hint="Llave Sistema" 
+            
             />
 
                 <Button Margin="0,20,5,0" 
-                x:Name="btnSaveConfig" 
-                Style="{StaticResource MaterialDesignFlatMidBgButton}" 
-                materialDesign:ShadowAssist.ShadowDepth="Depth0" 
-                Height="45"
-                Grid.Column="0" Grid.Row="5"
-                materialDesign:ButtonAssist.CornerRadius="8" 
-                FontSize="13" Click="btnSaveConfig_Click" HorizontalAlignment="Right" Width="150">
+               x:Name="btnSaveConfig" 
+               Style="{StaticResource MaterialDesignFlatMidBgButton}" 
+               materialDesign:ShadowAssist.ShadowDepth="Depth0" 
+               Height="45"
+               Grid.Column="0" Grid.Row="5"
+               materialDesign:ButtonAssist.CornerRadius="5" 
+               FontSize="13" Click="btnSaveConfig_Click" HorizontalAlignment="Right" Width="120">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ContentSave"  Margin="0 3 5 0" 
-                                 Width="30" Height="30"
-                                 Foreground="{DynamicResource PrimaryTextColor}"/>
+                                Width="30" Height="30"
+                                Foreground="{DynamicResource PrimaryTextColor}"/>
 
-                            <TextBlock Text="    Guardar&#10;Configuración"
-                               HorizontalAlignment="Center"
-                               />
+                            <TextBlock Text="Guardar" Height="18"
+                              />
                         </StackPanel>
 
                     </Button.Content>
@@ -189,11 +214,8 @@
             VerticalAlignment="Stretch"
             Margin="5,10,5,0"
             Grid.Column="2" Grid.Row="0"
-            Background="{StaticResource PrimaryBackgroundColor}"
-             materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-            FontSize="14" materialDesign:HintAssist.Hint="Llave" 
-            BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
-            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+           materialDesign:HintAssist.Hint="Llave" 
+           
             />
                 <TextBox 
             x:Name="txtValue" 
@@ -202,11 +224,8 @@
             VerticalAlignment="Stretch"
             Margin="5,10,5,0"
             Grid.Column="3" Grid.Row="0"
-            Background="{StaticResource PrimaryBackgroundColor}"
-             materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-            FontSize="14" materialDesign:HintAssist.Hint="Valor" 
-            BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
-            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+            materialDesign:HintAssist.Hint="Valor" 
+            
             />
 
                 <TextBox 
@@ -216,11 +235,8 @@
             VerticalAlignment="Stretch"
             Margin="5,10,15,0"
             Grid.Column="4" Grid.Row="0"
-            Background="{StaticResource PrimaryBackgroundColor}"
-             materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-            FontSize="14" materialDesign:HintAssist.Hint="Descripcion" 
-            BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
-            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+            materialDesign:HintAssist.Hint="Descripcion" 
+           
             />
 
                 <!--<materialDesign:PackIcon Kind="Api"  Margin="0 10 0 0" 
@@ -327,58 +343,60 @@
             BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
             Style="{StaticResource MaterialDesignOutlinedTextBox}" Grid.RowSpan="2"
             />-->
-                <Button Margin="11,15,0,17" 
-                Padding="0"
-                x:Name="btnNewConfig" 
-                Style="{StaticResource MaterialDesignFlatMidBgButton}" 
-                materialDesign:ShadowAssist.ShadowDepth="Depth0" 
-                Height="40" Width="100"
-                HorizontalAlignment="Left"
-                Grid.Column="3" Grid.Row="1"
-                materialDesign:ButtonAssist.CornerRadius="8" 
-                FontSize="14"
-                Click="btnNewConfig_Click">
+                <Button Margin="123,16,0,16" 
+               Padding="0"
+               x:Name="btnNewConfig" 
+               Style="{StaticResource MaterialDesignFlatMidBgButton}" 
+               Background="DarkOrange"
+               materialDesign:ShadowAssist.ShadowDepth="Depth0" 
+               Height="40" Width="100"
+               HorizontalAlignment="Left"
+               Grid.Column="3" Grid.Row="1"
+               materialDesign:ButtonAssist.CornerRadius="5" 
+               FontSize="14"
+               Click="btnNewConfig_Click" Grid.ColumnSpan="2">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="CodeJson"  Margin="0 0 1 0" 
+                                Width="20" Height="20"
+                                Foreground="{DynamicResource PrimaryTextColor}"/>
+
+                            <TextBlock Text="Nuevo"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              />
+                        </StackPanel>
+
+                    </Button.Content>
+
+                </Button>
+                <Button Margin="0,16,0,16" 
+               Padding="0"
+               x:Name="btnSaveApi" 
+               Style="{StaticResource MaterialDesignFlatMidBgButton}" 
+               materialDesign:ShadowAssist.ShadowDepth="Depth0" 
+               Height="40" Width="100"
+               HorizontalAlignment="Center"
+               Grid.Column="4" Grid.Row="1"
+               materialDesign:ButtonAssist.CornerRadius="5" 
+               FontSize="14"
+               Click="btnSaveApi_Click">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Add"  Margin="0 0 1 0" 
-                                 Width="20" Height="20"
-                                 Foreground="{DynamicResource PrimaryTextColor}"/>
-
-                            <TextBlock Text="Nuevo"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               />
-                        </StackPanel>
-
-                    </Button.Content>
-
-                </Button>
-                <Button Margin="0,0,10,0" 
-                Padding="0"
-                x:Name="btnSaveApi" 
-                Style="{StaticResource MaterialDesignFlatMidBgButton}" 
-                materialDesign:ShadowAssist.ShadowDepth="Depth0" 
-                Height="40" Width="100"
-                HorizontalAlignment="Left"
-                Grid.Column="4" Grid.Row="1"
-                materialDesign:ButtonAssist.CornerRadius="8" 
-                FontSize="14"
-                Click="btnSaveApi_Click">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Check"  Margin="0 0 1 0" 
-                                 Width="20" Height="20"
-                                 Foreground="{DynamicResource PrimaryTextColor}"/>
+                                Width="20" Height="20"
+                                Foreground="{DynamicResource PrimaryTextColor}"/>
 
                             <TextBlock Text="Agregar"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               />
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              />
                         </StackPanel>
 
                     </Button.Content>
 
                 </Button>
+
 
                 <!--DATAGRID VALUES-->
                 <Grid Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="6" Margin="5">

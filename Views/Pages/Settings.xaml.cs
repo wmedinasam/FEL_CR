@@ -76,38 +76,51 @@ namespace FELRD.Views.Pages
 
         private void btnSaveConfig_Click(object sender, RoutedEventArgs e)
         {
-            ConfigurationModel configModel = new ConfigurationModel();
-            configModel.User = txtSQLUsername.Text;
-            configModel.Password = txtSQLPassword.Password;
-            configModel.SyncTime = sliderValue;
-            configModel.MasterPassword = txtMasterPassword.Password;
-            string llave = txtSystemKey.Text.DesencriptarDatos();
-            configModel.Key = JsonConvert.DeserializeObject<KeyModel>(llave);
+            bool hasError = false;
+            hasError |= FieldsValidation(txtSQLUsername);
+            hasError |= FieldsValidation(txtSQLPassword);
+            hasError |= FieldsValidation(txtMasterPassword);
+            hasError |= FieldsValidation(txtSystemKey);
 
-            if (configModel.Key.Sistema == "FELRD")
+            if (!hasError)
             {
-                var response = DaoConnection.TestConnection(configModel.User, configModel.Password, configModel.Key.Instancia);
-                if (response.Success)
+
+                ConfigurationModel configModel = new ConfigurationModel();
+                configModel.User = txtSQLUsername.Text;
+                configModel.Password = txtSQLPassword.Password;
+                configModel.SyncTime = sliderValue;
+                configModel.MasterPassword = txtMasterPassword.Password;
+                string llave = txtSystemKey.Text.DesencriptarDatos();
+                configModel.Key = JsonConvert.DeserializeObject<KeyModel>(llave);
+
+                if (configModel.Key.Sistema == "FELRD")
                 {
-                    var responseSave = configModel.SaveConfiguration(configModel);
-                    if (responseSave.Success)
+                    var response = DaoConnection.TestConnection(configModel.User, configModel.Password, configModel.Key.Instancia);
+                    if (response.Success)
                     {
-                        MessageBox.Show("Configuraciones Guardadas Correctamente\nCierre el programa y Vuelvalo a abrir para ver el cambio", "CONFIGURACIONES", MessageBoxButton.OK, MessageBoxImage.Information);
+                        var responseSave = configModel.SaveConfiguration(configModel);
+                        if (responseSave.Success)
+                        {
+                            MessageBox.Show("Configuraciones Guardadas Correctamente\nCierre el programa y Vuelvalo a abrir para ver el cambio", "CONFIGURACIONES", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show(responseSave.Message, "ERROR DE SISTEMA", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show(responseSave.Message, "ERROR DE SISTEMA", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(response.Message, "Error de usuario", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show(response.Message, "Error de usuario", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Llave no corresponde al sistema", "Error de usuario", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            else
-            {
-                MessageBox.Show("Llave no corresponde al sistema", "Error de usuario", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+
+
+
         }
 
         private void btnSaveApi_Click(object sender, RoutedEventArgs e)
@@ -186,5 +199,38 @@ namespace FELRD.Views.Pages
             EnableControlls();
 
         }
+
+        private bool FieldsValidation(Control control)
+        {
+            bool hasError = false;
+
+            if (control is TextBox textBox)
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                {
+                    textBox.BorderBrush = Brushes.Red;
+                    hasError = true;
+                }
+                else
+                {
+                    textBox.BorderBrush = Brushes.Gray;
+                }
+            }
+            else if (control is PasswordBox passwordBox)
+            {
+                if (string.IsNullOrWhiteSpace(passwordBox.Password))
+                {
+                    passwordBox.BorderBrush = Brushes.Red;
+                    hasError = true;
+                }
+                else
+                {
+                    passwordBox.BorderBrush = Brushes.Gray;
+                }
+            }
+
+            return hasError;
+        }
+
     }
 }
