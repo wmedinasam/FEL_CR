@@ -5,10 +5,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:FELRD.Views.Pages"
+      xmlns:helpers="clr-namespace:FELRD.Helpers"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Monitor" Loaded="Page_Loaded"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <helpers:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+        <CircleEase x:Key="CircleEaseOut" EasingMode="EaseOut" />
+    </Page.Resources>
 
     <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}">
         <Grid>
@@ -17,12 +24,14 @@
                    FontWeight="SemiBold"
                    Margin="10 10 0 0"
                    HorizontalAlignment="Left"
+                       Foreground="{DynamicResource PrimaryTextColor}"
                    />
             <StackPanel Orientation="Vertical"  VerticalAlignment="Top" Margin="10" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock HorizontalAlignment="Right"
                    VerticalAlignment="Center"
                    Text="Iniciar Monitor" FontSize="20" 
+                                Foreground="{DynamicResource PrimaryTextColor}"
                    Style="{DynamicResource MaterialDesignBody1TextBlock}"
                    FontWeight="SemiBold"
                    Margin="0 0 15 0"
@@ -32,31 +41,100 @@
                         TextBlock.FontSize="25"
                         TextBlock.Foreground="{DynamicResource PrimaryTextColor}"
                           Click="btnIniciar_Click"
-                          Checked="btnIniciar_Checked"
-                          Unchecked="btnIniciar_Unchecked"
+                          
                         />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock HorizontalAlignment="Right"
+                                Foreground="{DynamicResource PrimaryTextColor}"
                    VerticalAlignment="Center"
                    Text="Estado:" FontSize="20" 
                    Style="{DynamicResource MaterialDesignBody1TextBlock}"
                    FontWeight="SemiBold"
                    Margin="0 0 15 0"
                    />
-                    <materialDesign:Card x:Name="cardEstado" UniformCornerRadius="8" 
-                                 Width="110" Height="30"
-                                 Background="{Binding CardColor}"
-                                 >
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <materialDesign:PackIcon x:Name="iconState" Kind="{Binding IconType, Delay=1}" 
-                                             Width="14" Foreground="{Binding IconColor}" 
-                                             Height="18" Margin="0 0 4 0" />
-                            <TextBlock x:Name="txtState" Foreground="{Binding TextColor}" FontSize="12"/>
+                    <materialDesign:Card x:Name="cardEstado"
+                     UniformCornerRadius="10"
+                     Padding="6 3"
+                     Width="180" Height="40"
+                     Background="{Binding CardColor}" 
+                     Margin="0"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Right"
+                     materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                        <StackPanel Orientation="Horizontal"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
 
+                            <!-- Ícono o Spinner -->
+                            <Grid Width="22" Height="22">
+                                <!-- Ícono de estado -->
+                                <materialDesign:PackIcon x:Name="iconState"
+                                     Width="22" Height="22"
+                                     Kind="{Binding IconType}"
+                                     Foreground="{Binding IconColor}"
+                                     Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
+
+                                <!-- Spinner animado -->
+                                <Canvas Width="22" Height="22"
+                                    Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                                    <!-- Fondo circular tenue -->
+                                    <Ellipse Width="22" Height="22"
+                                         Stroke="{DynamicResource PrimaryHueMidBrush}"
+                                         StrokeThickness="2"
+                                         Opacity="0.2" />
+
+                                    <!-- Arco giratorio más visible -->
+                                    <Path Stroke="{DynamicResource PrimaryHueMidBrush}"
+                                      StrokeThickness="2"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round"
+                                      Data="M11,1 A10,10 0 1 1 11,21"
+                                      RenderTransformOrigin="0.5,0.5">
+                                        <Path.RenderTransform>
+                                            <RotateTransform x:Name="SpinnerRotate" />
+                                        </Path.RenderTransform>
+                                        <Path.Triggers>
+                                            <EventTrigger RoutedEvent="Loaded">
+                                                <BeginStoryboard>
+                                                    <Storyboard RepeatBehavior="Forever">
+                                                        <DoubleAnimation
+                                                        Storyboard.TargetProperty="(Path.RenderTransform).(RotateTransform.Angle)"
+                                                        From="0" To="360"
+                                                        Duration="0:0:0.8"
+                                                        RepeatBehavior="Forever"
+                                                        EasingFunction="{StaticResource CircleEaseOut}" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </Path.Triggers>
+                                    </Path>
+                                </Canvas>
+                            </Grid>
+
+                            <!-- Texto del estado -->
+                            <TextBlock x:Name="txtState"
+                   Text="{Binding StateText}"
+                   Foreground="{Binding TextColor}"
+                   FontSize="13"
+                   Margin="6,0,0,0"
+                   VerticalAlignment="Center"
+                   FontWeight="SemiBold" />
                         </StackPanel>
                     </materialDesign:Card>
                 </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical"
+            Margin="10,60,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+                <TextBlock Text="{Binding LastUpdated}"
+               FontSize="13"
+               Foreground="#FFB0B0B0"
+               FontWeight="Normal"
+               Margin="0,5,0,0" />
             </StackPanel>
 
             <!--BEGIN DATA GRIDS-->
@@ -77,7 +155,8 @@
                       Background="{DynamicResource PrimaryBackgroundColor}" 
                       CanUserAddRows="False"
                       CanUserSortColumns="True"
-                      AutoGenerateColumns="False"                          
+                      AutoGenerateColumns="False"
+                      ItemsSource="{Binding TransactionsSuccess}"
                       >
                     <DataGrid.ContextMenu>
                         <ContextMenu>
@@ -89,7 +168,7 @@
                         <DataGridTextColumn Foreground="#fff" Header="Docto" Binding="{Binding SAEDocumentId}"  />
                         <DataGridTextColumn Foreground="#fff" Header="Tipo" Binding="{Binding DocumentType}" />
                         <DataGridTextColumn Foreground="#fff" Header="UUID" Binding="{Binding UUID}" />
-                        <DataGridTextColumn Foreground="#fff" Header="Numero de control" Binding="{Binding ControlNumber}" />
+                        <DataGridTextColumn Foreground="#fff" Header="No. Control" Binding="{Binding ControlNumber}" />
                         <DataGridTemplateColumn Header="Accion">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -119,7 +198,9 @@
                       Grid.Column="1" Grid.Row="0"
                   AutoGenerateColumns="False"
                       CanUserSortColumns="True"
-                      Background="{DynamicResource PrimaryBackgroundColor}" IsReadOnly="True">
+                      Background="{DynamicResource PrimaryBackgroundColor}"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding TransactionsRejected}"    >
                     <DataGrid.Columns>
                         <DataGridTextColumn Foreground="#fff" Header="Empresa" Binding="{Binding Company.Name}"  />
                         <DataGridTextColumn Foreground="#fff" Header="Docto" Binding="{Binding SAEDocumentId}"  />

@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using static FELRD.Models.Helpers;
 using WIS_Security;
 using FELRD.Helpers;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace FELRD.Views.Pages
 {
@@ -25,26 +27,55 @@ namespace FELRD.Views.Pages
     public partial class Certifier : Page
     {
         private int _id = 0;
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Certifier()
         {
             InitializeComponent();
-            GetCertifiers();
-            DisableControls();
+            Loaded += User_Loaded;
         }
 
-        private void GetCertifiers()
+        private async void User_Loaded(object sender, RoutedEventArgs e)
         {
-            CertificadorModel certificadorModel = new CertificadorModel();
-            var response = certificadorModel.Get();
-            if (response.Success)
+            DisableControls();
+            await GetCertifiersAsync();
+
+        }
+
+        private async Task GetCertifiersAsync()
+        {
+            LoaderOverlay.Visibility = Visibility.Visible;
+            await Task.Delay(200);
+
+            await Task.Run(() =>
             {
-                grdCertifier.ItemsSource = response.Object;
-            }
-            else
-            {
-                MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                CertificadorModel certificadorModel = new CertificadorModel();
+                var response = certificadorModel.Get();
+                Dispatcher.Invoke(() =>
+                {
+                    if (response.Success)
+                    {
+                        grdCertifier.ItemsSource = response.Object;
+                    }
+                    else
+                    {
+                        MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    LoaderOverlay.Visibility = Visibility.Collapsed;
+                });
+            });
+
+
         }
 
         private void EnableControls()
@@ -110,7 +141,7 @@ namespace FELRD.Views.Pages
             if (response.Success)
             {
                 MessageBox.Show("Usuario guardado correctamente", "Sistema", MessageBoxButton.OK, MessageBoxImage.Information);
-                GetCertifiers();
+                _ = GetCertifiersAsync();
 
                 _id = 0;
                 txtName.Text = string.Empty;
@@ -154,6 +185,11 @@ namespace FELRD.Views.Pages
             txtPasswordWS.Text = model.PasswordWS;
             txtSecurityKey.Text = model.SecurityKey;
             EnableControls();
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

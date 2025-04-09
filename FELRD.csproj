@@ -126,6 +126,7 @@
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\EnumItem.cs" />
     <Compile Include="Helpers\HandleLogs.cs" />
+    <Compile Include="Helpers\InverseBooleanToVisvilityConverter.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Models\CertificadorModel.cs" />
     <Compile Include="Models\CompanyModel.cs" />

@@ -273,4 +273,32 @@ SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
         </Style.Triggers>
     </Style>
 
+    <!-- PROGRESS RING-->
+    <Style x:Key="CustomProgressRingStyle" TargetType="Ellipse">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="StrokeThickness" Value="5"/>
+        <Setter Property="Stroke" Value="White"/>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <RotateTransform/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="StrokeDashArray" Value="2 1.5"/>
+        <Style.Triggers>
+            <Trigger Property="Visibility" Value="Visible">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <DoubleAnimation
+                            Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                            From="0" To="360" Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

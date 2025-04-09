@@ -2,148 +2,189 @@
 using FELRD.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using WIS_Security;
 
 namespace FELRD.Views.Pages
 {
-    /// <summary>
-    /// Interaction logic for Monitor.xaml
-    /// </summary>
-    public partial class Monitor : Page
+    public partial class Monitor : Page, INotifyPropertyChanged
     {
-        public int _sync = 0;
-        public SolidColorBrush CardColor, IconColor, TextColor;
-        DispatcherTimer dispatcherTimer = new DispatcherTimer();
-        private Thread thread;
+        #region Campos y propiedades principales
+
+        public int _sync = 10;
+        public int Sync
+        {
+            get => _sync;
+            set => _sync = value <= 0 ? 10 : value;
+        }
+
+        private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        private bool isMonitorActive = false;
+        private bool isProcessing = false;
+        private CancellationTokenSource cancellationTokenSource;
+
+        public ObservableCollection<TransactionModel> TransactionsSuccess { get; set; } = new ObservableCollection<TransactionModel>();
+        public ObservableCollection<TransactionModel> TransactionsRejected { get; set; } = new ObservableCollection<TransactionModel>();
 
         public bool canUserSign = false;
+        private readonly TransactionModel transactionModel = new TransactionModel();
+        private ResponseModel<List<TransactionModel>> transactionsResponse = new ResponseModel<List<TransactionModel>>();
 
-        TransactionModel transactionModel = new TransactionModel();
-        ResponseModel<List<TransactionModel>> transactionsResponse = new ResponseModel<List<TransactionModel>>();
+        #endregion
 
-        private void GetTransactions()
+        #region Estado visual del monitor (Conectado, Cargando, Desconectado)
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        private bool _isLoading;
+        public bool IsLoading
         {
-            transactionsResponse = transactionModel.GetProcessed();
-            if (transactionsResponse.Success)
-            {
-                if (canUserSign)
-                {
-                    try
-                    {
-                        TransactionMethods.SignDocument();
-                    }
-                    catch (Exception ex)
-                    {
-                        HandleLogs.SaveLog("Debug", "Problemas al iniciar monitor " + ex.Message);
-                    }
-
-                }
-            }
+            get => _isLoading;
+            set { _isLoading = value; OnPropertyChanged(nameof(IsLoading)); }
         }
 
-        private void ShutDownProcess()
+        private string _stateText = "Desconectado";
+        public string StateText
         {
-            if (dispatcherTimer != null)
-            {
-                dispatcherTimer.Stop();
-            }
-            if (thread != null)
-            {
-                thread.Abort();
-            }
+            get => _stateText;
+            set { _stateText = value; OnPropertyChanged(nameof(StateText)); }
         }
+
+        private string _iconType = "CloseCircleOutline";
+        public string IconType
+        {
+            get => _iconType;
+            set { _iconType = value; OnPropertyChanged(nameof(IconType)); }
+        }
+
+        private string _lastUpdated;
+        public string LastUpdated
+        {
+            get => _lastUpdated;
+            set { _lastUpdated = value; OnPropertyChanged(nameof(LastUpdated)); }
+        }
+
+        public SolidColorBrush CardColor { get; set; }
+        public SolidColorBrush IconColor { get; set; }
+        public SolidColorBrush TextColor { get; set; }
 
         private void ShowConnected()
         {
-            try
-            {
-                var SuccessColor = FindResource("SuccessColor").ToString();
-                var converterSuccessColor = new System.Windows.Media.BrushConverter();
-                var brushconverterSuccessColor = (System.Windows.Media.Brush)converterSuccessColor.ConvertFromString(SuccessColor);
-                cardEstado.Background = brushconverterSuccessColor;
-                IconColor = (SolidColorBrush)brushconverterSuccessColor;
+            IsLoading = false;
+            StateText = "Conectado";
+            IconType = "CheckCircleOutline";
 
-                var SuccessTextColor = FindResource("SuccessTextColor").ToString();
-                var converterSuccessTextColor = new System.Windows.Media.BrushConverter();
-                var brushconverterSuccessTextColor = (System.Windows.Media.Brush)converterSuccessTextColor.ConvertFromString(SuccessTextColor);
-                TextColor = (SolidColorBrush)brushconverterSuccessTextColor;
-
-                txtState.Text = "Conectado";
-                iconState.Kind = MaterialDesignThemes.Wpf.PackIconKind.CheckCircleOutline;
-                btnIniciar.IsChecked = true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
+            SetColors("#294B3D", "#81F1B0", "#CFFFE4");
         }
 
         private void ShowDisconnected()
         {
+            IsLoading = false;
+            StateText = "Desconectado";
+            IconType = "CloseCircleOutline";
+
+            SetColors("#432E2E", "#FF9A9A", "#FFD6D6");
+            TransactionsSuccess.Clear();
+            TransactionsRejected.Clear();
             ShutDownProcess();
-            try
-            {
-                IconColor = (SolidColorBrush)FindResource("DangerColor");
-                TextColor = (SolidColorBrush)FindResource("DangerTextColor");
-
-                var DangerColorColor = FindResource("DangerColor").ToString();
-                var converterDangerColor = new System.Windows.Media.BrushConverter();
-                var brushconverterDangerColor = (System.Windows.Media.Brush)converterDangerColor.ConvertFromString(DangerColorColor);
-                cardEstado.Background = brushconverterDangerColor;
-                IconColor = (SolidColorBrush)brushconverterDangerColor;
-
-                var DangerTextColor = FindResource("DangerTextColor").ToString();
-                var converterDangerTextColor = new System.Windows.Media.BrushConverter();
-                var brushconverterDangerTextColor = (System.Windows.Media.Brush)converterDangerTextColor.ConvertFromString(DangerTextColor);
-                TextColor = (SolidColorBrush)brushconverterDangerTextColor;
-
-
-                txtState.Text = "Desconectado";
-                iconState.Kind = MaterialDesignThemes.Wpf.PackIconKind.CloseCircleOutline;
-                btnIniciar.IsChecked = false;
-                dgvSuccess.ItemsSource = null;
-                grdRejected.ItemsSource = null;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
         }
 
-        private void GetTransactionsFirstTime()
+        private void ShowConnecting()
         {
-            transactionsResponse = transactionModel.GetProcessed();
-            if (transactionsResponse.Success)
+            StateText = "Conectando...";
+            IconType = "Loading";
+            SetColors("#2F3A52", "#88B0FF", "#D8E4FF");
+        }
+
+        private void SetColors(string background, string icon, string text)
+        {
+            AnimateCardColor((Color)ColorConverter.ConvertFromString(background));
+            IconColor = (SolidColorBrush)new BrushConverter().ConvertFromString(icon);
+            TextColor = (SolidColorBrush)new BrushConverter().ConvertFromString(text);
+
+            iconState.Foreground = IconColor;
+            txtState.Foreground = TextColor;
+        }
+
+        private void AnimateCardColor(Color toColor)
+        {
+            var baseColor = (cardEstado.Background as SolidColorBrush)?.Color ?? Colors.Transparent;
+            var brush = new SolidColorBrush(baseColor);
+
+            cardEstado.Background = brush;
+
+            var animation = new ColorAnimation
             {
-                dgvSuccess.ItemsSource = transactionsResponse.Object.Where(x => x.Status == "ACEPTADO");
-                grdRejected.ItemsSource = transactionsResponse.Object.Where(x => x.Status == "RECHAZADO" || x.Status == "PROCESANDO");
-                StartProcess();
-                ShowConnected();
-            }
-            else
+                To = toColor,
+                Duration = TimeSpan.FromMilliseconds(300),
+                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseInOut }
+            };
+
+            brush.BeginAnimation(SolidColorBrush.ColorProperty, animation);
+        }
+
+        #endregion
+
+        #region Lógica principal del monitor
+
+        private async Task GetTransactionsAsync()
+        {
+            transactionsResponse = await Task.Run(() => transactionModel.GetProcessed());
+
+            if (transactionsResponse.Success && canUserSign)
             {
-                ShowDisconnected();
-                MessageBox.Show(transactionsResponse.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    await Task.Run(() => TransactionMethods.SignDocument());
+                }
+                catch (Exception ex)
+                {
+                    HandleLogs.SaveLog("Debug", "Problemas al firmar documento: " + ex.Message);
+                }
             }
+        }
+
+        private async Task GetTransactionsFirstTimeAsync()
+        {
+            IsLoading = true;
+            ShowConnecting();
+
+            await GetTransactionsAsync();
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (transactionsResponse.Success)
+                {
+                    IsLoading = false;
+                    ShowConnected();
+                    LoadTransactionsOnScreen();
+                    StartProcess();
+                }
+                else
+                {
+                    IsLoading = false;
+                    ShowDisconnected();
+                    MessageBox.Show(transactionsResponse.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            });
         }
 
         private void GetTransactionsAfterAction()
         {
             transactionsResponse = transactionModel.GetProcessed();
+
             if (transactionsResponse.Success)
-            {
-                dgvSuccess.ItemsSource = transactionsResponse.Object.Where(x => x.Status == "ACEPTADO");
-                grdRejected.ItemsSource = transactionsResponse.Object.Where(x => x.Status == "RECHAZADO" || x.Status == "PROCESANDO");
-            }
+                LoadTransactionsOnScreen();
             else
             {
                 ShowDisconnected();
@@ -151,45 +192,73 @@ namespace FELRD.Views.Pages
             }
         }
 
+        private void LoadTransactionsOnScreen()
+        {
+            TransactionsSuccess.Clear();
+            TransactionsRejected.Clear();
+
+            foreach (var tx in transactionsResponse.Object)
+            {
+                if (tx.Status == "ACEPTADO")
+                    TransactionsSuccess.Add(tx);
+                else if (tx.Status == "RECHAZADO" || tx.Status == "PROCESANDO")
+                    TransactionsRejected.Add(tx);
+            }
+
+            LastUpdated = "Última actualización: " + DateTime.Now.ToString("HH:mm:ss");
+        }
+
         private void StartProcess()
         {
-            if (dispatcherTimer.Interval.Seconds == 0)
-            {
-                dispatcherTimer.Tick += CrearHilo;
-                dispatcherTimer.Interval = new TimeSpan(0, 0, _sync);
-            }
+            dispatcherTimer.Stop();
+            dispatcherTimer.Tick -= CrearHilo;
+            dispatcherTimer.Tick += CrearHilo;
+            dispatcherTimer.Interval = TimeSpan.FromSeconds(Sync);
             dispatcherTimer.Start();
         }
 
-        private void CrearHilo(object sender, EventArgs e)
+        private async void CrearHilo(object sender, EventArgs e)
         {
-            thread = new Thread(GetTransactions);
-            thread.Start();
-            thread.Join();
-            displayResults();
-        }
+            if (isProcessing || !isMonitorActive)
+                return;
 
-        private void displayResults()
-        {
-            if (transactionsResponse.Success)
+            isProcessing = true;
+            cancellationTokenSource = new CancellationTokenSource();
+            var token = cancellationTokenSource.Token;
+
+            try
             {
-                ShowConnected();
-                dgvSuccess.ItemsSource = transactionsResponse.Object.Where(x => x.Status == "ACEPTADO");
-                grdRejected.ItemsSource = transactionsResponse.Object.Where(x => x.Status == "RECHAZADO" || x.Status == "PROCESANDO");
+                await GetTransactionsAsync();
+
+                if (isMonitorActive && !token.IsCancellationRequested)
+                {
+                    Application.Current.Dispatcher.Invoke(LoadTransactionsOnScreen);
+                }
             }
-            else
+            catch (OperationCanceledException) { }
+            finally
             {
-                ShowDisconnected();
+                isProcessing = false;
             }
         }
 
-        private void btnIniciar_Checked(object sender, RoutedEventArgs e)
+        private void ShutDownProcess()
         {
-
+            dispatcherTimer?.Stop();
+            cancellationTokenSource?.Cancel();
+            cancellationTokenSource?.Dispose();
+            cancellationTokenSource = null;
+            isProcessing = false;
         }
 
-        private void btnIniciar_Unchecked(object sender, RoutedEventArgs e)
+        #endregion
+
+        #region Eventos de UI
+
+        public Monitor()
         {
+            InitializeComponent();
+            this.DataContext = this;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -197,10 +266,26 @@ namespace FELRD.Views.Pages
             ShowDisconnected();
         }
 
+        private async void btnIniciar_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnIniciar.IsChecked == true)
+            {
+                isMonitorActive = true;
+                await GetTransactionsFirstTimeAsync();
+            }
+            else
+            {
+                isMonitorActive = false;
+                ShutDownProcess();
+                ShowDisconnected();
+            }
+        }
+
         private void btnRetry_Click(object sender, RoutedEventArgs e)
         {
-            var item = sender as Button;
-            var model = item.DataContext as TransactionModel;
+            var model = (sender as Button)?.DataContext as TransactionModel;
+            if (model == null) return;
+
             model.Status = "PENDIENTE";
             model.Result = string.Empty;
             model.ActionTransaction("ChangeStatusResult", model);
@@ -209,16 +294,17 @@ namespace FELRD.Views.Pages
 
         private void btnError_Click(object sender, RoutedEventArgs e)
         {
-            var item = sender as Button;
-            var model = item.DataContext as TransactionModel;
-            MessageBox.Show(model.Result, "Razones del Fallo", MessageBoxButton.OK, MessageBoxImage.Information);
+            var model = (sender as Button)?.DataContext as TransactionModel;
+            if (model == null) return;
 
+            MessageBox.Show(model.Result, "Razones del Fallo", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void btnDescartar_Click(object sender, RoutedEventArgs e)
         {
-            var item = sender as Button;
-            var model = item.DataContext as TransactionModel;
+            var model = (sender as Button)?.DataContext as TransactionModel;
+            if (model == null) return;
+
             model.Status = "DESCARTADO";
             model.ActionTransaction("ChangeStatus", model);
             GetTransactionsAfterAction();
@@ -226,52 +312,31 @@ namespace FELRD.Views.Pages
 
         private void btnConsultar_Click(object sender, RoutedEventArgs e)
         {
-            var item = sender as Button;
-            var model = item.DataContext as TransactionModel;
+            var model = (sender as Button)?.DataContext as TransactionModel;
+            if (model == null) return;
+
             FilePDF filePDF = new FilePDF(model.Company.Certificador.EndPoint, model.UUID);
             filePDF.ShowDialog();
-            //string remoteUri = model.Company.Certificador.EndPointVerDoc + model.UUID + "&formato=pdf";
-            //wbPDF.Navigate(remoteUri);
         }
 
         private void btnAnular_Click(object sender, RoutedEventArgs e)
         {
             var selectedItem = (TransactionModel)dgvSuccess.SelectedItem;
-            // TODO: lógica de anulación
-            var msg = $"¿Esta seguro de que desea anular el siguiente documento: \nDocumento Interno:{selectedItem.SAEDocumentId} \nUUID: {selectedItem.UUID}";
+            if (selectedItem == null) return;
+
+            var msg = $"¿Está seguro de que desea anular el siguiente documento:\nDocumento Interno: {selectedItem.SAEDocumentId}\nUUID: {selectedItem.UUID}";
             wdwWIS_OKCancel confirmation = new wdwWIS_OKCancel("Anulación", msg);
             confirmation.ShowDialog();
+
             if (confirmation.Ok)
             {
                 var response = TransactionMethods.CancelDocument(selectedItem.Id);
-                if (!response)
-                {
-                    MessageBox.Show("Documento no se pudo anular, revisar el Log de errores!");
-                }
-                else
-                {
-                    MessageBox.Show($"Documento {selectedItem.UUID} anulado con éxito!");
-                }
+                MessageBox.Show(response ? $"Documento {selectedItem.UUID} anulado con éxito!"
+                                        : "Documento no se pudo anular, revisar el Log de errores!");
+                GetTransactionsAfterAction();
             }
         }
 
-        public Monitor()
-        {
-            InitializeComponent();
-            this.DataContext = this;
-            btnIniciar_Unchecked(null, null);
-        }
-
-        private void btnIniciar_Click(object sender, RoutedEventArgs e)
-        {
-            if (btnIniciar.IsChecked.Value)
-            {
-                GetTransactionsFirstTime();
-            }
-            else
-            {
-                ShowDisconnected();
-            }
-        }
+        #endregion
     }
 }

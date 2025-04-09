@@ -40,21 +40,22 @@ namespace FELRD.Views.Pages
         {
             InitializeComponent();
             Loaded += User_Loaded;
-            DisableControls();
         }
 
         private async void User_Loaded(object sender, RoutedEventArgs e)
         {
+            DisableControls();
             await GetRolesAsync();
             await GetUsersAsync();
-            DisableControls();
+
         }
 
 
 
         private async Task GetUsersAsync()
         {
-            loadingBar.Visibility = Visibility.Visible;
+            LoaderOverlay.Visibility = Visibility.Visible;
+            await Task.Delay(200); // pequeño respiro visual
 
             await Task.Run(() =>
             {
@@ -71,15 +72,15 @@ namespace FELRD.Views.Pages
                     {
                         MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-
-                    loadingBar.Visibility = Visibility.Collapsed;
+                    LoaderOverlay.Visibility = Visibility.Collapsed;
                 });
             });
         }
 
         private async Task GetRolesAsync()
         {
-            loadingBar.Visibility = Visibility.Visible;
+            LoaderOverlay.Visibility = Visibility.Visible;
+            await Task.Delay(200); // pequeño respiro visual
 
             await Task.Run(() =>
             {
@@ -98,8 +99,8 @@ namespace FELRD.Views.Pages
                     {
                         MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
+                    LoaderOverlay.Visibility = Visibility.Collapsed;
 
-                    loadingBar.Visibility = Visibility.Collapsed;
                 });
             });
         }

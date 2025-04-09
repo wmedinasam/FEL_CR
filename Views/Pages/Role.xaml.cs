@@ -6,6 +6,9 @@ using WIS_Security;
 using FELRD.Helpers;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace FELRD.Views.Pages
 {
@@ -15,27 +18,59 @@ namespace FELRD.Views.Pages
     public partial class Role : Page
     {
         private int _id = 0;
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Role()
         {
             InitializeComponent();
-            GetRoles();
+            Loaded += User_Loaded;
+        }
+
+        private async void User_Loaded(object sender, RoutedEventArgs e)
+        {
             DisableControls();
+            await GetRolesAsync();
+
         }
 
 
-        private void GetRoles()
+
+
+        private async Task GetRolesAsync()
         {
-            RoleModel roleModel = new RoleModel();
-            var response = roleModel.Get();
-            if (response.Success)
+            LoaderOverlay.Visibility = Visibility.Visible;
+            await Task.Delay(200); // pequeño respiro visual
+
+            await Task.Run(() =>
             {
-                grdRole.ItemsSource = response.Object;
-            }
-            else
-            {
-                MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                RoleModel roleModel = new RoleModel();
+                var response = roleModel.Get();
+                Dispatcher.Invoke(() =>
+                {
+                    if (response.Success)
+                    {
+                        grdRole.ItemsSource = response.Object;
+                    }
+                    else
+                    {
+                        MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    LoaderOverlay.Visibility = Visibility.Collapsed;
+                });
+
+            });
+
+
         }
 
         private void EnableControls()
@@ -127,7 +162,7 @@ namespace FELRD.Views.Pages
             if (response.Success)
             {
                 MessageBox.Show("Usuario guardado correctamente", "Sistema", MessageBoxButton.OK, MessageBoxImage.Information);
-                GetRoles();
+                _ = GetRolesAsync();
 
                 New();
                 txtRoleName.Text = string.Empty;
@@ -174,6 +209,12 @@ namespace FELRD.Views.Pages
             btnCanAccessRoles.IsChecked = model.CanAccessRoles;
             btnCanAccessCertifiers.IsChecked = model.CanAccessCertifiers;
             EnableControls();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

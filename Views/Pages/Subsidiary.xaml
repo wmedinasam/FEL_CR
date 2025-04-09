@@ -74,7 +74,7 @@
                         <materialDesign:PackIcon Kind="Map" Margin="30,20" Width="30" Height="30" Grid.Column="0" Grid.Row="4" Foreground="{DynamicResource PrimaryIconColor}"/>
                         <ComboBox x:Name="cbCountry" Grid.Column="1" Grid.Row="4" Margin="5,10"
                                   Style="{StaticResource CleanOutlinedComboBox}"
-                                  materialDesign:HintAssist.Hint="Seleccione País" Loaded="cbCountry_Loaded"/>
+                                  materialDesign:HintAssist.Hint="Seleccione País"/>
 
                         <materialDesign:PackIcon Kind="Folder" Margin="30,20" Width="30" Height="30" Grid.Column="0" Grid.Row="5" Foreground="{DynamicResource PrimaryIconColor}"/>
                         <Grid Grid.Column="1" Grid.Row="5" Margin="5,10">
@@ -130,6 +130,17 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
+            </Grid>
+            <Grid x:Name="LoaderOverlay"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Background="#CC000000"
+            Visibility="Collapsed"
+            Panel.ZIndex="999">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Ellipse Style="{StaticResource CustomProgressRingStyle}" />
+                    <TextBlock Text="Cargando..." Foreground="White" FontSize="16" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+                </StackPanel>
             </Grid>
         </Grid>
     </Border>

@@ -26,7 +26,8 @@ namespace FELRD.Helpers
                 });
             }
 
-            return list;
+            return list.OrderBy(item => item.Description != "República Dominicana").ThenBy(item => item.Description).ToList();
+
         }
     }
 }

@@ -482,5 +482,145 @@ namespace FELRD.Models
         }
 
 
+        public enum AmericaCountries
+        {
+            [Description("República Dominicana")]
+            DO = 214,
+
+            [Description("El Salvador")]
+            SV = 222,
+
+            [Description("Guatemala")]
+            GT = 320,
+
+            [Description("México")]
+            MX = 484,
+
+            [Description("Antigua y Barbuda")]
+            AG = 28,
+
+            [Description("Anguila")]
+            AI = 660,
+
+            [Description("Argentina")]
+            AR = 32,
+
+            [Description("Aruba")]
+            AW = 533,
+
+            [Description("Bahamas")]
+            BS = 44,
+
+            [Description("Barbados")]
+            BB = 52,
+
+            [Description("Belice")]
+            BZ = 84,
+
+            [Description("Bermudas")]
+            BM = 60,
+
+            [Description("Bolivia")]
+            BO = 68,
+
+            [Description("Bonaire, San Eustaquio y Saba")]
+            BQ = 535,
+
+            [Description("Brasil")]
+            BR = 76,
+
+            [Description("Canadá")]
+            CA = 124,
+
+            [Description("Chile")]
+            CL = 152,
+
+            [Description("Colombia")]
+            CO = 170,
+
+            [Description("Costa Rica")]
+            CR = 188,
+
+            [Description("Cuba")]
+            CU = 192,
+
+            [Description("Curazao")]
+            CW = 531,
+
+            [Description("Dominica")]
+            DM = 212,
+
+            [Description("Ecuador")]
+            EC = 218,
+
+            [Description("Guayana Francesa")]
+            GF = 254,
+
+            [Description("Granada")]
+            GD = 308,
+
+            [Description("Guadalupe")]
+            GP = 312,
+
+            [Description("Guyana")]
+            GY = 328,
+
+            [Description("Haití")]
+            HT = 332,
+
+            [Description("Honduras")]
+            HN = 340,
+
+            [Description("Jamaica")]
+            JM = 388,
+
+            [Description("Martinica")]
+            MQ = 474,
+
+            [Description("Montserrat")]
+            MS = 500,
+
+            [Description("Nicaragua")]
+            NI = 558,
+
+            [Description("Panamá")]
+            PA = 591,
+
+            [Description("Paraguay")]
+            PY = 600,
+
+            [Description("Perú")]
+            PE = 604,
+
+            [Description("Puerto Rico")]
+            PR = 630,
+
+            [Description("San Cristóbal y Nieves")]
+            KN = 659,
+
+            [Description("Santa Lucía")]
+            LC = 662,
+
+            [Description("San Martín (Francia)")]
+            MF = 663,
+
+            [Description("San Vicente y las Granadinas")]
+            VC = 670,
+
+            [Description("Surinam")]
+            SR = 740,
+
+            [Description("Trinidad y Tobago")]
+            TT = 780,
+
+            [Description("Uruguay")]
+            UY = 858,
+
+            [Description("Venezuela")]
+            VE = 862
+        }
+
+
+
     }
 }

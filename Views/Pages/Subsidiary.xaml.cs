@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using WIS_Security;
 using FELRD.Helpers;
 using System.Xml.Linq;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace FELRD.Views.Pages
 {
@@ -25,53 +27,106 @@ namespace FELRD.Views.Pages
     public partial class Subsidiary : Page
     {
         int _id = 0;
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
         public Subsidiary()
         {
             InitializeComponent();
-            GetCountries();
-            GetCompanies();
-            GetSubsidiaries();
+            Loaded += User_Loaded;
+
+        }
+
+        private async void User_Loaded(object sender, RoutedEventArgs e)
+        {
             DisableControllers();
+            await GetCountriesAsync();
+            await GetUsersAsync();
+            await GetSubsidiariesAsync();
+
         }
 
-        private void GetCompanies()
+
+        private async Task GetUsersAsync()
         {
-            CompanyModel company = new CompanyModel();
-            var response = company.Get();
-            if (response.Success)
+            LoaderOverlay.Visibility = Visibility.Visible;
+            await Task.Delay(200);
+
+            await Task.Run(() =>
             {
-                cbCompanies.ItemsSource = response.Object;
-                cbCompanies.DisplayMemberPath = "Name";
-                cbCompanies.SelectedValuePath = "Id";
-            }
-            else
-            {
-                MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+
+                CompanyModel company = new CompanyModel();
+                var response = company.Get();
+                Dispatcher.Invoke(() =>
+                {
+
+                    if (response.Success)
+                    {
+                        cbCompanies.ItemsSource = response.Object;
+                        cbCompanies.DisplayMemberPath = "Name";
+                        cbCompanies.SelectedValuePath = "Id";
+                    }
+                    else
+                    {
+                        MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    LoaderOverlay.Visibility = Visibility.Collapsed;
+                });
+
+            });
         }
 
-        private void GetCountries()
+        private Task GetCountriesAsync()
         {
-            cbCountry.ItemsSource = EnumHelper.GetEnumItems<Models.Helpers.Countries>();
+            cbCountry.IsEnabled = false;
+            LoaderOverlay.Visibility = Visibility.Visible;
+
+            // No necesitamos Task.Run porque esto es inmediato
+            cbCountry.ItemsSource = EnumHelper.GetEnumItems<Models.Helpers.AmericaCountries>();
             cbCountry.DisplayMemberPath = "Description";
             cbCountry.SelectedValuePath = "Code";
             cbCountry.Items.Refresh();
+
+            cbCountry.IsEnabled = true;
+            LoaderOverlay.Visibility = Visibility.Collapsed;
+
+            return Task.CompletedTask;
         }
 
 
-        private void GetSubsidiaries()
+        private async Task GetSubsidiariesAsync()
         {
-            SubsidiaryModel model = new SubsidiaryModel();
-            var response = model.Get();
-            if (response.Success)
-            {
-                grdSubsidiary.ItemsSource = response.Object;
-            }
-            else
-            {
-                MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
 
+            LoaderOverlay.Visibility = Visibility.Visible;
+            await Task.Delay(200);
+
+            await Task.Run(() =>
+            {
+                SubsidiaryModel model = new SubsidiaryModel();
+                var response = model.Get();
+                Dispatcher.Invoke(() =>
+                {
+                    if (response.Success)
+                    {
+                        grdSubsidiary.ItemsSource = response.Object;
+                    }
+                    else
+                    {
+                        MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    LoaderOverlay.Visibility = Visibility.Collapsed;
+                });
+
+
+            });
         }
         private void ClearControllers()
         {
@@ -149,8 +204,9 @@ namespace FELRD.Views.Pages
             }
             if (response.Success)
             {
-                GetCompanies();
-                GetSubsidiaries();
+                _ = GetUsersAsync();
+                _ = GetSubsidiariesAsync();
+                _ = GetCountriesAsync();
                 ClearControllers();
                 DisableControllers();
             }
@@ -167,20 +223,23 @@ namespace FELRD.Views.Pages
             if (model != null)
             {
                 _id = model.Id;
-                cbCompanies.SelectedValue = model.Company.Id;
+
+
                 txtEstablishmentName.Text = model.EstablishmentName;
                 txtEstablishmentCode.Text = model.EstablishmentCode;
                 txtPostalCode.Text = model.PostalCode;
-                cbCountry.Text = model.Country;
                 txtSubsidiaryFolder.Text = model.SubsidiaryFolder;
                 EnableControllers();
+
+                Dispatcher.InvokeAsync(async () =>
+                {
+                    await Task.Delay(50);
+                    cbCompanies.SelectedValue = model.Company.Id;
+                    cbCountry.SelectedValue = model.Country;
+                });
             }
         }
 
-        private void cbCountry_Loaded(object sender, RoutedEventArgs e)
-        {
-            cbCountry.Items.Refresh();
-        }
 
         private void BrowseSubsidiaryFolder_Click(object sender, RoutedEventArgs e)
         {
@@ -191,6 +250,12 @@ namespace FELRD.Views.Pages
                     txtSubsidiaryFolder.Text = dialog.SelectedPath;
                 }
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

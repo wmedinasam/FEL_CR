@@ -1,9 +1,12 @@
 ﻿using FELRD.Helpers;
 using FELRD.Models;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using WIS_Security;
+using System.Threading.Tasks;
 
 namespace FELRD.Views.Pages
 {
@@ -13,43 +16,85 @@ namespace FELRD.Views.Pages
     public partial class Company : Page
     {
         int _id = 0;
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
         public Company()
         {
             InitializeComponent();
-            GetCompanies();
-            GetCertifiers();
+            Loaded += User_Loaded;
+        }
+
+        private async void User_Loaded(object sender, RoutedEventArgs e)
+        {
             DisableControllers();
+            await GetCompaniesAsync();
+            await GetCertifiersAsync();
+
         }
 
-        private void GetCompanies()
+        private async Task GetCompaniesAsync()
         {
-            CompanyModel companyModel = new CompanyModel();
-            var response = companyModel.Get();
-            if (response.Success)
+
+            LoaderOverlay.Visibility = Visibility.Visible;
+            await Task.Delay(200);
+
+            await Task.Run(() =>
             {
-                grdCompany.ItemsSource = response.Object;
-            }
-            else
-            {
-                MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                CompanyModel companyModel = new CompanyModel();
+                var response = companyModel.Get();
+                Dispatcher.Invoke(() =>
+                {
+                    if (response.Success)
+                    {
+                        grdCompany.ItemsSource = response.Object;
+                    }
+                    else
+                    {
+                        MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    LoaderOverlay.Visibility = Visibility.Collapsed;
+                });
+
+            });
+
+
         }
 
 
-        private void GetCertifiers()
+        private async Task GetCertifiersAsync()
         {
-            CertificadorModel model = new CertificadorModel();
-            var response = model.Get();
-            if (response.Success)
+            LoaderOverlay.Visibility = Visibility.Collapsed;
+            await Task.Delay(200);
+            await Task.Run(() =>
             {
-                cbCertifiers.ItemsSource = response.Object;
-                cbCertifiers.DisplayMemberPath = "Name";
-                cbCertifiers.SelectedValuePath = "Id";
-            }
-            else
-            {
-                MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                CertificadorModel model = new CertificadorModel();
+                var response = model.Get();
+                Dispatcher.Invoke(() =>
+                {
+                    if (response.Success)
+                    {
+                        cbCertifiers.ItemsSource = response.Object;
+                        cbCertifiers.DisplayMemberPath = "Name";
+                        cbCertifiers.SelectedValuePath = "Id";
+                    }
+                    else
+                    {
+                        MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    LoaderOverlay.Visibility = Visibility.Collapsed;
+                });
+            });
+
+
         }
 
         private void ClearControllers()
@@ -130,7 +175,8 @@ namespace FELRD.Views.Pages
             if (response.Success)
             {
                 MessageBox.Show("Empresa guardada correctamente", "Sistema", MessageBoxButton.OK, MessageBoxImage.Information);
-                GetCompanies();
+                _ = GetCompaniesAsync();
+                _ = GetCertifiersAsync();
                 ClearControllers();
                 DisableControllers();
             }
@@ -175,6 +221,12 @@ namespace FELRD.Views.Pages
             {
                 txtDTEFolder.Text = dialog.SelectedPath;
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }
