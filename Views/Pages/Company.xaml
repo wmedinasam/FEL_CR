@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:FELRD.Views.Pages" 
       xmlns:all="clr-namespace:FELRD"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="768" d:DesignWidth="1024"
       Title="Company"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
@@ -16,226 +16,121 @@
     </Page.DataContext>
 
     <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}">
+        <Grid Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-
-
-
-        <StackPanel Orientation="Vertical" >
-            <Grid>
-                <materialDesign:PackIcon Kind="Company"  Margin="20 10 0 0" Width="50" Height="50" Foreground="{DynamicResource PrimaryTextColor}"/>
-                <TextBlock Text="Datos Generales de la Empresa" Margin="80 25 0 0" FontSize="18" FontWeight="SemiBold" Foreground="White" />
+            <!-- Header -->
+            <Grid Grid.Row="0">
+                <materialDesign:PackIcon Kind="Company" Margin="20 10 0 0" Width="50" Height="50" Foreground="{DynamicResource PrimaryTextColor}"/>
+                <TextBlock Text="Empresas" Margin="80 25 0 0" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
             </Grid>
 
-            <Grid>
+            <!-- Content -->
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="1.1*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <materialDesign:PackIcon Kind="CardAccountDetails"  Margin="29,19,17,24" 
-                                    Width="Auto" Height="30"
-                                    VerticalAlignment="Stretch"
-                                    HorizontalAlignment="Stretch"
-                                    Grid.Column="0" Grid.Row="3"
-                                    Foreground="{DynamicResource PrimaryTextColor}"/>
-                <Button x:Name="btnNew" 
-                   Grid.Row="1" 
-                       Grid.Column="5" 
-                   HorizontalAlignment="Left" 
-                   Margin="11,9,0,0" 
-                   Padding="0" Width="100" 
-                   Click="btnNew_Click" Height="32" VerticalAlignment="Top">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="UserAdd"  Margin="0 0 5 0" 
-                        Width="25" Height="25"
-                        Foreground="{DynamicResource PrimaryTextColor}"/>
 
-                            <TextBlock Text="Nuevo" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </StackPanel>
+                <!-- Formulario con scroll -->
+                <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.15*"/>
+                            <ColumnDefinition Width="0.85*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    </Button.Content>
-                </Button>
+                        <!-- Iconos y campos -->
+                        <materialDesign:PackIcon Kind="Company" Grid.Row="0" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtTaxId" Grid.Row="0" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Nit Empresa" MaxLength="15"/>
 
-                <TextBox 
-               Text="{Binding TaxId, ValidatesOnExceptions=True, 
-               UpdateSourceTrigger=PropertyChanged}"
-               MaxLength="15"
-               Margin="8,14,11,10"
-               x:Name="txtTaxId" 
-               Grid.Column="1" Grid.Row="2"
-               Grid.ColumnSpan="2"
-               Background="{StaticResource PrimaryBackgroundColor}"
-               FontSize="14" materialDesign:HintAssist.Hint="Ingrese Nit" 
-               BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
-               Style="{StaticResource MaterialDesignOutlinedTextBox}" 
-               materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-               />
-                <TextBox 
-Text="{Binding TaxId, ValidatesOnExceptions=True, 
-UpdateSourceTrigger=PropertyChanged}"
-MaxLength="15"
-Margin="8,14,11,10"
-x:Name="txtName" 
-Grid.Column="3" Grid.Row="2"
-Grid.ColumnSpan="2"
-Background="{StaticResource PrimaryBackgroundColor}"
-FontSize="14" materialDesign:HintAssist.Hint="Nombre" 
-BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
-Style="{StaticResource MaterialDesignOutlinedTextBox}" 
-materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-/>
+                        <materialDesign:PackIcon Kind="RenameBox" Grid.Row="1" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtName" Grid.Row="1" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Nombre Empresa" MaxLength="100"/>
 
-                <TextBox 
-               Text="{Binding Prefix, ValidatesOnExceptions=True, 
-               UpdateSourceTrigger=PropertyChanged}"  
-                x:Name="txtPrefix"
-               MaxLength="50"
-               Grid.Column="5" Grid.Row="2"
-               Margin="12,14,40,12"
-               Grid.ColumnSpan="2"
-               Background="{StaticResource PrimaryBackgroundColor}"
-               FontSize="14" materialDesign:HintAssist.Hint="Ingrese Prefijo" 
-               BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}"
-               materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-               Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                        <materialDesign:PackIcon Kind="Numeric" Grid.Row="2" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtPrefix" Grid.Row="2" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Prefijo Empresa" MaxLength="50"/>
 
-                <ComboBox x:Name="cbCertifiers"
-                Grid.Column="1"
-                Grid.Row="3"
-                Grid.ColumnSpan="2"
-                HorizontalContentAlignment="Center"
-                Margin="10, 14,10,12"
-                 FontSize="14"
-                         Background="{StaticResource PrimaryBackgroundColor}"
-                         BorderThickness="2" 
-                         BorderBrush="{DynamicResource MaterialDesignDivider}" 
-                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                         VerticalAlignment="Stretch"
-                         materialDesign:HintAssist.Hint="Seleccione Certificador" 
-                         materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-                         >
-                </ComboBox>
+                        <materialDesign:PackIcon Kind="CardAccountDetails" Grid.Row="3" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <ComboBox x:Name="cbCertifiers" Grid.Row="3" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedComboBox}" materialDesign:HintAssist.Hint="Seleccione Certificador"/>
 
-                <TextBox 
-                   Text="{Binding DTEFolder, ValidatesOnExceptions=True, 
-                   UpdateSourceTrigger=PropertyChanged}"  
-                   x:Name="txtDTEFolder"
-                   MaxLength="250"
-                   Margin="9,6,41,13"
-                   Grid.Column="3" Grid.Row="3"
-                   Grid.ColumnSpan="4"
-                   Background="{StaticResource PrimaryBackgroundColor}"
-                   FontSize="14" materialDesign:HintAssist.Hint="Ingrese Folder DTE" 
-                   BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
-                   Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                   materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-                   />
+                        <materialDesign:PackIcon Kind="Folder" Grid.Row="4" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <Grid Grid.Row="4" Grid.Column="1" Margin="5,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80*"/>
+                                <ColumnDefinition Width="15*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="txtDTEFolder" Grid.Column="0" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Folder DTE" MaxLength="250"/>
+                            <Button x:Name="btnFolder" Grid.Column="1" Margin="5,0,0,0" Style="{StaticResource BrowseButtonStyle}" Click="BrowseCompanyFolder_Click">
+                                <materialDesign:PackIcon Kind="Folder" Width="20" Height="20"/>
+                            </Button>
+                        </Grid>
 
+                        <materialDesign:PackIcon Kind="Database" Grid.Row="5" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtDBSae" Grid.Row="5" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="BD SAE" MaxLength="50"/>
 
+                        <materialDesign:PackIcon Kind="DatabaseTick" Grid.Row="6" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtSuffixTable" Grid.Row="6" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Sufijo BD SAE" MaxLength="2"/>
 
-                <TextBox 
-               Text="{Binding DBSae, ValidatesOnExceptions=True, 
-               UpdateSourceTrigger=PropertyChanged}"  
-               x:Name="txtDBSae"
-               HorizontalContentAlignment="Center"
-               MaxLength="50"
-               Grid.Column="1" Grid.Row="4"
-               Margin="9,11,5,9"
-               Background="{StaticResource PrimaryBackgroundColor}"
-               FontSize="14" materialDesign:HintAssist.Hint="Base de datos SAE" materialDesign:TextFieldAssist.LeadingIcon="AboutCircle"
-               BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
-               materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-               Style="{StaticResource MaterialDesignOutlinedTextBox}" Grid.ColumnSpan="3" />
+                        <Button x:Name="btnAceptar" Grid.Row="7" Grid.Column="1" Margin="5,10" Style="{StaticResource SaveButtonStyle}" Content="Guardar" Width="250" Click="btnAceptar_Click"/>
+                    </Grid>
+                </ScrollViewer>
 
+                <!-- Tabla -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <TextBox 
-                    Text="{Binding SuffixTable, ValidatesOnExceptions=True, 
-                    UpdateSourceTrigger=PropertyChanged}"
-                    HorizontalContentAlignment="Center"
-                    Grid.Column="4" Grid.Row="4"
-                    MaxLength="2"
-                    Margin="9,12,40,8"
-                    x:Name="txtSuffixTable" 
-                    Background="{StaticResource PrimaryBackgroundColor}"
-                    FontSize="14" materialDesign:HintAssist.Hint="Sufijo de Tabla" 
-                    BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}"
-                    materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" Grid.ColumnSpan="3" 
-                   />
+                    <Button x:Name="btnNew" Grid.Row="0" Content="Nuevo" Style="{StaticResource NewButtonStyle}" HorizontalAlignment="Left" Margin="5,10" Width="150" Click="btnNew_Click"/>
 
-                <materialDesign:PackIcon Kind="Company"  Margin="25,26,21,24" 
-                                    Width="Auto" Height="30"
-                                    VerticalAlignment="Stretch"
-                                    HorizontalAlignment="Stretch"
-                                    Grid.Column="0" Grid.Row="2"
-                                    Foreground="{DynamicResource PrimaryTextColor}"/>
-
-                <Button Margin="10,10,40,7" 
-                   x:Name="btnAceptar" 
-                   Style="{StaticResource MaterialDesignFlatMidBgButton}" 
-                   materialDesign:ShadowAssist.ShadowDepth="Depth0"
-                   Grid.Column="5" Grid.Row="5"
-                   Grid.ColumnSpan="2"
-                   materialDesign:ButtonAssist.CornerRadius="10" 
-                   FontSize="18" Click="btnAceptar_Click">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="ContentSave"  Margin="0 0 10 0" 
-                                    Width="25" Height="25"
-                                    Foreground="{DynamicResource PrimaryTextColor}"/>
-
-                            <TextBlock Text="Guardar"/>
-                        </StackPanel>
-
-                    </Button.Content>
-
-                </Button>
-                <materialDesign:PackIcon Kind="CardBulleted"  Margin="27,23,19,22" 
-                   Width="Auto" Height="30"
-                   VerticalAlignment="Stretch"
-                   HorizontalAlignment="Stretch"
-                   Grid.Column="0" Grid.Row="4"
-                   Foreground="{DynamicResource PrimaryTextColor}"/>
-
-                <DataGrid x:Name="grdCompany"
-                       Background="{DynamicResource PrimaryBackgroundColor}"
-                   Margin="10,5,40,10" Grid.Column="1" Grid.Row="6"
-                   CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="6" Height="140">
-                    <DataGrid.Columns >
-                        <DataGridTextColumn Header="Nit" Binding="{Binding Nit}"/>
-                        <DataGridTextColumn Header="Nombre" Binding="{Binding Name}"/>
-                        <DataGridTemplateColumn Header="Acción">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" ScrollViewer.CanContentScroll="True">
-                                        <Button  BorderBrush="White" ToolTip="Editar Registro" BorderThickness="1" Cursor="Arrow" Width="30" Padding="0" Height="25" Click="Button_Click">
-                                            <StackPanel Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="Edit" Height="18" Width="14"></materialDesign:PackIcon>
-                                            </StackPanel>
-                                        </Button>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <DataGrid x:Name="grdCompany" Grid.Row="1" Margin="5,10" Background="{DynamicResource PrimaryBackgroundColor}"
+                              CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nit" Binding="{Binding Nit}"/>
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding Name}"/>
+                            <DataGridTemplateColumn Header="Acción">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button ToolTip="Editar Registro" Width="30" Height="25" Padding="0" Click="Button_Click">
+                                                <materialDesign:PackIcon Kind="Edit" Height="18" Width="14"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </Grid>
-
-        </StackPanel>
-
+            <Grid x:Name="LoaderOverlay"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Background="#CC000000"
+                    Visibility="Collapsed"
+                    Panel.ZIndex="999">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Ellipse Style="{StaticResource CustomProgressRingStyle}" />
+                    <TextBlock Text="Cargando..." Foreground="White" FontSize="16" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Border>
 </Page>

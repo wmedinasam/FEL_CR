@@ -6,335 +6,157 @@
       xmlns:local="clr-namespace:FELRD.Views.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="550" d:DesignWidth="800"         
+      d:DesignHeight="768" d:DesignWidth="1024"
+      TextElement.Foreground="{DynamicResource PrimaryTextColor}"
       Title="Role">
+
     <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1.4*"/>
-            </Grid.ColumnDefinitions>
+        <Grid Margin="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.15*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Column="0" Grid.Row="0">
-                <materialDesign:PackIcon Kind="User"  Margin="10 5 0 0" Width="50" Height="50" Foreground="{DynamicResource PrimaryTextColor}"/>
-                <TextBlock Text="Roles del Sistema" Margin="70 20 0 0" FontSize="18" FontWeight="SemiBold" Foreground="White" />
+            <!-- Encabezado -->
+            <Grid Grid.Row="0">
+                <materialDesign:PackIcon Kind="User" Margin="20 10 0 0" Width="50" Height="50" Foreground="{DynamicResource PrimaryTextColor}"/>
+                <TextBlock Text="Roles" Margin="80 25 0 0" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryTextColor}" />
             </Grid>
-            <!--START DATA ENTRY ROLE-->
 
-            <Grid Grid.Column="0" Grid.Row="1">
+            <!-- Contenido principal -->
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.17*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="1.1*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2.2*"/>
-                    <!--ROW1-->
-                    <RowDefinition Height="2.2*"/>
-                    <!--ROW2-->
-                    <RowDefinition Height="2.2*"/>
-                    <!--ROW3-->
-                    <RowDefinition Height="2.2*"/>
-                    <!--ROW4-->
-                    <RowDefinition Height="1.9*"/>
-                    <!--ROW5-->
-                    <RowDefinition Height="1.9*"/>
-                    <!--ROW6-->
-                    <RowDefinition Height="1.9*"/>
-                    <!--ROW7-->
-                </Grid.RowDefinitions>
-                <materialDesign:PackIcon Kind="UserAdd"  Margin="5,0,0,20" 
-                                 Width="30" Height="30"
-                                 VerticalAlignment="Stretch"
-                                 HorizontalAlignment="Stretch"
-                                 Grid.Column="0" Grid.Row="0"
-                                 Foreground="{DynamicResource PrimaryTextColor}"/>
 
-                <TextBox 
-            Text="{Binding Name, ValidatesOnExceptions=True, 
-            UpdateSourceTrigger=PropertyChanged}"  
-            x:Name="txtRoleName" 
-            VerticalAlignment="Stretch"
-            MaxLength="25"
-            Height="55"
-            Margin="5.6,3,5,13.8"
-            Grid.Column="1" Grid.Row="0"
-            Background="{StaticResource PrimaryBackgroundColor}"
-            materialDesign:HintAssist.Background="{DynamicResource SecundaryBackgroundColor}"
-            FontSize="14" materialDesign:HintAssist.Hint="Ingrese Nombre del Rol" 
-            BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" Foreground="White"
-            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-            />
+                <!-- FORMULARIO con Scroll -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0">
+                    <StackPanel Margin="10" Orientation="Vertical">
+                        <!-- Nombre del Rol -->
+                        <Grid Margin="0 0 0 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.15*"/>
+                                <ColumnDefinition Width="0.85*"/>
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="UserAdd" Margin="15,30" Width="30" Height="30" Grid.Column="0" Foreground="{DynamicResource PrimaryIconColor}"/>
+                            <TextBox x:Name="txtRoleName" Grid.Column="1" Margin="5,10" Height="55" MaxLength="25" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Ingrese Nombre del Rol"/>
+                        </Grid>
 
+                        <!-- Estado -->
+                        <Grid Margin="0 0 0 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.15*"/>
+                                <ColumnDefinition Width="0.85*"/>
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="ToggleSwitch" Margin="15 10" Width="30" Height="30" Grid.Column="0" Foreground="{DynamicResource PrimaryIconColor}"/>
+                            <StackPanel Orientation="Horizontal" Margin="5,10" Grid.Column="1">
+                                <ToggleButton x:Name="btnStatus"/>
+                                <TextBlock Text="Estado" FontSize="14" Margin="5,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryTextColor}"/>
+                            </StackPanel>
+                        </Grid>
 
-                <StackPanel Orientation="Horizontal" 
-                    Grid.Row="1" 
-                    Grid.Column="1"
-                    Margin="0,10,0,0" 
-                    >
+                        <!-- Módulos de acceso -->
+                        <Grid Margin="0 0 0 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.15*"/>
+                                <ColumnDefinition Width="0.85*"/>
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="ViewModule" Margin="15 10" Width="30" Height="30" Grid.Column="0" Foreground="{DynamicResource PrimaryIconColor}"/>
+                            <TextBlock Grid.Column="1" Text="Modulos de Acceso:" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryTextColor}" Margin="5 10"/>
+                        </Grid>
 
-                    <StackPanel Orientation="Horizontal" 
-                     Margin="5 20 0 0"
-                    >
-                        <ToggleButton x:Name="btnCanMonitor" 
-                      TextBlock.FontSize="20"
-                      TextBlock.Foreground="{DynamicResource PrimaryTextColor}"
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Stretch"
-                      />
-                        <TextBlock HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="Monitorear" FontSize="12" 
-                   FontWeight="SemiBold"
-                   Margin="5 0 0 0" Foreground="White"
-                   />
+                        <Grid Margin="0 0 0 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.15*"/>
+                                <ColumnDefinition Width="0.85*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"/>
+                            <StackPanel Margin="5,5" Grid.Column="1">
+                                <CheckBox x:Name="btnCanMonitor" FontSize="14" Content="Modulo Monitor" IsChecked="True" Foreground="White"/>
+                                <CheckBox x:Name="btnCanAccessDocuments" FontSize="14" Content="Modulo Consulta Documentos" IsChecked="True" Foreground="White"/>
+                                <CheckBox x:Name="btnCanAccessCertifiers" FontSize="14" Content="Modulo Certificadores" IsChecked="True" Foreground="White"/>
+                                <CheckBox x:Name="btnCanCompany" FontSize="14" Content="Modulo Empresas" IsChecked="True" Foreground="White"/>
+                                <CheckBox x:Name="btnCanAccessRoles" FontSize="14" Content="Modulo Roles" IsChecked="True" Foreground="White"/>
+                                <CheckBox x:Name="btnCanUsers" FontSize="14" Content="Modulo Usuarios" IsChecked="True" Foreground="White"/>
+                                <CheckBox x:Name="btnCanLogs" FontSize="14" Content="Modulo Logs" IsChecked="True" Foreground="White"/>
+                                <CheckBox x:Name="btnCanSettings" FontSize="14" Content="Modulo Configuración" IsChecked="True" Foreground="White"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Acciones -->
+                        <Grid Margin="0 0 0 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.15*"/>
+                                <ColumnDefinition Width="0.85*"/>
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="CallToAction" Margin="15 10" Width="30" Height="30" Grid.Column="0" Foreground="{DynamicResource PrimaryIconColor}"/>
+                            <TextBlock Grid.Column="1" Text="Acciones:" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryTextColor}" Margin="5,10"/>
+
+                        </Grid>
+
+                        <Grid Margin="0 0 0 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.15*"/>
+                                <ColumnDefinition Width="0.85*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"/>
+                            <StackPanel Orientation="Horizontal" Margin="5,10" Grid.Column="1">
+                                <ToggleButton x:Name="btnCanAnull"/>
+                                <TextBlock Text="Anular" FontSize="14" FontWeight="SemiBold" Margin="5 0 0 0" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryTextColor}"/>
+
+                                <ToggleButton x:Name="btnCanSign" Margin="20 0 0 0"/>
+                                <TextBlock Text="Firmar" FontSize="14" FontWeight="SemiBold" Margin="5 0 0 0" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryTextColor}"/>
+                            </StackPanel>
+                        </Grid>
+                        <!-- Botón Guardar -->
+                        <Button x:Name="btnAceptar" Content="Guardar" Margin="5,30" Width="250" Style="{StaticResource SaveButtonStyle}" Click="btnAceptar_Click"/>
                     </StackPanel>
+                </ScrollViewer>
 
-                    <StackPanel Orientation="Horizontal" 
-                     Margin="10 20 0 0"
-                    >
-                        <ToggleButton x:Name="btnCanCompany" 
-                      TextBlock.FontSize="20"
-                      TextBlock.Foreground="{DynamicResource PrimaryTextColor}"
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Stretch"
-                      />
-                        <TextBlock HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="Empresa" FontSize="12" 
-                   FontWeight="SemiBold"
-                   Margin="5 0 0 0" Foreground="White"
-                   />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" 
-                     Margin="10 20 0 0"
-                    >
-                        <ToggleButton x:Name="btnCanUsers" 
-                      TextBlock.FontSize="20"
-                      TextBlock.Foreground="{DynamicResource PrimaryTextColor}"
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Stretch"
-                      />
-                        <TextBlock HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="Usuarios" FontSize="12" 
-                   FontWeight="SemiBold"
-                   Margin="5 0 0 0" Foreground="White"
-                   />
-                    </StackPanel>
-                </StackPanel>
+                <!-- DATAGRID -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal" 
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Margin="0,0,0,0"  
-                    >
+                    <Button x:Name="btnNew" Content="Nuevo" Margin="5,10" Width="150" Style="{StaticResource NewButtonStyle}" Click="btnNew_Click" Grid.Row="0" HorizontalAlignment="Left"/>
 
-                    <StackPanel Orientation="Horizontal" 
-                     Margin="5 0 0 0"
-                    >
-                        <ToggleButton x:Name="btnCanAnull" 
-                      TextBlock.FontSize="20"
-                      TextBlock.Foreground="{DynamicResource PrimaryTextColor}"
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Stretch"
-                      />
-                        <TextBlock HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="Anular" FontSize="12" 
-                   FontWeight="SemiBold"
-                   Margin="5 0 0 0" Foreground="White"
-                   />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" 
-                     Margin="35 0 0 0"
-                    >
-                        <ToggleButton x:Name="btnCanLogs" 
-                      TextBlock.FontSize="20"
-                      TextBlock.Foreground="{DynamicResource PrimaryTextColor}"
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Stretch"
-                      />
-                        <TextBlock HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="Logs" FontSize="12" 
-                   FontWeight="SemiBold"
-                   Margin="5 0 0 0" Foreground="White"
-                   />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" 
-                     Margin="30 0 0 0"
-                    >
-                        <ToggleButton x:Name="btnStatus" 
-                      TextBlock.FontSize="20"
-                      TextBlock.Foreground="{DynamicResource PrimaryTextColor}"
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Stretch"
-                      />
-                        <TextBlock HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="Estado" FontSize="12" 
-                   FontWeight="SemiBold"
-                   Margin="5 0 0 0" Foreground="White"
-                   />
-                    </StackPanel>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" 
-                     Margin="5,0,0,25"
-                        Grid.Row="3"
-                        Grid.Column="1"
-                    >
-                    <ToggleButton x:Name="btnCanSettings" 
-                      TextBlock.FontSize="20"
-                      TextBlock.Foreground="{DynamicResource PrimaryTextColor}"
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Stretch"
-                      />
-                    <TextBlock HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="Configuración" FontSize="12" 
-                   FontWeight="SemiBold"
-                   Margin="5 0 0 0" Foreground="White"
-                   />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" 
-                     Margin="130 0 0 25"
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    >
-                    <ToggleButton x:Name="btnCanSign" 
-                      TextBlock.FontSize="20"
-                      TextBlock.Foreground="{DynamicResource PrimaryTextColor}"
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Stretch"
-                      />
-                    <TextBlock HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="Firmar" FontSize="12" 
-                   FontWeight="SemiBold"
-                   Margin="5 0 0 0" Foreground="White"
-                   />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" 
-                     Margin="208,0,0,25"
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    >
-                    <ToggleButton x:Name="btnCanAccessRoles" 
-                      TextBlock.FontSize="20"
-                      TextBlock.Foreground="{DynamicResource PrimaryTextColor}"
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Stretch"
-                      />
-                    <TextBlock HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="Roles" FontSize="12" 
-                   FontWeight="SemiBold"
-                   Margin="5 0 0 0" Foreground="White"
-                   />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" 
-                     Margin="5,0,0,15"
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    >
-                    <ToggleButton x:Name="btnCanAccessCertifiers" 
-                      TextBlock.FontSize="20"
-                      TextBlock.Foreground="{DynamicResource PrimaryTextColor}"
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Stretch"
-                      />
-                    <TextBlock HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="Certificadores" FontSize="12" 
-                   FontWeight="SemiBold"
-                   Margin="5 0 0 0" Foreground="White"
-                   />
-                </StackPanel>
-
-                <Button Margin="0 0 5 25"
-                HorizontalAlignment="Right"
-                x:Name="btnAceptar"
-                Padding="0"
-                Style="{StaticResource MaterialDesignFlatMidBgButton}" 
-                materialDesign:ShadowAssist.ShadowDepth="Depth0" 
-                Height="40" 
-                Width="100"
-                VerticalAlignment="Stretch"
-                Grid.Column="1" Grid.Row="7"
-                materialDesign:ButtonAssist.CornerRadius="10" 
-                FontSize="14" Click="btnAceptar_Click" >
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="ContentSave"
-                                 Width="20" Height="20"
-                                 Foreground="{DynamicResource PrimaryTextColor}"/>
-
-                            <TextBlock Text="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </StackPanel>
-
-                    </Button.Content>
-
-                </Button>
-
+                    <DataGrid x:Name="grdRole" Grid.Row="1" Margin="5,10"
+                              Background="{DynamicResource PrimaryBackgroundColor}"
+                              CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Rol" Binding="{Binding Name}"/>
+                            <DataGridCheckBoxColumn Header="Estatus" Binding="{Binding State}"/>
+                            <DataGridTemplateColumn Header="Acción">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button ToolTip="Editar Registro" Width="30" Height="25" Padding="0" Click="Button_Click">
+                                                <materialDesign:PackIcon Kind="Edit" Height="18" Width="14"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </Grid>
-
-            <!--END DATA ENTRY USER-->
-            <!--START DATAGRID USERS-->
-
-            <Grid Grid.Column="1" Grid.Row="1">
-                <DataGrid x:Name="grdRole"
-                  Background="{DynamicResource PrimaryBackgroundColor}"
-              Margin="10,5,10,10"
-              CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
-                    <DataGrid.Columns >
-                        <DataGridTextColumn Header="Rol" Binding="{Binding Name}"/>
-                        <DataGridCheckBoxColumn Header="Estatus"  Binding="{Binding State}"/>
-                        <DataGridTemplateColumn Header="Acción">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button  BorderBrush="White" ToolTip="Editar Registro" BorderThickness="1" Cursor="Arrow" Width="30" Padding="0" Height="25" Click="Button_Click" >
-                                            <StackPanel Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="Edit" Height="18" Width="14"></materialDesign:PackIcon>
-                                            </StackPanel>
-                                        </Button>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+            <Grid x:Name="LoaderOverlay"
+                  Grid.Row="0"
+                  Grid.RowSpan="2"
+                  Background="#CC000000"
+                  Visibility="Collapsed"
+                  Panel.ZIndex="999">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Ellipse Style="{StaticResource CustomProgressRingStyle}" />
+                    <TextBlock Text="Cargando..." Foreground="White" FontSize="16" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+                </StackPanel>
             </Grid>
-            <Button x:Name="btnNew" 
-            Grid.Column="1" 
-            HorizontalAlignment="Left" 
-            Margin="11,33,0,0" 
-            Padding="0"
-            VerticalAlignment="Top" Width="100" 
-            Click="btnNew_Click">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="UserAdd"  Margin="0 0 5 0" 
-                                 Width="25" Height="25"
-                                 Foreground="{DynamicResource PrimaryTextColor}"/>
-
-                        <TextBlock Text="Nuevo" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </StackPanel>
-
-                </Button.Content>
-            </Button>
-
-            <!--END DATA GRID USERS-->
-
         </Grid>
     </Border>
 </Page>
