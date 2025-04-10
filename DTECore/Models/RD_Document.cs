@@ -1209,72 +1209,84 @@ namespace DTECore
         private decimal? totalITBISRetenidoField;
         private decimal? totalISRRetencionField;
 
-        public decimal? MontoGravadoTotal
-        {
-            get { return this.montoGravadoTotalField; }
-            set { this.montoGravadoTotalField = value; }
-        }
-
-        public decimal? MontoGravadoI1
-        {
-            get { return this.montoGravadoI1Field; }
-            set { this.montoGravadoI1Field = value; }
-        }
-
-        public decimal? MontoGravadoI3
-        {
-            get { return this.montoGravadoI3Field; }
-            set { this.montoGravadoI3Field = value; }
-        }
-
+        [XmlElement(IsNullable = true)]
         public decimal? MontoExento
         {
             get { return this.montoExentoField; }
             set { this.montoExentoField = value; }
         }
 
-        public decimal? ITBIS1
-        {
-            get { return this.iTBIS1Field; }
-            set { this.iTBIS1Field = value; }
-        }
-
-        public decimal? ITBIS3
-        {
-            get { return this.iTBIS3Field; }
-            set { this.iTBIS3Field = value; }
-        }
-
-        public decimal? TotalITBIS
-        {
-            get { return this.totalITBISField; }
-            set { this.totalITBISField = value; }
-        }
-
-        public decimal? TotalITBIS1
-        {
-            get { return this.totalITBIS1Field; }
-            set { this.totalITBIS1Field = value; }
-        }
-
-        public decimal? TotalITBIS3
-        {
-            get { return this.totalITBIS3Field; }
-            set { this.totalITBIS3Field = value; }
-        }
-
+        [XmlElement(IsNullable = true)]
         public decimal? MontoTotal
         {
             get { return this.montoTotalField; }
             set { this.montoTotalField = value; }
         }
 
+        [XmlElement(IsNullable = true)]
+        public decimal? MontoGravadoTotal
+        {
+            get { return this.montoGravadoTotalField; }
+            set { this.montoGravadoTotalField = value; }
+        }
+
+        [XmlElement(IsNullable = true)]
+        public decimal? MontoGravadoI1
+        {
+            get { return this.montoGravadoI1Field; }
+            set { this.montoGravadoI1Field = value; }
+        }
+
+        [XmlElement(IsNullable = true)]
+        public decimal? MontoGravadoI3
+        {
+            get { return this.montoGravadoI3Field; }
+            set { this.montoGravadoI3Field = value; }
+        }
+        
+        [XmlElement(IsNullable = true)]
+        public decimal? ITBIS1
+        {
+            get { return this.iTBIS1Field; }
+            set { this.iTBIS1Field = value; }
+        }
+
+        [XmlElement(IsNullable = true)]
+        public decimal? ITBIS3
+        {
+            get { return this.iTBIS3Field; }
+            set { this.iTBIS3Field = value; }
+        }
+
+        [XmlElement(IsNullable = true)]
+        public decimal? TotalITBIS
+        {
+            get { return this.totalITBISField; }
+            set { this.totalITBISField = value; }
+        }
+
+        [XmlElement(IsNullable = true)]
+        public decimal? TotalITBIS1
+        {
+            get { return this.totalITBIS1Field; }
+            set { this.totalITBIS1Field = value; }
+        }
+
+        [XmlElement(IsNullable = true)]
+        public decimal? TotalITBIS3
+        {
+            get { return this.totalITBIS3Field; }
+            set { this.totalITBIS3Field = value; }
+        }
+        
+        [XmlElement(IsNullable = true)]
         public decimal? TotalITBISRetenido
         {
             get { return this.totalITBISRetenidoField; }
             set { this.totalITBISRetenidoField = value; }
         }
 
+        [XmlElement(IsNullable = true)]
         public decimal? TotalISRRetencion
         {
             get { return this.totalISRRetencionField; }
