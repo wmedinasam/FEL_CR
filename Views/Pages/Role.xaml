@@ -74,6 +74,7 @@
                             <TextBlock Grid.Column="0"/>
                             <StackPanel Margin="5,5" Grid.Column="1">
                                 <CheckBox x:Name="btnCanMonitor" FontSize="14" Content="Modulo Monitor" IsChecked="True" Foreground="White"/>
+                                <CheckBox x:Name="btnCanAccessDocuments" FontSize="14" Content="Modulo Consulta Documentos" IsChecked="True" Foreground="White"/>
                                 <CheckBox x:Name="btnCanAccessCertifiers" FontSize="14" Content="Modulo Certificadores" IsChecked="True" Foreground="White"/>
                                 <CheckBox x:Name="btnCanCompany" FontSize="14" Content="Modulo Empresas" IsChecked="True" Foreground="White"/>
                                 <CheckBox x:Name="btnCanAccessRoles" FontSize="14" Content="Modulo Roles" IsChecked="True" Foreground="White"/>

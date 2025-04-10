@@ -143,6 +143,7 @@
     <Compile Include="Services\CertificadorService.cs" />
     <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\DashboardService.cs" />
+    <Compile Include="Services\DocumentService.cs" />
     <Compile Include="Services\IDefaultService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\SaeFelService.cs" />
@@ -166,6 +167,9 @@
     </Compile>
     <Compile Include="Views\Pages\Company.xaml.cs">
       <DependentUpon>Company.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Documents.xaml.cs">
+      <DependentUpon>Documents.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\FilePDF.xaml.cs">
       <DependentUpon>FilePDF.xaml</DependentUpon>
@@ -216,6 +220,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Company.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Documents.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

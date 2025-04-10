@@ -66,6 +66,9 @@
                         <Button x:Name="btnMonitoring" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnMonitoring_MouseEnter" MouseLeave="btnMonitoring_MouseLeave" Click="btnMonitoring_Click">
                             <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource monitoring}" IconWidth="16" Text="Monitor" VerticalAlignment="Center"/>
                         </Button>
+                        <Button x:Name="btnDocuments" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnDocuments_MouseEnter" MouseLeave="btnDocuments_MouseLeave" Click="btnDocuments_Click">
+                            <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource consult-documents}" IconWidth="16" Text="Monitor" VerticalAlignment="Center"/>
+                        </Button>
                         <Button x:Name="btnCertifier" Style="{DynamicResource PopupButtonStyle}" MouseEnter="btnCertifier_MouseEnter" MouseLeave="btnCertifier_MouseLeave" Click="btnCertifier_Click">
                             <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource certificate}" IconWidth="16" Text="Certificadores" VerticalAlignment="Center"/>
                         </Button>

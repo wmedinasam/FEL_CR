@@ -194,6 +194,46 @@ SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
         </Style.Triggers>
     </Style>
 
+    <!-- Button Search -->
+    <Style x:Key="SearchButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="MediumSeaGreen"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                        <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Magnify"
+                                                 Width="25"
+                                                 Height="25"
+                                                 Margin="0 0 5 0"
+                                                 Foreground="{TemplateBinding Foreground}" />
+                            <TextBlock Text="Buscar"
+                                   VerticalAlignment="Center"
+                                   Foreground="{TemplateBinding Foreground}" />
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="SeaGreen"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
     <!-- TEXT BOX PAGES -->
     <Style x:Key="CleanOutlinedTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
         <Setter Property="FontSize" Value="14"/>

@@ -101,7 +101,9 @@ namespace FELRD.Views
         private void GrantAccess(UserModel userModel)
         {
             btnMonitoring.Visibility = userModel.role.CanAccessMonitor ? Visibility.Visible : Visibility.Hidden;
+            btnDocuments.Visibility = userModel.role.CanAccessDocuments ? Visibility.Visible : Visibility.Hidden;
             btnCompany.Visibility = userModel.role.CanAccessCompanies ? Visibility.Visible : Visibility.Hidden;
+            btnSubsidiary.Visibility = userModel.role.CanAccessCompanies ? Visibility.Visible : Visibility.Hidden;
             btnUsers.Visibility = userModel.role.CanAccessUsers ? Visibility.Visible : Visibility.Hidden;
             btnLogs.Visibility = userModel.role.CanAccessLogs ? Visibility.Visible : Visibility.Hidden;
             btnSetting.Visibility = userModel.role.CanAccessConfigurations ? Visibility.Visible : Visibility.Hidden;
@@ -410,6 +412,30 @@ namespace FELRD.Views
                 }
 
             }
+        }
+
+        private void btnDocuments_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (Tg_Btn.IsChecked == false)
+            {
+                Popup.PlacementTarget = btnDocuments;
+                Popup.Placement = PlacementMode.Right;
+                Popup.IsOpen = true;
+                Header.PopupText.Text = "Documentos";
+            }
+        }
+
+        private void btnDocuments_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Popup.Visibility = Visibility.Collapsed;
+            Popup.IsOpen = false;
+        }
+
+        private void btnDocuments_Click(object sender, RoutedEventArgs e)
+        {
+            fContainerHome.Visibility = Visibility.Hidden;
+            fContainerMonitor.Visibility = Visibility.Hidden;
+            fContainer.Navigate(new System.Uri("../Views/Pages/Documents.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

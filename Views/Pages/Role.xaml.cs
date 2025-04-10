@@ -87,6 +87,7 @@ namespace FELRD.Views.Pages
             btnCanSign.IsEnabled = true;
             btnCanAccessRoles.IsEnabled = true;
             btnCanAccessCertifiers.IsEnabled = true;
+            btnCanAccessDocuments.IsEnabled = true;
         }
 
         private void DisableControls()
@@ -103,6 +104,7 @@ namespace FELRD.Views.Pages
             btnCanSign.IsEnabled = false;
             btnCanAccessRoles.IsEnabled = false;
             btnCanAccessCertifiers.IsEnabled = false;
+            btnCanAccessDocuments.IsEnabled = false;
         }
 
         private void New()
@@ -119,6 +121,7 @@ namespace FELRD.Views.Pages
             btnCanSign.IsChecked = false;
             btnCanAccessRoles.IsChecked = false;
             btnCanAccessCertifiers.IsChecked = false;
+            btnCanAccessDocuments.IsChecked = false;
         }
 
         private void btnAceptar_Click(object sender, RoutedEventArgs e)
@@ -142,7 +145,7 @@ namespace FELRD.Views.Pages
             model.CanCancel = btnCanAnull.IsChecked.Value;
             model.CanAccessCompanies = btnCanCompany.IsChecked.Value;
             model.CanAccessUsers = btnCanUsers.IsChecked.Value;
-            model.CanAccessDocuments = btnCanAnull.IsChecked.Value;
+            model.CanAccessDocuments = btnCanAccessDocuments.IsChecked.Value;
             model.CanAccessLogs = btnCanLogs.IsChecked.Value;
             model.CanAccessConfigurations = btnCanSettings.IsChecked.Value;
             model.CanSign = btnCanSign.IsChecked.Value;
@@ -176,6 +179,7 @@ namespace FELRD.Views.Pages
                 btnCanSign.IsChecked = false;
                 btnCanAccessRoles.IsChecked = false;
                 btnCanAccessCertifiers.IsChecked = false;
+                btnCanAccessDocuments.IsChecked = false;
                 DisableControls();
             }
             else
@@ -208,6 +212,7 @@ namespace FELRD.Views.Pages
             btnCanSign.IsChecked = model.CanSign;
             btnCanAccessRoles.IsChecked = model.CanAccessRoles;
             btnCanAccessCertifiers.IsChecked = model.CanAccessCertifiers;
+            btnCanAccessDocuments.IsChecked = model.CanAccessDocuments;
             EnableControls();
         }
 
