@@ -123,7 +123,11 @@
     <Compile Include="Functions\SubsidiaryModel.cs" />
     <Compile Include="Functions\TransactionModel.cs" />
     <Compile Include="Functions\UserModel.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\EnumItem.cs" />
     <Compile Include="Helpers\HandleLogs.cs" />
+    <Compile Include="Helpers\InverseBooleanToVisvilityConverter.cs" />
+    <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Models\CertificadorModel.cs" />
     <Compile Include="Models\CompanyModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
@@ -139,6 +143,7 @@
     <Compile Include="Services\CertificadorService.cs" />
     <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\DashboardService.cs" />
+    <Compile Include="Services\DocumentService.cs" />
     <Compile Include="Services\IDefaultService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\SaeFelService.cs" />
@@ -162,6 +167,9 @@
     </Compile>
     <Compile Include="Views\Pages\Company.xaml.cs">
       <DependentUpon>Company.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Documents.xaml.cs">
+      <DependentUpon>Documents.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\FilePDF.xaml.cs">
       <DependentUpon>FilePDF.xaml</DependentUpon>
@@ -212,6 +220,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Company.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Documents.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -312,6 +324,7 @@
     <Resource Include="Assets\user.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\rep-dom-flag.png" />
     <Content Include="Script Master\SM1-2025-04-5 - Create Tables.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

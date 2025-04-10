@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using WIS_Security.DAO;
 using WIS_Security;
 using Newtonsoft.Json;
+using FELRD.Helpers;
 
 namespace FELRD.Views.Pages
 {
@@ -76,48 +77,54 @@ namespace FELRD.Views.Pages
 
         private void btnSaveConfig_Click(object sender, RoutedEventArgs e)
         {
-            bool hasError = false;
-            hasError |= FieldsValidation(txtSQLUsername);
-            hasError |= FieldsValidation(txtSQLPassword);
-            hasError |= FieldsValidation(txtMasterPassword);
-            hasError |= FieldsValidation(txtSystemKey);
 
-            if (!hasError)
+            var fieldsToValidate = new List<Control>
             {
+                txtSQLUsername,
+                txtSQLPassword,
+                txtMasterPassword,
+                txtSystemKey
+            };
 
-                ConfigurationModel configModel = new ConfigurationModel();
-                configModel.User = txtSQLUsername.Text;
-                configModel.Password = txtSQLPassword.Password;
-                configModel.SyncTime = sliderValue;
-                configModel.MasterPassword = txtMasterPassword.Password;
-                string llave = txtSystemKey.Text.DesencriptarDatos();
-                configModel.Key = JsonConvert.DeserializeObject<KeyModel>(llave);
+            if (ValidationHelper.HasValidationErrors(fieldsToValidate))
+            {
+                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-                if (configModel.Key.Sistema == "FELRD")
+            ConfigurationModel configModel = new ConfigurationModel();
+            configModel.User = txtSQLUsername.Text;
+            configModel.Password = txtSQLPassword.Password;
+            configModel.SyncTime = sliderValue;
+            configModel.MasterPassword = txtMasterPassword.Password;
+            string llave = txtSystemKey.Text.DesencriptarDatos();
+            configModel.Key = JsonConvert.DeserializeObject<KeyModel>(llave);
+
+            if (configModel.Key.Sistema == "FELRD")
+            {
+                var response = DaoConnection.TestConnection(configModel.User, configModel.Password, configModel.Key.Instancia);
+                if (response.Success)
                 {
-                    var response = DaoConnection.TestConnection(configModel.User, configModel.Password, configModel.Key.Instancia);
-                    if (response.Success)
+                    var responseSave = configModel.SaveConfiguration(configModel);
+                    if (responseSave.Success)
                     {
-                        var responseSave = configModel.SaveConfiguration(configModel);
-                        if (responseSave.Success)
-                        {
-                            MessageBox.Show("Configuraciones Guardadas Correctamente\nCierre el programa y Vuelvalo a abrir para ver el cambio", "CONFIGURACIONES", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show(responseSave.Message, "ERROR DE SISTEMA", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
+                        MessageBox.Show("Configuraciones Guardadas Correctamente\nCierre el programa y Vuelvalo a abrir para ver el cambio", "CONFIGURACIONES", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        MessageBox.Show(response.Message, "Error de usuario", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(responseSave.Message, "ERROR DE SISTEMA", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Llave no corresponde al sistema", "Error de usuario", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(response.Message, "Error de usuario", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+            else
+            {
+                MessageBox.Show("Llave no corresponde al sistema", "Error de usuario", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
 
 
 
@@ -125,6 +132,18 @@ namespace FELRD.Views.Pages
 
         private void btnSaveApi_Click(object sender, RoutedEventArgs e)
         {
+            var fieldsToValidate = new List<Control>
+            {
+                txtSystemKey,
+                txtValue
+            };
+
+            if (ValidationHelper.HasValidationErrors(fieldsToValidate))
+            {
+                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             SettingModel settingModel = new SettingModel();
             settingModel.Id = _id;
             settingModel.Key = txtKey.Text;

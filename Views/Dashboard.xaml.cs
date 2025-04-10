@@ -34,7 +34,7 @@ namespace FELRD.Views
         {
             _userModel = userModel;
             InitializeComponent();
-
+            AjustarResolucion();
             // Notification Toast
             notificationIcon = new NotifyIcon();
             notificationIcon.BalloonTipText = "El monitor FEL se encuentra en ejecución.";
@@ -43,9 +43,8 @@ namespace FELRD.Views
             notificationIcon.Icon = new System.Drawing.Icon("667370_contract_document_paper_pen_sign_icon.ico"); // recurso incrustado en la app formato .ico
             notificationIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             notificationIcon.Click += new EventHandler(notificationIcon_click);
-
-
-
+            //this.Width = SystemParameters.WorkArea.Width * 0.8;
+            //this.Height = SystemParameters.WorkArea.Height * 0.8;
 
             GrantAccess(userModel);
             if (isFirstTime)
@@ -75,6 +74,24 @@ namespace FELRD.Views
             }
         }
 
+        private void AjustarResolucion()
+        {
+            // Obtener el ancho y alto de la pantalla primaria
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+
+            // Definir proporción deseada de ocupación (por ejemplo, 80%)
+            double porcentaje = 0.75;
+
+            // Aplicar proporción a la ventana
+            this.Width = screenWidth * porcentaje;
+            this.Height = screenHeight * porcentaje;
+
+            // Centrar la ventana en la pantalla
+            this.Left = (screenWidth - this.Width) / 2;
+            this.Top = (screenHeight - this.Height) / 2;
+        }
+
         private void notificationIcon_click(object sender, EventArgs e)
         {
             this.Show();
@@ -84,8 +101,10 @@ namespace FELRD.Views
         private void GrantAccess(UserModel userModel)
         {
             btnMonitoring.Visibility = userModel.role.CanAccessMonitor ? Visibility.Visible : Visibility.Hidden;
+            btnDocuments.Visibility = userModel.role.CanAccessDocuments ? Visibility.Visible : Visibility.Hidden;
             btnCompany.Visibility = userModel.role.CanAccessCompanies ? Visibility.Visible : Visibility.Hidden;
-            btnUsers.Visibility = userModel.role.CanAccessUsers ? Visibility.Visible : Visibility.Hidden;            
+            btnSubsidiary.Visibility = userModel.role.CanAccessCompanies ? Visibility.Visible : Visibility.Hidden;
+            btnUsers.Visibility = userModel.role.CanAccessUsers ? Visibility.Visible : Visibility.Hidden;
             btnLogs.Visibility = userModel.role.CanAccessLogs ? Visibility.Visible : Visibility.Hidden;
             btnSetting.Visibility = userModel.role.CanAccessConfigurations ? Visibility.Visible : Visibility.Hidden;
             btnRole.Visibility = userModel.role.CanAccessRoles ? Visibility.Visible : Visibility.Hidden;
@@ -393,6 +412,30 @@ namespace FELRD.Views
                 }
 
             }
+        }
+
+        private void btnDocuments_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (Tg_Btn.IsChecked == false)
+            {
+                Popup.PlacementTarget = btnDocuments;
+                Popup.Placement = PlacementMode.Right;
+                Popup.IsOpen = true;
+                Header.PopupText.Text = "Documentos";
+            }
+        }
+
+        private void btnDocuments_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Popup.Visibility = Visibility.Collapsed;
+            Popup.IsOpen = false;
+        }
+
+        private void btnDocuments_Click(object sender, RoutedEventArgs e)
+        {
+            fContainerHome.Visibility = Visibility.Hidden;
+            fContainerMonitor.Visibility = Visibility.Hidden;
+            fContainer.Navigate(new System.Uri("../Views/Pages/Documents.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

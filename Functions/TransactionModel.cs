@@ -88,6 +88,8 @@ namespace FELRD.Models
             return res;
         }
 
+
+
         public ResponseModel<TransactionModel> GetById(int Id)
         {
             ResponseModel<TransactionModel> res = new ResponseModel<TransactionModel>();
@@ -167,6 +169,92 @@ namespace FELRD.Models
                 res.Success = false;
                 res.Message = ex.Message;
             }
+            return res;
+        }
+
+        public ResponseModel<List<TransactionModel>> GetDocumentsByNumber(int documentNumber)
+        {
+            ResponseModel<List<TransactionModel>> res = new ResponseModel<List<TransactionModel>>();
+            List<TransactionModel> lst = new List<TransactionModel>();
+            DocumentService documentService = new DocumentService();
+            CompanyModel company = new CompanyModel();
+            SubsidiaryModel subsidiary = new SubsidiaryModel();
+            bool success = true;
+            string message = string.Empty;
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = documentService.GetDocumentsByNumber(documentNumber).Tables[0];
+                lst = dt.AsEnumerable().Select(fila => new TransactionModel
+                {
+                    Id = Convert.ToInt32(fila["Id"]),
+                    Company = company.Get(Convert.ToInt32(fila["CompanyId"])).Object,
+                    Subsidiary = subsidiary.Get(Convert.ToInt32(fila["SubsidiaryId"])).Object,
+                    Status = fila["Status"].ToString(),
+                    Result = fila["Result"].ToString(),
+                    SAEDocumentId = fila["SAEDocumentId"].ToString(),
+                    SAENumber = fila["SAESerial"].ToString(),
+                    SAESerial = fila["SAESerial"].ToString(),
+                    SendDate = Convert.ToDateTime(fila["SendDate"]),
+                    DocumentType = fila["DocumentType"].ToString(),
+                    UUID = fila["UUID"].ToString(),
+                    AnnulmentUUID = fila["AnnulmentUUID"].ToString(),
+                    ControlNumber = fila["ControlNumber"].ToString(),
+                    Sign = fila["Sign"].ToString(),
+                    ReceivedStamp = fila["ReceivedStamp"].ToString(),
+                }).ToList<TransactionModel>();
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                message = ex.Message;
+            }
+            res.Message = message;
+            res.Success = success;
+            res.Object = lst;
+            return res;
+        }
+
+        public ResponseModel<List<TransactionModel>> GetDocumentsByDates(string dateInit, string dateEnd)
+        {
+            ResponseModel<List<TransactionModel>> res = new ResponseModel<List<TransactionModel>>();
+            List<TransactionModel> lst = new List<TransactionModel>();
+            DocumentService documentService = new DocumentService();
+            CompanyModel company = new CompanyModel();
+            SubsidiaryModel subsidiary = new SubsidiaryModel();
+            bool success = true;
+            string message = string.Empty;
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = documentService.GetDocumentsByDates(dateInit, dateEnd).Tables[0];
+                lst = dt.AsEnumerable().Select(fila => new TransactionModel
+                {
+                    Id = Convert.ToInt32(fila["Id"]),
+                    Company = company.Get(Convert.ToInt32(fila["CompanyId"])).Object,
+                    Subsidiary = subsidiary.Get(Convert.ToInt32(fila["SubsidiaryId"])).Object,
+                    Status = fila["Status"].ToString(),
+                    Result = fila["Result"].ToString(),
+                    SAEDocumentId = fila["SAEDocumentId"].ToString(),
+                    SAENumber = fila["SAESerial"].ToString(),
+                    SAESerial = fila["SAESerial"].ToString(),
+                    SendDate = Convert.ToDateTime(fila["SendDate"]),
+                    DocumentType = fila["DocumentType"].ToString(),
+                    UUID = fila["UUID"].ToString(),
+                    AnnulmentUUID = fila["AnnulmentUUID"].ToString(),
+                    ControlNumber = fila["ControlNumber"].ToString(),
+                    Sign = fila["Sign"].ToString(),
+                    ReceivedStamp = fila["ReceivedStamp"].ToString(),
+                }).ToList<TransactionModel>();
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                message = ex.Message;
+            }
+            res.Message = message;
+            res.Success = success;
+            res.Object = lst;
             return res;
         }
     }

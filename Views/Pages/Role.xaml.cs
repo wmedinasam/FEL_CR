@@ -3,6 +3,12 @@ using System.Windows;
 using System.Windows.Controls;
 using static FELRD.Models.Helpers;
 using WIS_Security;
+using FELRD.Helpers;
+using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace FELRD.Views.Pages
 {
@@ -12,26 +18,59 @@ namespace FELRD.Views.Pages
     public partial class Role : Page
     {
         private int _id = 0;
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Role()
         {
             InitializeComponent();
-            GetRoles();
+            Loaded += User_Loaded;
+        }
+
+        private async void User_Loaded(object sender, RoutedEventArgs e)
+        {
+            DisableControls();
+            await GetRolesAsync();
+
         }
 
 
-        private void GetRoles()
+
+
+        private async Task GetRolesAsync()
         {
-            RoleModel roleModel = new RoleModel();
-            var response = roleModel.Get();
-            if (response.Success)
+            LoaderOverlay.Visibility = Visibility.Visible;
+            await Task.Delay(200); // pequeño respiro visual
+
+            await Task.Run(() =>
             {
-                grdRole.ItemsSource = response.Object;
-            }
-            else
-            {
-                MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                RoleModel roleModel = new RoleModel();
+                var response = roleModel.Get();
+                Dispatcher.Invoke(() =>
+                {
+                    if (response.Success)
+                    {
+                        grdRole.ItemsSource = response.Object;
+                    }
+                    else
+                    {
+                        MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    LoaderOverlay.Visibility = Visibility.Collapsed;
+                });
+
+            });
+
+
         }
 
         private void EnableControls()
@@ -48,6 +87,7 @@ namespace FELRD.Views.Pages
             btnCanSign.IsEnabled = true;
             btnCanAccessRoles.IsEnabled = true;
             btnCanAccessCertifiers.IsEnabled = true;
+            btnCanAccessDocuments.IsEnabled = true;
         }
 
         private void DisableControls()
@@ -63,6 +103,8 @@ namespace FELRD.Views.Pages
             btnAceptar.IsEnabled = false;
             btnCanSign.IsEnabled = false;
             btnCanAccessRoles.IsEnabled = false;
+            btnCanAccessCertifiers.IsEnabled = false;
+            btnCanAccessDocuments.IsEnabled = false;
         }
 
         private void New()
@@ -78,10 +120,23 @@ namespace FELRD.Views.Pages
             btnCanSettings.IsChecked = false;
             btnCanSign.IsChecked = false;
             btnCanAccessRoles.IsChecked = false;
+            btnCanAccessCertifiers.IsChecked = false;
+            btnCanAccessDocuments.IsChecked = false;
         }
 
         private void btnAceptar_Click(object sender, RoutedEventArgs e)
         {
+
+            var fieldsToValidate = new List<Control>
+            {
+                txtRoleName
+            };
+
+            if (ValidationHelper.HasValidationErrors(fieldsToValidate))
+            {
+                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             RoleModel model = new RoleModel();
             model.Id = _id;
             model.Name = txtRoleName.Text;
@@ -90,7 +145,7 @@ namespace FELRD.Views.Pages
             model.CanCancel = btnCanAnull.IsChecked.Value;
             model.CanAccessCompanies = btnCanCompany.IsChecked.Value;
             model.CanAccessUsers = btnCanUsers.IsChecked.Value;
-            model.CanAccessDocuments = btnCanAnull.IsChecked.Value;
+            model.CanAccessDocuments = btnCanAccessDocuments.IsChecked.Value;
             model.CanAccessLogs = btnCanLogs.IsChecked.Value;
             model.CanAccessConfigurations = btnCanSettings.IsChecked.Value;
             model.CanSign = btnCanSign.IsChecked.Value;
@@ -110,7 +165,7 @@ namespace FELRD.Views.Pages
             if (response.Success)
             {
                 MessageBox.Show("Usuario guardado correctamente", "Sistema", MessageBoxButton.OK, MessageBoxImage.Information);
-                GetRoles();
+                _ = GetRolesAsync();
 
                 New();
                 txtRoleName.Text = string.Empty;
@@ -124,6 +179,7 @@ namespace FELRD.Views.Pages
                 btnCanSign.IsChecked = false;
                 btnCanAccessRoles.IsChecked = false;
                 btnCanAccessCertifiers.IsChecked = false;
+                btnCanAccessDocuments.IsChecked = false;
                 DisableControls();
             }
             else
@@ -156,7 +212,14 @@ namespace FELRD.Views.Pages
             btnCanSign.IsChecked = model.CanSign;
             btnCanAccessRoles.IsChecked = model.CanAccessRoles;
             btnCanAccessCertifiers.IsChecked = model.CanAccessCertifiers;
+            btnCanAccessDocuments.IsChecked = model.CanAccessDocuments;
             EnableControls();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }
