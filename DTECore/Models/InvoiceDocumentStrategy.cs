@@ -22,7 +22,7 @@ namespace DTECore
                 DataRow row = datos.Rows[0];
                 documento.Encabezado = new ECFEncabezado
                 {
-                    Version = Convert.ToDecimal(row["Version"].ToString()),
+                    Version = row["Version"].ToString(),
 
                     IdDoc = new ECFEncabezadoIdDoc
                     {
@@ -39,7 +39,10 @@ namespace DTECore
                         DireccionEmisor = row["DireccionEmisor"].ToString(),
                         Municipio = row["Municipio"].ToString(),
                         Provincia = row["Provincia"].ToString(),
-                        //tabla de telefonos emisor
+                        TablaTelefonoEmisor = new string[] 
+                        {
+                            row["TelefonoEmisor"].ToString(),                            
+                        },
                         CorreoEmisor = row["CorreoEmisor"].ToString(),
                         WebSite = row["WebSite"].ToString(),
                         CodigoVendedor = row["CodigoVendedor"].ToString(),
@@ -57,17 +60,17 @@ namespace DTECore
                         CorreoComprador = row["CorreoComprador"].ToString(),
                         DireccionComprador = row["DireccionComprador"].ToString(),
                         MunicipioComprador = row["MunicipioComprador"].ToString(),
-                        ProvinciaComprador = row["ProvinciaComprador"].ToString(),
+                        ProvinciaComprador = row["ProvinciaComprador"].ToString(),                        
                         FechaEntrega = row["FechaEntrega"].ToString(),
                         FechaOrdenCompra = row["FechaOrdenCompra"].ToString(),
                         NumeroOrdenCompra = row["NumeroOrdenCompra"].ToString(),
                         CodigoInternoComprador = row["CodigoInternoComprador"].ToString(),
                     },
-                   
+
                     Totales = new ECFEncabezadoTotales
                     {
                         MontoTotal = Convert.ToDecimal(row["MontoTotal"].ToString()),
-                        MontoExento = Convert.ToDecimal(row["MontoExento"].ToString()),                        
+                        MontoExento = Convert.ToDecimal(row["MontoExento"].ToString()),
                     }
                 };
 
@@ -76,14 +79,14 @@ namespace DTECore
                 {
                     ECFItem item = new ECFItem
                     {
-                       NumeroLinea = Convert.ToInt32(itemRow["NumeroLinea"].ToString()),
-                       IndicadorFacturacion = Convert.ToInt32(itemRow["IndicadorFacturacion"].ToString()),
-                       NombreItem = itemRow["NombreItem"].ToString(),
-                       IndicadorBienoServicio = Convert.ToInt32(itemRow["IndicadorBienoServicio"].ToString()),
-                       CantidadItem = Convert.ToDecimal(itemRow["CantidadItem"].ToString()),
-                       UnidadMedida = Convert.ToInt32(itemRow["UnidadMedida"].ToString()),
-                       PrecioUnitarioItem = Convert.ToDecimal(itemRow["PrecioUnitarioItem"].ToString()),
-                       MontoItem = Convert.ToDecimal(itemRow["MontoItem"].ToString()),
+                        NumeroLinea = Convert.ToInt32(itemRow["NumeroLinea"].ToString()),
+                        IndicadorFacturacion = Convert.ToInt32(itemRow["IndicadorFacturacion"].ToString()),
+                        NombreItem = itemRow["NombreItem"].ToString(),
+                        IndicadorBienoServicio = Convert.ToInt32(itemRow["IndicadorBienoServicio"].ToString()),
+                        CantidadItem = Convert.ToDecimal(itemRow["CantidadItem"].ToString()),
+                        UnidadMedida = Convert.ToInt32(itemRow["UnidadMedida"].ToString()),
+                        PrecioUnitarioItem = Convert.ToDecimal(itemRow["PrecioUnitarioItem"].ToString()),
+                        MontoItem = Convert.ToDecimal(itemRow["MontoItem"].ToString()),
                     };
                     items.Add(item);
                 }
@@ -96,28 +99,6 @@ namespace DTECore
 
             return response;
         }
-
-        public string SerializeDocument(ECF documento)
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(ECF));
-            XmlWriterSettings settings = new XmlWriterSettings
-            {
-                Encoding = new UTF8Encoding(false),
-                Indent = true,
-                OmitXmlDeclaration = false
-            };
-
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                using (StreamWriter streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                {
-                    using (XmlWriter xmlWriter = XmlWriter.Create(streamWriter, settings))
-                    {
-                        serializer.Serialize(xmlWriter, documento);
-                    }
-                }
-                return Encoding.UTF8.GetString(memoryStream.ToArray());
-            }
-        }
+        
     }
 }

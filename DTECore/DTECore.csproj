@@ -42,8 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Document.cs" />
+    <Compile Include="Models\Constructors.cs" />
+    <Compile Include="Models\ExportInvoiceDocumentStrategy.cs" />
+    <Compile Include="Models\FiscalCreditInvoiceDocumentStrategy.cs" />
     <Compile Include="Models\IDocumentStrategy.cs" />
     <Compile Include="Models\InvoiceDocumentStrategy.cs" />
+    <Compile Include="Models\Methods.cs" />
     <Compile Include="Models\RD_Document.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClass.cs" />

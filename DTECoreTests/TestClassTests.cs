@@ -11,11 +11,24 @@ namespace DTECore.Tests
     [TestClass()]
     public class TestClassTests
     {
+        TestClass testClass = new TestClass();
+
         [TestMethod()]
-        public void testTest()
+        public void testTestInvoice()
+        {            
+            testClass.testInvoice();
+        }
+
+        [TestMethod()]
+        public void testTestFiscalCreditInvoice()
         {
-            TestClass testClass = new TestClass();
-            testClass.test();
+            testClass.testFiscalCreditInvoice();
+        }
+
+        [TestMethod()]
+        public void testTesttestExportInvoice()
+        {
+            testClass.testExportInvoice();
         }
     }
 }

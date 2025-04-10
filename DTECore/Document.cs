@@ -23,11 +23,6 @@ namespace DTECore
         public ResponseModel<ECF> MakeDocument(DataTable datos)
         {
             return _documentStrategy.MakeDocument(datos);
-        }
-
-        public string SerializeDocument(ECF documento)
-        {
-            return _documentStrategy.SerializeDocument(documento);
-        }
+        }        
     }
 }
