@@ -5,7 +5,6 @@ namespace DTECore
 {
     public interface IDocumentStrategy
     {
-        ResponseModel<ECF> MakeDocument(DataTable datos);
-        string SerializeDocument(ECF documento);
+        ResponseModel<ECF> MakeDocument(DataTable datos);       
     }
 }

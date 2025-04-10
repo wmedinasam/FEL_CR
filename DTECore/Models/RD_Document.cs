@@ -1,1810 +1,1817 @@
-﻿// NOTA: El código generado puede requerir, como mínimo, .NET Framework 4.5 o .NET Core/Standard 2.0.
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-[System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-public partial class ECF
+﻿/// <remarks/>
+/// Este código fue generado por una herramienta. 
+/// Versión de runtime: 4.0.30319.42000
+/// 
+/// Los cambios en este archivo pueden causar un comportamiento incorrecto y se perderán si
+/// se vuelve a generar el código.
+// NOTA: El código generado puede requerir, como mínimo, .NET Framework 4.5 o .NET Core/Standard 2.0.
+namespace DTECore
 {
-
-    private ECFEncabezado encabezadoField;
-
-    private ECFItem[] detallesItemsField;
-
-    private ECFInformacionReferencia informacionReferenciaField;
-
-    /// <remarks/>
-    public ECFEncabezado Encabezado
-    {
-        get
-        {
-            return this.encabezadoField;
-        }
-        set
-        {
-            this.encabezadoField = value;
-        }
-    }
-
-    /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Item", IsNullable = false)]
-    public ECFItem[] DetallesItems
-    {
-        get
-        {
-            return this.detallesItemsField;
-        }
-        set
-        {
-            this.detallesItemsField = value;
-        }
-    }
-
-    /// <remarks/>
-    public ECFInformacionReferencia InformacionReferencia
-    {
-        get
-        {
-            return this.informacionReferenciaField;
-        }
-        set
-        {
-            this.informacionReferenciaField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFEncabezado
-{
-
-    private decimal versionField;
-
-    private ECFEncabezadoIdDoc idDocField;
-
-    private ECFEncabezadoEmisor emisorField;
-
-    private ECFEncabezadoComprador compradorField;
-
-    private ECFEncabezadoInformacionesAdicionales informacionesAdicionalesField;
-
-    private ECFEncabezadoTransporte transporteField;
-
-    private ECFEncabezadoTotales totalesField;
-
-    /// <remarks/>
-    public decimal Version
-    {
-        get
-        {
-            return this.versionField;
-        }
-        set
-        {
-            this.versionField = value;
-        }
-    }
-
-    /// <remarks/>
-    public ECFEncabezadoIdDoc IdDoc
-    {
-        get
-        {
-            return this.idDocField;
-        }
-        set
-        {
-            this.idDocField = value;
-        }
-    }
-
-    /// <remarks/>
-    public ECFEncabezadoEmisor Emisor
-    {
-        get
-        {
-            return this.emisorField;
-        }
-        set
-        {
-            this.emisorField = value;
-        }
-    }
-
-    /// <remarks/>
-    public ECFEncabezadoComprador Comprador
-    {
-        get
-        {
-            return this.compradorField;
-        }
-        set
-        {
-            this.compradorField = value;
-        }
-    }
-
-    /// <remarks/>
-    public ECFEncabezadoTransporte Transporte
-    {
-        get
-        {
-            return this.transporteField;
-        }
-        set
-        {
-            this.transporteField = value;
-        }
-    }
-
-
+    using System.Xml.Serialization;
+   
     /// <remarks/>
-    public ECFEncabezadoTotales Totales
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
+    public partial class ECF
     {
-        get
-        {
-            return this.totalesField;
-        }
-        set
-        {
-            this.totalesField = value;
-        }
-    }
-
-    /// <remarks/>
-    public ECFEncabezadoInformacionesAdicionales InformacionesAdicionales
-    {
-        get
-        {
-            return this.informacionesAdicionalesField;
-        }
-        set
-        {
-            this.informacionesAdicionalesField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFEncabezadoIdDoc
-{
-
-    private int tipoeCFField;
-
-    private string eNCFField;
-
-    private string fechaVencimientoSecuenciaField;
-
-    private string indicadorMontoGravadoField;
-
-    private string tipoIngresosField;
-
-    private string tipoPagoField;
-
-    private ECFEncabezadoIdDocTablaFormasPago tablaFormasPagoField;
-
-    private string[] textField;
-
-    /// <remarks/>
-    public int TipoeCF
-    {
-        get
-        {
-            return this.tipoeCFField;
-        }
-        set
-        {
-            this.tipoeCFField = value;
-        }
-    }
 
-    /// <remarks/>
-    public string eNCF
-    {
-        get
-        {
-            return this.eNCFField;
-        }
-        set
-        {
-            this.eNCFField = value;
-        }
-    }
+        private ECFEncabezado encabezadoField;
 
-    /// <remarks/>
-    public string FechaVencimientoSecuencia
-    {
-        get
-        {
-            return this.fechaVencimientoSecuenciaField;
-        }
-        set
-        {
-            this.fechaVencimientoSecuenciaField = value;
-        }
-    }
+        private ECFItem[] detallesItemsField;
 
-    /// <remarks/>
-    public string IndicadorMontoGravado
-    {
-        get
-        {
-            return this.indicadorMontoGravadoField;
-        }
-        set
-        {
-            this.indicadorMontoGravadoField = value;
-        }
-    }
+        private ECFInformacionReferencia informacionReferenciaField;
 
-    /// <remarks/>
-    public string TipoIngresos
-    {
-        get
+        public ECF()
         {
-            return this.tipoIngresosField;
+            this.encabezadoField = new ECFEncabezado();
+            this.detallesItemsField = new ECFItem[0];
         }
-        set
+        
+        public ECFEncabezado Encabezado
         {
-            this.tipoIngresosField = value;
+            get
+            {
+                return this.encabezadoField;
+            }
+            set
+            {
+                this.encabezadoField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string TipoPago
-    {
-        get
-        {
-            return this.tipoPagoField;
-        }
-        set
+        [XmlElement(IsNullable = false)]
+        public ECFInformacionReferencia InformacionReferencia
         {
-            this.tipoPagoField = value;
+            get
+            {
+                return this.informacionReferenciaField;
+            }
+            set
+            {
+                this.informacionReferenciaField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public ECFEncabezadoIdDocTablaFormasPago TablaFormasPago
-    {
-        get
-        {
-            return this.tablaFormasPagoField;
-        }
-        set
+        [System.Xml.Serialization.XmlArrayItemAttribute("Item", IsNullable = false)]
+        public ECFItem[] DetallesItems
         {
-            this.tablaFormasPagoField = value;
+            get
+            {
+                return this.detallesItemsField;
+            }
+            set
+            {
+                this.detallesItemsField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public string[] Text
-    {
-        get
-        {
-            return this.textField;
-        }
-        set
-        {
-            this.textField = value;
-        }
+        
     }
-}
 
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFEncabezadoIdDocTablaFormasPago
-{
-
-    private ECFEncabezadoIdDocTablaFormasPagoFormaDePago formaDePagoField;
-
     /// <remarks/>
-    public ECFEncabezadoIdDocTablaFormasPagoFormaDePago FormaDePago
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFEncabezado
     {
-        get
-        {
-            return this.formaDePagoField;
-        }
-        set
-        {
-            this.formaDePagoField = value;
-        }
-    }
-}
 
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFEncabezadoInformacionesAdicionales
-{
+        private string versionField;
 
-    private string fechaEmbarqueField;
+        private ECFEncabezadoIdDoc idDocField;
 
-    private string numeroEmbarqueField;
+        private ECFEncabezadoEmisor emisorField;
 
-    private string numeroContenedorField;
+        private ECFEncabezadoComprador compradorField;
 
-    private ushort numeroReferenciaField;
-
-    private string nombrePuertoEmbarqueField;
-
-    private string condicionesEntregaField;
-
-    private decimal totalFobField;
-
-    private decimal seguroField;
-
-    private decimal fleteField;
-
-    private decimal totalCifField;
-
-    private string regimenAduaneroField;
-
-    private string nombrePuertoSalidaField;
-
-    private string nombrePuertoDesembarqueField;
-
-    private decimal pesoBrutoField;
-
-    private decimal pesoNetoField;
-
-    private byte unidadPesoBrutoField;
-
-    private byte unidadPesoNetoField;
-
-    private decimal cantidadBultoField;
-
-    private byte unidadBultoField;
-
-    private byte volumenBultoField;
-
-    private byte unidadVolumenField;
-
-    /// <remarks/>
-    public string FechaEmbarque
-    {
-        get
-        {
-            return this.fechaEmbarqueField;
-        }
-        set
-        {
-            this.fechaEmbarqueField = value;
-        }
-    }
-
-    /// <remarks/>
-    public string NumeroEmbarque
-    {
-        get
-        {
-            return this.numeroEmbarqueField;
-        }
-        set
-        {
-            this.numeroEmbarqueField = value;
-        }
-    }
-
-    /// <remarks/>
-    public string NumeroContenedor
-    {
-        get
-        {
-            return this.numeroContenedorField;
-        }
-        set
-        {
-            this.numeroContenedorField = value;
-        }
-    }
-
-    /// <remarks/>
-    public ushort NumeroReferencia
-    {
-        get
-        {
-            return this.numeroReferenciaField;
-        }
-        set
-        {
-            this.numeroReferenciaField = value;
-        }
-    }
-
-    /// <remarks/>
-    public string NombrePuertoEmbarque
-    {
-        get
-        {
-            return this.nombrePuertoEmbarqueField;
-        }
-        set
-        {
-            this.nombrePuertoEmbarqueField = value;
-        }
-    }
+        private ECFEncabezadoInformacionesAdicionales informacionesAdicionalesField;
 
-    /// <remarks/>
-    public string CondicionesEntrega
-    {
-        get
-        {
-            return this.condicionesEntregaField;
-        }
-        set
-        {
-            this.condicionesEntregaField = value;
-        }
-    }
+        private ECFEncabezadoTransporte transporteField;
 
-    /// <remarks/>
-    public decimal TotalFob
-    {
-        get
-        {
-            return this.totalFobField;
-        }
-        set
-        {
-            this.totalFobField = value;
-        }
-    }
+        private ECFEncabezadoTotales totalesField;
 
-    /// <remarks/>
-    public decimal Seguro
-    {
-        get
+        [XmlElement(IsNullable = false)]        
+        public string Version
         {
-            return this.seguroField;
+            get
+            {
+                return this.versionField;
+            }
+            set
+            {
+                this.versionField = value;
+            }
         }
-        set
-        {
-            this.seguroField = value;
-        }
-    }
 
-    /// <remarks/>
-    public decimal Flete
-    {
-        get
-        {
-            return this.fleteField;
-        }
-        set
+        [XmlElement(IsNullable = false)]
+        public ECFEncabezadoIdDoc IdDoc
         {
-            this.fleteField = value;
+            get
+            {
+                return this.idDocField;
+            }
+            set
+            {
+                this.idDocField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public decimal TotalCif
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public ECFEncabezadoEmisor Emisor
         {
-            return this.totalCifField;
+            get
+            {
+                return this.emisorField;
+            }
+            set
+            {
+                this.emisorField = value;
+            }
         }
-        set
-        {
-            this.totalCifField = value;
-        }
-    }
 
-    /// <remarks/>
-    public string RegimenAduanero
-    {
-        get
-        {
-            return this.regimenAduaneroField;
-        }
-        set
+        [XmlElement(IsNullable = false)]
+        public ECFEncabezadoComprador Comprador
         {
-            this.regimenAduaneroField = value;
+            get
+            {
+                return this.compradorField;
+            }
+            set
+            {
+                this.compradorField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string NombrePuertoSalida
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public ECFEncabezadoTransporte Transporte
         {
-            return this.nombrePuertoSalidaField;
+            get
+            {
+                return this.transporteField;
+            }
+            set
+            {
+                this.transporteField = value;
+            }
         }
-        set
-        {
-            this.nombrePuertoSalidaField = value;
-        }
-    }
 
-    /// <remarks/>
-    public string NombrePuertoDesembarque
-    {
-        get
-        {
-            return this.nombrePuertoDesembarqueField;
-        }
-        set
+        [XmlElement(IsNullable = false)]
+        public ECFEncabezadoTotales Totales
         {
-            this.nombrePuertoDesembarqueField = value;
+            get
+            {
+                return this.totalesField;
+            }
+            set
+            {
+                this.totalesField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public decimal PesoBruto
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public ECFEncabezadoInformacionesAdicionales InformacionesAdicionales
         {
-            return this.pesoBrutoField;
+            get
+            {
+                return this.informacionesAdicionalesField;
+            }
+            set
+            {
+                this.informacionesAdicionalesField = value;
+            }
         }
-        set
-        {
-            this.pesoBrutoField = value;
-        }
     }
 
     /// <remarks/>
-    public decimal PesoNeto
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFEncabezadoIdDoc
     {
-        get
-        {
-            return this.pesoNetoField;
-        }
-        set
-        {
-            this.pesoNetoField = value;
-        }
-    }
 
-    /// <remarks/>
-    public byte UnidadPesoBruto
-    {
-        get
-        {
-            return this.unidadPesoBrutoField;
-        }
-        set
-        {
-            this.unidadPesoBrutoField = value;
-        }
-    }
+        private int tipoeCFField;
 
-    /// <remarks/>
-    public byte UnidadPesoNeto
-    {
-        get
-        {
-            return this.unidadPesoNetoField;
-        }
-        set
-        {
-            this.unidadPesoNetoField = value;
-        }
-    }
+        private string eNCFField;
 
-    /// <remarks/>
-    public decimal CantidadBulto
-    {
-        get
-        {
-            return this.cantidadBultoField;
-        }
-        set
-        {
-            this.cantidadBultoField = value;
-        }
-    }
+        private string fechaVencimientoSecuenciaField;
 
-    /// <remarks/>
-    public byte UnidadBulto
-    {
-        get
-        {
-            return this.unidadBultoField;
-        }
-        set
-        {
-            this.unidadBultoField = value;
-        }
-    }
+        private string indicadorMontoGravadoField;
 
-    /// <remarks/>
-    public byte VolumenBulto
-    {
-        get
-        {
-            return this.volumenBultoField;
-        }
-        set
-        {
-            this.volumenBultoField = value;
-        }
-    }
+        private string tipoIngresosField;
 
-    /// <remarks/>
-    public byte UnidadVolumen
-    {
-        get
-        {
-            return this.unidadVolumenField;
-        }
-        set
-        {
-            this.unidadVolumenField = value;
-        }
-    }
-}
+        private string tipoPagoField;
 
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFEncabezadoIdDocTablaFormasPagoFormaDePago
-{
+        private string fechaLimitePagoField;
 
-    private byte formaPagoField;
+        private string TerminoPagoField;
 
-    private decimal montoPagoField;
+        private ECFEncabezadoIdDocTablaFormasPago[] tablaFormasPagoField;
 
-    /// <remarks/>
-    public byte FormaPago
-    {
-        get
-        {
-            return this.formaPagoField;
-        }
-        set
-        {
-            this.formaPagoField = value;
-        }
-    }
+        private string[] textField;
 
-    /// <remarks/>
-    public decimal MontoPago
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public int TipoeCF
         {
-            return this.montoPagoField;
+            get
+            {
+                return this.tipoeCFField;
+            }
+            set
+            {
+                this.tipoeCFField = value;
+            }
         }
-        set
-        {
-            this.montoPagoField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFEncabezadoEmisor
-{
-
-    private uint rNCEmisorField;
-
-    private string razonSocialEmisorField;
-
-    private string nombreComercialField;
 
-    private string direccionEmisorField;
-
-    private string municipioField;
-
-    private string provinciaField;
-
-    private string[] tablaTelefonoEmisorField;
-
-    private string webSiteField;
-
-    private string codigoVendedorField;
-
-    private string numeroFacturaInternaField;
-
-    private string numeroPedidoInternoField;
-
-    private string correoEmisorField;
-
-    private string zonaVentaField;
-
-    private string fechaEmisionField;
-
-    /// <remarks/>
-    public uint RNCEmisor
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string eNCF
         {
-            return this.rNCEmisorField;
+            get
+            {
+                return this.eNCFField;
+            }
+            set
+            {
+                this.eNCFField = value;
+            }
         }
-        set
-        {
-            this.rNCEmisorField = value;
-        }
-    }
 
-    /// <remarks/>
-    public string RazonSocialEmisor
-    {
-        get
-        {
-            return this.razonSocialEmisorField;
-        }
-        set
+        [XmlElement(IsNullable = false)]
+        public string FechaVencimientoSecuencia
         {
-            this.razonSocialEmisorField = value;
+            get
+            {
+                return this.fechaVencimientoSecuenciaField;
+            }
+            set
+            {
+                this.fechaVencimientoSecuenciaField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string NombreComercial
-    {
-        get
-        {
-            return this.nombreComercialField;
-        }
-        set
+        [XmlElement(IsNullable = false)]
+        public string IndicadorMontoGravado
         {
-            this.nombreComercialField = value;
+            get
+            {
+                return this.indicadorMontoGravadoField;
+            }
+            set
+            {
+                this.indicadorMontoGravadoField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string DireccionEmisor
-    {
-        get
-        {
-            return this.direccionEmisorField;
-        }
-        set
+        [XmlElement(IsNullable = false)]
+        public string TipoIngresos
         {
-            this.direccionEmisorField = value;
+            get
+            {
+                return this.tipoIngresosField;
+            }
+            set
+            {
+                this.tipoIngresosField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string Municipio
-    {
-        get
-        {
-            return this.municipioField;
-        }
-        set
+        [XmlElement(IsNullable = false)]
+        public string TipoPago
         {
-            this.municipioField = value;
+            get
+            {
+                return this.tipoPagoField;
+            }
+            set
+            {
+                this.tipoPagoField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string Provincia
-    {
-        get
-        {
-            return this.provinciaField;
-        }
-        set
+        [XmlElement(IsNullable = false)]
+        public string FechaLimitePago
         {
-            this.provinciaField = value;
+            get
+            {
+                return this.fechaLimitePagoField;
+            }
+            set
+            {
+                this.fechaLimitePagoField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("TelefonoEmisor", IsNullable = false)]
-    public string[] TablaTelefonoEmisor
-    {
-        get
-        {
-            return this.tablaTelefonoEmisorField;
-        }
-        set
+        [XmlElement(IsNullable = false)]
+        public string TerminoPago
         {
-            this.tablaTelefonoEmisorField = value;
+            get
+            {
+                return this.TerminoPagoField;
+            }
+            set
+            {
+                this.TerminoPagoField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string WebSite
-    {
-        get
+        public ECFEncabezadoIdDocTablaFormasPago[] TablaFormasPago
         {
-            return this.webSiteField;
+            get
+            {
+                return this.tablaFormasPagoField;
+            }
+            set
+            {
+                this.tablaFormasPagoField = value;
+            }
         }
-        set
-        {
-            this.webSiteField = value;
-        }
-    }
 
-    /// <remarks/>
-    public string CodigoVendedor
-    {
-        get
-        {
-            return this.codigoVendedorField;
-        }
-        set
+        [XmlElement(IsNullable = false)]
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string[] Text
         {
-            this.codigoVendedorField = value;
+            get
+            {
+                return this.textField;
+            }
+            set
+            {
+                this.textField = value;
+            }
         }
     }
 
-
     /// <remarks/>
-    public string NumeroFacturaInterna
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFEncabezadoIdDocTablaFormasPago
     {
-        get
-        {
-            return this.numeroFacturaInternaField;
-        }
-        set
-        {
-            this.numeroFacturaInternaField = value;
-        }
-    }
 
-    /// <remarks/>
-    public string NumeroPedidoInterno
-    {
-        get
-        {
-            return this.numeroPedidoInternoField;
-        }
-        set
-        {
-            this.numeroPedidoInternoField = value;
-        }
-    }
+        private ECFEncabezadoIdDocTablaFormasPagoFormaDePago formaDePagoField;
 
-    /// <remarks/>
-    public string CorreoEmisor
-    {
-        get
-        {
-            return this.correoEmisorField;
-        }
-        set
+        [XmlElement(IsNullable = false)]
+        public ECFEncabezadoIdDocTablaFormasPagoFormaDePago FormaDePago
         {
-            this.correoEmisorField = value;
+            get
+            {
+                return this.formaDePagoField;
+            }
+            set
+            {
+                this.formaDePagoField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string ZonaVenta
-    {
-        get
-        {
-            return this.zonaVentaField;
-        }
-        set
+        public ECFEncabezadoIdDocTablaFormasPago() 
         {
-            this.zonaVentaField = value;
+            this.formaDePagoField = new ECFEncabezadoIdDocTablaFormasPagoFormaDePago();
         }
     }
 
     /// <remarks/>
-    public string FechaEmision
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFEncabezadoInformacionesAdicionales
     {
-        get
-        {
-            return this.fechaEmisionField;
-        }
-        set
-        {
-            this.fechaEmisionField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFEncabezadoEmisorTablaTelefonoEmisor
-{
-
-    private string telefonoEmisorField;
 
-    /// <remarks/>
-    public string TelefonoEmisor
-    {
-        get
-        {
-            return this.telefonoEmisorField;
-        }
-        set
-        {
-            this.telefonoEmisorField = value;
-        }
-    }
-}
+        private string fechaEmbarqueField;
 
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFEncabezadoComprador
-{
+        private string numeroEmbarqueField;
 
-    private uint rNCCompradorField;
+        private string numeroContenedorField;
 
-    private string razonSocialCompradorField;
+        private string numeroReferenciaField;
 
-    private string contactoCompradorField;
+        private string nombrePuertoEmbarqueField;
 
-    private string correoCompradorField;
+        private string condicionesEntregaField;
 
-    private string direccionCompradorField;
+        private decimal totalFobField;
 
-    private string municipioCompradorField;
+        private decimal seguroField;
 
-    private string provinciaCompradorField;
+        private decimal fleteField;
 
-    private string fechaEntregaField;
+        private decimal totalCifField;
 
-    private string contactoEntregaField;
+        private string regimenAduaneroField;
 
-    private string direccionEntregaField;
+        private string nombrePuertoSalidaField;
 
-    private string telefonoAdicionalField;
+        private string nombrePuertoDesembarqueField;
 
-    private string fechaOrdenCompraField;
+        private decimal pesoBrutoField;
 
-    private string numeroOrdenCompraField;
+        private decimal pesoNetoField;
 
-    private string codigoInternoCompradorField;
+        private string unidadPesoBrutoField;
 
-    /// <remarks/>
-    public uint RNCComprador
-    {
-        get
-        {
-            return this.rNCCompradorField;
-        }
-        set
-        {
-            this.rNCCompradorField = value;
-        }
-    }
+        private string unidadPesoNetoField;
 
-    /// <remarks/>
-    public string RazonSocialComprador
-    {
-        get
-        {
-            return this.razonSocialCompradorField;
-        }
-        set
+        private decimal cantidadBultoField;
+
+        private string unidadBultoField;
+
+        private string volumenBultoField;
+
+        private string unidadVolumenField;
+
+        [XmlElement(IsNullable = false)]
+        public string FechaEmbarque
         {
-            this.razonSocialCompradorField = value;
+            get
+            {
+                return this.fechaEmbarqueField;
+            }
+            set
+            {
+                this.fechaEmbarqueField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string ContactoComprador
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string NumeroEmbarque
         {
-            return this.contactoCompradorField;
+            get
+            {
+                return this.numeroEmbarqueField;
+            }
+            set
+            {
+                this.numeroEmbarqueField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string NumeroContenedor
         {
-            this.contactoCompradorField = value;
+            get
+            {
+                return this.numeroContenedorField;
+            }
+            set
+            {
+                this.numeroContenedorField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string CorreoComprador
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string NumeroReferencia
         {
-            return this.correoCompradorField;
+            get
+            {
+                return this.numeroReferenciaField;
+            }
+            set
+            {
+                this.numeroReferenciaField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string NombrePuertoEmbarque
         {
-            this.correoCompradorField = value;
+            get
+            {
+                return this.nombrePuertoEmbarqueField;
+            }
+            set
+            {
+                this.nombrePuertoEmbarqueField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string DireccionComprador
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string CondicionesEntrega
         {
-            return this.direccionCompradorField;
+            get
+            {
+                return this.condicionesEntregaField;
+            }
+            set
+            {
+                this.condicionesEntregaField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public decimal TotalFob
         {
-            this.direccionCompradorField = value;
+            get
+            {
+                return this.totalFobField;
+            }
+            set
+            {
+                this.totalFobField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string MunicipioComprador
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public decimal Seguro
         {
-            return this.municipioCompradorField;
+            get
+            {
+                return this.seguroField;
+            }
+            set
+            {
+                this.seguroField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public decimal Flete
         {
-            this.municipioCompradorField = value;
+            get
+            {
+                return this.fleteField;
+            }
+            set
+            {
+                this.fleteField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string ProvinciaComprador
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public decimal TotalCif
         {
-            return this.provinciaCompradorField;
+            get
+            {
+                return this.totalCifField;
+            }
+            set
+            {
+                this.totalCifField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string RegimenAduanero
         {
-            this.provinciaCompradorField = value;
+            get
+            {
+                return this.regimenAduaneroField;
+            }
+            set
+            {
+                this.regimenAduaneroField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string FechaEntrega
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string NombrePuertoSalida
         {
-            return this.fechaEntregaField;
+            get
+            {
+                return this.nombrePuertoSalidaField;
+            }
+            set
+            {
+                this.nombrePuertoSalidaField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string NombrePuertoDesembarque
         {
-            this.fechaEntregaField = value;
+            get
+            {
+                return this.nombrePuertoDesembarqueField;
+            }
+            set
+            {
+                this.nombrePuertoDesembarqueField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string ContactoEntrega
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public decimal PesoBruto
         {
-            return this.contactoEntregaField;
+            get
+            {
+                return this.pesoBrutoField;
+            }
+            set
+            {
+                this.pesoBrutoField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public decimal PesoNeto
         {
-            this.contactoEntregaField = value;
+            get
+            {
+                return this.pesoNetoField;
+            }
+            set
+            {
+                this.pesoNetoField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string DireccionEntrega
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string UnidadPesoBruto
         {
-            return this.direccionEntregaField;
+            get
+            {
+                return this.unidadPesoBrutoField;
+            }
+            set
+            {
+                this.unidadPesoBrutoField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string UnidadPesoNeto
         {
-            this.direccionEntregaField = value;
+            get
+            {
+                return this.unidadPesoNetoField;
+            }
+            set
+            {
+                this.unidadPesoNetoField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string TelefonoAdicional
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public decimal CantidadBulto
         {
-            return this.telefonoAdicionalField;
+            get
+            {
+                return this.cantidadBultoField;
+            }
+            set
+            {
+                this.cantidadBultoField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string UnidadBulto
         {
-            this.telefonoAdicionalField = value;
+            get
+            {
+                return this.unidadBultoField;
+            }
+            set
+            {
+                this.unidadBultoField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string FechaOrdenCompra
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string VolumenBulto
         {
-            return this.fechaOrdenCompraField;
+            get
+            {
+                return this.volumenBultoField;
+            }
+            set
+            {
+                this.volumenBultoField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string UnidadVolumen
         {
-            this.fechaOrdenCompraField = value;
+            get
+            {
+                return this.unidadVolumenField;
+            }
+            set
+            {
+                this.unidadVolumenField = value;
+            }
         }
     }
 
     /// <remarks/>
-    public string NumeroOrdenCompra
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFEncabezadoIdDocTablaFormasPagoFormaDePago
     {
-        get
+
+        private string formaPagoField;
+
+        private decimal montoPagoField;
+
+        [XmlElement(IsNullable = false)]
+        public string FormaPago
         {
-            return this.numeroOrdenCompraField;
+            get
+            {
+                return this.formaPagoField;
+            }
+            set
+            {
+                this.formaPagoField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public decimal MontoPago
         {
-            this.numeroOrdenCompraField = value;
+            get
+            {
+                return this.montoPagoField;
+            }
+            set
+            {
+                this.montoPagoField = value;
+            }
         }
     }
 
     /// <remarks/>
-    public string CodigoInternoComprador
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFEncabezadoEmisor
     {
-        get
-        {
-            return this.codigoInternoCompradorField;
-        }
-        set
-        {
-            this.codigoInternoCompradorField = value;
-        }
-    }
-}
 
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFEncabezadoTotales
-{
+        private uint rNCEmisorField;
 
-    private decimal montoGravadoTotalField;
+        private string razonSocialEmisorField;
 
-    private decimal montoGravadoI1Field;
+        private string nombreComercialField;
 
-    private decimal montoExentoField;
+        private string direccionEmisorField;
 
-    private byte iTBIS1Field;
+        private string municipioField;
 
-    private decimal totalITBISField;
+        private string provinciaField;
 
-    private decimal totalITBIS1Field;
+        private string[] tablaTelefonoEmisorField;
 
-    private decimal montoTotalField;
+        private string webSiteField;
 
-    private decimal totalITBISRetenidoField;
+        private string codigoVendedorField;
 
-    private decimal totalISRRetencionField;
+        private string numeroFacturaInternaField;
 
+        private string numeroPedidoInternoField;
 
-    /// <remarks/>
-    public decimal MontoGravadoTotal
-    {
-        get
+        private string correoEmisorField;
+
+        private string zonaVentaField;
+
+        private string fechaEmisionField;
+
+        [XmlElement(IsNullable = false)]
+        public uint RNCEmisor
         {
-            return this.montoGravadoTotalField;
+            get
+            {
+                return this.rNCEmisorField;
+            }
+            set
+            {
+                this.rNCEmisorField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string RazonSocialEmisor
         {
-            this.montoGravadoTotalField = value;
+            get
+            {
+                return this.razonSocialEmisorField;
+            }
+            set
+            {
+                this.razonSocialEmisorField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public decimal MontoGravadoI1
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string NombreComercial
         {
-            return this.montoGravadoI1Field;
+            get
+            {
+                return this.nombreComercialField;
+            }
+            set
+            {
+                this.nombreComercialField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string DireccionEmisor
         {
-            this.montoGravadoI1Field = value;
+            get
+            {
+                return this.direccionEmisorField;
+            }
+            set
+            {
+                this.direccionEmisorField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public decimal MontoExento
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string Municipio
         {
-            return this.montoExentoField;
+            get
+            {
+                return this.municipioField;
+            }
+            set
+            {
+                this.municipioField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string Provincia
         {
-            this.montoExentoField = value;
+            get
+            {
+                return this.provinciaField;
+            }
+            set
+            {
+                this.provinciaField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public byte ITBIS1
-    {
-        get
+        [System.Xml.Serialization.XmlArrayItemAttribute("TelefonoEmisor", IsNullable = false)]
+        public string[] TablaTelefonoEmisor
         {
-            return this.iTBIS1Field;
+            get
+            {
+                return this.tablaTelefonoEmisorField;
+            }
+            set
+            {
+                this.tablaTelefonoEmisorField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string WebSite
         {
-            this.iTBIS1Field = value;
+            get
+            {
+                return this.webSiteField;
+            }
+            set
+            {
+                this.webSiteField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public decimal TotalITBIS
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string CodigoVendedor
         {
-            return this.totalITBISField;
+            get
+            {
+                return this.codigoVendedorField;
+            }
+            set
+            {
+                this.codigoVendedorField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string NumeroFacturaInterna
         {
-            this.totalITBISField = value;
+            get
+            {
+                return this.numeroFacturaInternaField;
+            }
+            set
+            {
+                this.numeroFacturaInternaField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public decimal TotalITBIS1
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string NumeroPedidoInterno
         {
-            return this.totalITBIS1Field;
+            get
+            {
+                return this.numeroPedidoInternoField;
+            }
+            set
+            {
+                this.numeroPedidoInternoField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string CorreoEmisor
         {
-            this.totalITBIS1Field = value;
+            get
+            {
+                return this.correoEmisorField;
+            }
+            set
+            {
+                this.correoEmisorField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public decimal MontoTotal
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string ZonaVenta
         {
-            return this.montoTotalField;
+            get
+            {
+                return this.zonaVentaField;
+            }
+            set
+            {
+                this.zonaVentaField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string FechaEmision
         {
-            this.montoTotalField = value;
+            get
+            {
+                return this.fechaEmisionField;
+            }
+            set
+            {
+                this.fechaEmisionField = value;
+            }
         }
     }
 
     /// <remarks/>
-    public decimal TotalITBISRetenido
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFEncabezadoEmisorTablaTelefonoEmisor
     {
-        get
-        {
-            return this.totalITBISRetenidoField;
-        }
-        set
+
+        private string telefonoEmisorField;
+
+        [XmlElement(IsNullable = false)]
+        public string TelefonoEmisor
         {
-            this.totalITBISRetenidoField = value;
+            get
+            {
+                return this.telefonoEmisorField;
+            }
+            set
+            {
+                this.telefonoEmisorField = value;
+            }
         }
     }
 
     /// <remarks/>
-    public decimal TotalISRRetencion
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFEncabezadoComprador
     {
-        get
-        {
-            return this.totalISRRetencionField;
-        }
-        set
-        {
-            this.totalISRRetencionField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFItem
-{
 
-    private int numeroLineaField;
+        private uint rNCCompradorField;
 
-    private int indicadorFacturacionField;
+        private string razonSocialCompradorField;
 
-    private ECFDetallesItemsItemRetencion retencionField;
+        private string contactoCompradorField;
 
-    private string nombreItemField;
+        private string correoCompradorField;
 
-    private int indicadorBienoServicioField;
+        private string direccionCompradorField;
 
-    private decimal cantidadItemField;
+        private string municipioCompradorField;
 
-    private int unidadMedidaField;
+        private string provinciaCompradorField;
 
-    private decimal precioUnitarioItemField;
+        private string fechaEntregaField;
 
-    private decimal descuentoMontoField;
+        private string contactoEntregaField;
 
-    private ECFItemSubDescuento[] tablaSubDescuentoField;
+        private string direccionEntregaField;
 
-    private decimal recargoMontoField;
+        private string telefonoAdicionalField;
 
-    private bool recargoMontoFieldSpecified;
+        private string fechaOrdenCompraField;
 
-    private ECFItemTablaSubRecargo tablaSubRecargoField;
+        private string numeroOrdenCompraField;
 
-    private decimal montoItemField;
+        private string codigoInternoCompradorField;
 
-    /// <remarks/>
-    public int NumeroLinea
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public uint RNCComprador
         {
-            return this.numeroLineaField;
+            get
+            {
+                return this.rNCCompradorField;
+            }
+            set
+            {
+                this.rNCCompradorField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string RazonSocialComprador
         {
-            this.numeroLineaField = value;
+            get
+            {
+                return this.razonSocialCompradorField;
+            }
+            set
+            {
+                this.razonSocialCompradorField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public int IndicadorFacturacion
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string ContactoComprador
         {
-            return this.indicadorFacturacionField;
+            get
+            {
+                return this.contactoCompradorField;
+            }
+            set
+            {
+                this.contactoCompradorField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string CorreoComprador
         {
-            this.indicadorFacturacionField = value;
+            get
+            {
+                return this.correoCompradorField;
+            }
+            set
+            {
+                this.correoCompradorField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public ECFDetallesItemsItemRetencion Retencion
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string DireccionComprador
         {
-            return this.retencionField;
+            get
+            {
+                return this.direccionCompradorField;
+            }
+            set
+            {
+                this.direccionCompradorField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string MunicipioComprador
         {
-            this.retencionField = value;
+            get
+            {
+                return this.municipioCompradorField;
+            }
+            set
+            {
+                this.municipioCompradorField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string NombreItem
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string ProvinciaComprador
         {
-            return this.nombreItemField;
+            get
+            {
+                return this.provinciaCompradorField;
+            }
+            set
+            {
+                this.provinciaCompradorField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string FechaEntrega
         {
-            this.nombreItemField = value;
+            get
+            {
+                return this.fechaEntregaField;
+            }
+            set
+            {
+                this.fechaEntregaField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public int IndicadorBienoServicio
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string ContactoEntrega
         {
-            return this.indicadorBienoServicioField;
+            get
+            {
+                return this.contactoEntregaField;
+            }
+            set
+            {
+                this.contactoEntregaField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string DireccionEntrega
         {
-            this.indicadorBienoServicioField = value;
+            get
+            {
+                return this.direccionEntregaField;
+            }
+            set
+            {
+                this.direccionEntregaField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public decimal CantidadItem
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string TelefonoAdicional
         {
-            return this.cantidadItemField;
+            get
+            {
+                return this.telefonoAdicionalField;
+            }
+            set
+            {
+                this.telefonoAdicionalField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string FechaOrdenCompra
         {
-            this.cantidadItemField = value;
+            get
+            {
+                return this.fechaOrdenCompraField;
+            }
+            set
+            {
+                this.fechaOrdenCompraField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public int UnidadMedida
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string NumeroOrdenCompra
         {
-            return this.unidadMedidaField;
+            get
+            {
+                return this.numeroOrdenCompraField;
+            }
+            set
+            {
+                this.numeroOrdenCompraField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string CodigoInternoComprador
         {
-            this.unidadMedidaField = value;
+            get
+            {
+                return this.codigoInternoCompradorField;
+            }
+            set
+            {
+                this.codigoInternoCompradorField = value;
+            }
         }
     }
 
     /// <remarks/>
-    public decimal PrecioUnitarioItem
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFEncabezadoTotales
     {
-        get
+        private decimal? montoGravadoTotalField;
+        private decimal? montoGravadoI1Field;
+        private decimal? montoGravadoI3Field;
+        private decimal? montoExentoField;
+        private decimal? iTBIS1Field;
+        private decimal? iTBIS3Field;
+        private decimal? totalITBISField;
+        private decimal? totalITBIS1Field;
+        private decimal? totalITBIS3Field;
+        private decimal? montoTotalField;
+        private decimal? totalITBISRetenidoField;
+        private decimal? totalISRRetencionField;
+
+        public decimal? MontoGravadoTotal
         {
-            return this.precioUnitarioItemField;
+            get { return this.montoGravadoTotalField; }
+            set { this.montoGravadoTotalField = value; }
         }
-        set
+
+        public decimal? MontoGravadoI1
         {
-            this.precioUnitarioItemField = value;
+            get { return this.montoGravadoI1Field; }
+            set { this.montoGravadoI1Field = value; }
         }
-    }
 
-    /// <remarks/>
-    public decimal DescuentoMonto
-    {
-        get
+        public decimal? MontoGravadoI3
         {
-            return this.descuentoMontoField;
+            get { return this.montoGravadoI3Field; }
+            set { this.montoGravadoI3Field = value; }
         }
-        set
+
+        public decimal? MontoExento
         {
-            this.descuentoMontoField = value;
+            get { return this.montoExentoField; }
+            set { this.montoExentoField = value; }
         }
-    }
 
-    /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("SubDescuento", IsNullable = false)]
-    public ECFItemSubDescuento[] TablaSubDescuento
-    {
-        get
+        public decimal? ITBIS1
         {
-            return this.tablaSubDescuentoField;
+            get { return this.iTBIS1Field; }
+            set { this.iTBIS1Field = value; }
         }
-        set
+
+        public decimal? ITBIS3
         {
-            this.tablaSubDescuentoField = value;
+            get { return this.iTBIS3Field; }
+            set { this.iTBIS3Field = value; }
         }
-    }
 
-    /// <remarks/>
-    public decimal RecargoMonto
-    {
-        get
+        public decimal? TotalITBIS
         {
-            return this.recargoMontoField;
+            get { return this.totalITBISField; }
+            set { this.totalITBISField = value; }
         }
-        set
+
+        public decimal? TotalITBIS1
         {
-            this.recargoMontoField = value;
+            get { return this.totalITBIS1Field; }
+            set { this.totalITBIS1Field = value; }
         }
-    }
 
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool RecargoMontoSpecified
-    {
-        get
+        public decimal? TotalITBIS3
         {
-            return this.recargoMontoFieldSpecified;
+            get { return this.totalITBIS3Field; }
+            set { this.totalITBIS3Field = value; }
         }
-        set
+
+        public decimal? MontoTotal
         {
-            this.recargoMontoFieldSpecified = value;
+            get { return this.montoTotalField; }
+            set { this.montoTotalField = value; }
         }
-    }
 
-    /// <remarks/>
-    public ECFItemTablaSubRecargo TablaSubRecargo
-    {
-        get
+        public decimal? TotalITBISRetenido
         {
-            return this.tablaSubRecargoField;
+            get { return this.totalITBISRetenidoField; }
+            set { this.totalITBISRetenidoField = value; }
         }
-        set
+
+        public decimal? TotalISRRetencion
         {
-            this.tablaSubRecargoField = value;
+            get { return this.totalISRRetencionField; }
+            set { this.totalISRRetencionField = value; }
         }
+
+        public bool ShouldSerializeMontoGravadoTotal() => montoGravadoTotalField.HasValue;
+        public bool ShouldSerializeMontoGravadoI1() => montoGravadoI1Field.HasValue;
+        public bool ShouldSerializeMontoExento() => montoExentoField.HasValue;
+        public bool ShouldSerializeITBIS1() => iTBIS1Field.HasValue;
+        public bool ShouldSerializeTotalITBIS() => totalITBISField.HasValue;
+        public bool ShouldSerializeTotalITBIS1() => totalITBIS1Field.HasValue;
+        public bool ShouldSerializeMontoTotal() => montoTotalField.HasValue;
+        public bool ShouldSerializeTotalITBISRetenido() => totalITBISRetenidoField.HasValue;
+        public bool ShouldSerializeTotalISRRetencion() => totalISRRetencionField.HasValue;
     }
 
     /// <remarks/>
-    public decimal MontoItem
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFItem
     {
-        get
-        {
-            return this.montoItemField;
-        }
-        set
-        {
-            this.montoItemField = value;
-        }
-    }
-}
 
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFItemSubDescuento
-{
+        private int numeroLineaField;
 
-    private string tipoSubDescuentoField;
+        private int indicadorFacturacionField;
 
-    private decimal montoSubDescuentoField;
+        private ECFDetallesItemsItemRetencion retencionField;
 
-    /// <remarks/>
-    public string TipoSubDescuento
-    {
-        get
+        private string nombreItemField;
+
+        private int indicadorBienoServicioField;
+
+        private decimal cantidadItemField;
+
+        private int unidadMedidaField;
+
+        private decimal precioUnitarioItemField;
+
+        private decimal descuentoMontoField;
+
+        private ECFItemSubDescuento[] tablaSubDescuentoField;
+
+        private decimal recargoMontoField;
+
+        private bool recargoMontoFieldSpecified;
+
+        private ECFItemTablaSubRecargo tablaSubRecargoField;
+
+        private decimal montoItemField;
+
+        [XmlElement(IsNullable = false)]
+        public int NumeroLinea
         {
-            return this.tipoSubDescuentoField;
+            get
+            {
+                return this.numeroLineaField;
+            }
+            set
+            {
+                this.numeroLineaField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public int IndicadorFacturacion
         {
-            this.tipoSubDescuentoField = value;
+            get
+            {
+                return this.indicadorFacturacionField;
+            }
+            set
+            {
+                this.indicadorFacturacionField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public decimal MontoSubDescuento
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public ECFDetallesItemsItemRetencion Retencion
         {
-            return this.montoSubDescuentoField;
+            get
+            {
+                return this.retencionField;
+            }
+            set
+            {
+                this.retencionField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string NombreItem
         {
-            this.montoSubDescuentoField = value;
+            get
+            {
+                return this.nombreItemField;
+            }
+            set
+            {
+                this.nombreItemField = value;
+            }
         }
-    }
-}
 
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFItemTablaSubRecargo
-{
-
-    private ECFItemTablaSubRecargoSubRecargo subRecargoField;
+        [XmlElement(IsNullable = false)]
+        public int IndicadorBienoServicio
+        {
+            get
+            {
+                return this.indicadorBienoServicioField;
+            }
+            set
+            {
+                this.indicadorBienoServicioField = value;
+            }
+        }
 
-    /// <remarks/>
-    public ECFItemTablaSubRecargoSubRecargo SubRecargo
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public decimal CantidadItem
         {
-            return this.subRecargoField;
+            get
+            {
+                return this.cantidadItemField;
+            }
+            set
+            {
+                this.cantidadItemField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public int UnidadMedida
         {
-            this.subRecargoField = value;
+            get
+            {
+                return this.unidadMedidaField;
+            }
+            set
+            {
+                this.unidadMedidaField = value;
+            }
         }
-    }
-}
 
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFItemTablaSubRecargoSubRecargo
-{
+        [XmlElement(IsNullable = false)]
+        public decimal PrecioUnitarioItem
+        {
+            get
+            {
+                return this.precioUnitarioItemField;
+            }
+            set
+            {
+                this.precioUnitarioItemField = value;
+            }
+        }
 
-    private string tipoSubRecargoField;
+        [XmlElement(IsNullable = false)]
+        public decimal DescuentoMonto
+        {
+            get
+            {
+                return this.descuentoMontoField;
+            }
+            set
+            {
+                this.descuentoMontoField = value;
+            }
+        }
 
-    private decimal montoSubRecargoField;
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("SubDescuento", IsNullable = false)]
+        public ECFItemSubDescuento[] TablaSubDescuento
+        {
+            get
+            {
+                return this.tablaSubDescuentoField;
+            }
+            set
+            {
+                this.tablaSubDescuentoField = value;
+            }
+        }
 
-    /// <remarks/>
-    public string TipoSubRecargo
-    {
-        get
+        /// <remarks/>
+        public decimal RecargoMonto
         {
-            return this.tipoSubRecargoField;
+            get
+            {
+                return this.recargoMontoField;
+            }
+            set
+            {
+                this.recargoMontoField = value;
+            }
         }
-        set
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool RecargoMontoSpecified
         {
-            this.tipoSubRecargoField = value;
+            get
+            {
+                return this.recargoMontoFieldSpecified;
+            }
+            set
+            {
+                this.recargoMontoFieldSpecified = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public decimal MontoSubRecargo
-    {
-        get
+        /// <remarks/>
+        public ECFItemTablaSubRecargo TablaSubRecargo
         {
-            return this.montoSubRecargoField;
+            get
+            {
+                return this.tablaSubRecargoField;
+            }
+            set
+            {
+                this.tablaSubRecargoField = value;
+            }
         }
-        set
+
+        /// <remarks/>
+        public decimal MontoItem
         {
-            this.montoSubRecargoField = value;
+            get
+            {
+                return this.montoItemField;
+            }
+            set
+            {
+                this.montoItemField = value;
+            }
         }
     }
-}
-
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFInformacionReferencia
-{
-
-    private string nCFModificadoField;
 
-    private string fechaNCFModificadoField;
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFItemSubDescuento
+    {
 
-    private byte codigoModificacionField;
+        private string tipoSubDescuentoField;
 
-    private string razonModificacionField;
+        private decimal montoSubDescuentoField;
 
-    /// <remarks/>
-    public string NCFModificado
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string TipoSubDescuento
         {
-            return this.nCFModificadoField;
+            get
+            {
+                return this.tipoSubDescuentoField;
+            }
+            set
+            {
+                this.tipoSubDescuentoField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public decimal MontoSubDescuento
         {
-            this.nCFModificadoField = value;
+            get
+            {
+                return this.montoSubDescuentoField;
+            }
+            set
+            {
+                this.montoSubDescuentoField = value;
+            }
         }
     }
 
     /// <remarks/>
-    public string FechaNCFModificado
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFItemTablaSubRecargo
     {
-        get
-        {
-            return this.fechaNCFModificadoField;
-        }
-        set
+
+        private ECFItemTablaSubRecargoSubRecargo subRecargoField;
+
+        [XmlElement(IsNullable = false)]
+        public ECFItemTablaSubRecargoSubRecargo SubRecargo
         {
-            this.fechaNCFModificadoField = value;
+            get
+            {
+                return this.subRecargoField;
+            }
+            set
+            {
+                this.subRecargoField = value;
+            }
         }
     }
 
     /// <remarks/>
-    public byte CodigoModificacion
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFItemTablaSubRecargoSubRecargo
     {
-        get
+
+        private string tipoSubRecargoField;
+
+        private decimal montoSubRecargoField;
+
+        [XmlElement(IsNullable = false)]
+        public string TipoSubRecargo
         {
-            return this.codigoModificacionField;
+            get
+            {
+                return this.tipoSubRecargoField;
+            }
+            set
+            {
+                this.tipoSubRecargoField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public decimal MontoSubRecargo
         {
-            this.codigoModificacionField = value;
+            get
+            {
+                return this.montoSubRecargoField;
+            }
+            set
+            {
+                this.montoSubRecargoField = value;
+            }
         }
     }
 
     /// <remarks/>
-    public string RazoModificacion
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFInformacionReferencia
     {
-        get
-        {
-            return this.razonModificacionField;
-        }
-        set
-        {
-            this.razonModificacionField = value;
-        }
-    }
-}
 
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFDetallesItemsItemRetencion
-{
+        private string nCFModificadoField;
 
-    private byte indicadorAgenteRetencionoPercepcionField;
+        private string fechaNCFModificadoField;
 
-    private decimal montoITBISRetenidoField;
+        private byte codigoModificacionField;
 
-    private decimal montoISRRetenidoField;
+        private string razonModificacionField;
 
-    /// <remarks/>
-    public byte IndicadorAgenteRetencionoPercepcion
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string NCFModificado
         {
-            return this.indicadorAgenteRetencionoPercepcionField;
+            get
+            {
+                return this.nCFModificadoField;
+            }
+            set
+            {
+                this.nCFModificadoField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string FechaNCFModificado
         {
-            this.indicadorAgenteRetencionoPercepcionField = value;
+            get
+            {
+                return this.fechaNCFModificadoField;
+            }
+            set
+            {
+                this.fechaNCFModificadoField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public decimal MontoITBISRetenido
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public byte CodigoModificacion
         {
-            return this.montoITBISRetenidoField;
+            get
+            {
+                return this.codigoModificacionField;
+            }
+            set
+            {
+                this.codigoModificacionField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string RazoModificacion
         {
-            this.montoITBISRetenidoField = value;
+            get
+            {
+                return this.razonModificacionField;
+            }
+            set
+            {
+                this.razonModificacionField = value;
+            }
         }
     }
 
     /// <remarks/>
-    public decimal MontoISRRetenido
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFDetallesItemsItemRetencion
     {
-        get
-        {
-            return this.montoISRRetenidoField;
-        }
-        set
-        {
-            this.montoISRRetenidoField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class ECFEncabezadoTransporte
-{
-
-    private byte viaTransporteField;
 
-    private string paisOrigenField;
+        private byte indicadorAgenteRetencionoPercepcionField;
 
-    private string direccionDestinoField;
+        private decimal montoITBISRetenidoField;
 
-    private string paisDestinoField;
+        private decimal montoISRRetenidoField;
 
-    private string numeroAlbaranField;
-
-    /// <remarks/>
-    public byte ViaTransporte
-    {
-        get
-        {
-            return this.viaTransporteField;
-        }
-        set
+        [XmlElement(IsNullable = false)]
+        public byte IndicadorAgenteRetencionoPercepcion
         {
-            this.viaTransporteField = value;
+            get
+            {
+                return this.indicadorAgenteRetencionoPercepcionField;
+            }
+            set
+            {
+                this.indicadorAgenteRetencionoPercepcionField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string PaisOrigen
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public decimal MontoITBISRetenido
         {
-            return this.paisOrigenField;
+            get
+            {
+                return this.montoITBISRetenidoField;
+            }
+            set
+            {
+                this.montoITBISRetenidoField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public decimal MontoISRRetenido
         {
-            this.paisOrigenField = value;
+            get
+            {
+                return this.montoISRRetenidoField;
+            }
+            set
+            {
+                this.montoISRRetenidoField = value;
+            }
         }
     }
 
     /// <remarks/>
-    public string DireccionDestino
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ECFEncabezadoTransporte
     {
-        get
-        {
-            return this.direccionDestinoField;
-        }
-        set
+
+        private string viaTransporteField;
+
+        private string paisOrigenField;
+
+        private string direccionDestinoField;
+
+        private string paisDestinoField;
+
+        private string numeroAlbaranField;
+
+        [XmlElement(IsNullable = false)]
+        public string ViaTransporte
         {
-            this.direccionDestinoField = value;
+            get
+            {
+                return this.viaTransporteField;
+            }
+            set
+            {
+                this.viaTransporteField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string PaisDestino
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string PaisOrigen
         {
-            return this.paisDestinoField;
+            get
+            {
+                return this.paisOrigenField;
+            }
+            set
+            {
+                this.paisOrigenField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string DireccionDestino
         {
-            this.paisDestinoField = value;
+            get
+            {
+                return this.direccionDestinoField;
+            }
+            set
+            {
+                this.direccionDestinoField = value;
+            }
         }
-    }
 
-    /// <remarks/>
-    public string NumeroAlbaran
-    {
-        get
+        [XmlElement(IsNullable = false)]
+        public string PaisDestino
         {
-            return this.numeroAlbaranField;
+            get
+            {
+                return this.paisDestinoField;
+            }
+            set
+            {
+                this.paisDestinoField = value;
+            }
         }
-        set
+
+        [XmlElement(IsNullable = false)]
+        public string NumeroAlbaran
         {
-            this.numeroAlbaranField = value;
+            get
+            {
+                return this.numeroAlbaranField;
+            }
+            set
+            {
+                this.numeroAlbaranField = value;
+            }
         }
     }
 }
