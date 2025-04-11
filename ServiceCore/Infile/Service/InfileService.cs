@@ -37,7 +37,7 @@ namespace ServiceCore.Infile.Service
         {
             XML,
             JSON
-        }       
+        }
 
         public class RequestToken
         {
@@ -45,22 +45,23 @@ namespace ServiceCore.Infile.Service
             public string llave { get; set; }
         }
 
-        public static void RequestStream(byte[] _data, Stream _stream)
-        {
-            using (var stream = _stream)
-            {
-                stream.Write(_data, 0, _data.Length);
-            }
-        }
-
+        /// <summary>
+        /// Método para obtener el token de autenticación
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="key"></param>
+        /// <param name="requestToken"></param>
+        /// <returns></returns>
         public string GetToken(string url, string username, string password, string key, RequestToken requestToken = null)
-        {          
+        {
             var request = (HttpWebRequest)WebRequest.CreateHttp(url);
 
             // Autenticación básica           
             string encodedCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}"));
             request.Headers.Add("Authorization", "Basic " + encodedCredentials);
-            
+
             // Header adicional
             request.Headers.Add("Security-Key", key);
 
@@ -78,23 +79,32 @@ namespace ServiceCore.Infile.Service
                 stream.Write(postDataBytes, 0, postDataBytes.Length);
             }
 
-            using (var response = (HttpWebResponse)request.GetResponse())
+            try
             {
-                using (var reader = new StreamReader(response.GetResponseStream()))
+                var response = (HttpWebResponse)request.GetResponse();
+
+                using (response)
                 {
-                    string responseText = reader.ReadToEnd();
-                    Root responseObject = JsonConvert.DeserializeObject<Root>(responseText);
-                    if(response.StatusCode == HttpStatusCode.OK)
+                    using (var reader = new StreamReader(response.GetResponseStream()))
                     {
-                        return responseObject.token;
-                    }
-                    else
-                    {
-                        throw new Exception($"Error: {response.StatusCode}, {responseObject.descripcion}");
+                        string responseText = reader.ReadToEnd();
+                        Root responseObject = JsonConvert.DeserializeObject<Root>(responseText);
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            return responseObject.token;
+                        }
+                        else
+                        {
+                            return ($"Error: {response.StatusCode}, {responseObject.descripcion}");
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+
+                return ($"Error: {ex.Message} + {ex.StackTrace}");
+            }
         }
-       
     }
 }
