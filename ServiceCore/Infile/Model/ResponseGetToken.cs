@@ -6,6 +6,26 @@ using System.Threading.Tasks;
 
 namespace ServiceCore.Infile.Model
 {
+    /// <summary>
+    /// Enumerador para prevenir dejar escrito el método del request
+    /// </summary>
+    public enum Method
+    {
+        POST,
+        GET,
+        PUT,
+        DELETE
+    }
+
+    /// <summary>
+    /// Enumerador para prevenir dejar escrito el tipo de contenido del request
+    /// </summary>
+    public enum ContentType
+    {
+        XML,
+        JSON
+    }
+
     public partial class Root
     {
         public DateTime fecha { get; set; }
@@ -13,5 +33,11 @@ namespace ServiceCore.Infile.Model
         public string descripcion { get; set; }
         public string ambiente { get; set; }
         public string token { get; set; }
+    }
+
+    public class RequestToken
+    {
+        public string rnc { get; set; }
+        public string llave { get; set; }
     }
 }
