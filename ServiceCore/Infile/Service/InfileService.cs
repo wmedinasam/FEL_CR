@@ -18,33 +18,7 @@ using static System.Net.WebRequestMethods;
 namespace ServiceCore.Infile.Service
 {
     public class InfileService
-    {
-        /// <summary>
-        /// Enumerador para prevenir dejar escrito el método del request
-        /// </summary>
-        public enum Method
-        {
-            POST,
-            GET,
-            PUT,
-            DELETE
-        }
-
-        /// <summary>
-        /// Enumerador para prevenir dejar escrito el tipo de contenido del request
-        /// </summary>
-        public enum ContentType
-        {
-            XML,
-            JSON
-        }
-
-        public class RequestToken
-        {
-            public string rnc { get; set; }
-            public string llave { get; set; }
-        }
-
+    {                
         /// <summary>
         /// Método para obtener el token de autenticación
         /// </summary>
@@ -71,7 +45,7 @@ namespace ServiceCore.Infile.Service
             byte[] postDataBytes = Encoding.UTF8.GetBytes(postDataString);
 
             request.Method = Method.POST.ToString();
-            request.ContentType = string.Format($"application/{ContentType.JSON.ToString().ToLower()}");
+            request.ContentType = string.Format($"application/{Model.ContentType.JSON.ToString().ToLower()}");
             request.ContentLength = postDataBytes.Length;
 
             using (var stream = request.GetRequestStream())
