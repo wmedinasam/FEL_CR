@@ -118,5 +118,20 @@ namespace FELRD.Controls
         // Using a DependencyProperty as the backing store for GroupName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty GroupNameProperty =
             DependencyProperty.Register("GroupName", typeof(string), typeof(MenuItem));
+
+
+        // Using for the Red LogOff button
+        public Brush IconBrush
+        {
+            get { return (Brush)GetValue(IconBrushProperty); }
+            set { SetValue(IconBrushProperty, value); }
+        }
+
+        public static readonly DependencyProperty IconBrushProperty =
+            DependencyProperty.Register("IconBrush", typeof(Brush), typeof(MenuItem), new PropertyMetadata(
+                (Brush)Application.Current.FindResource("SecundaryIconColor")));
+
+
+
     }
 }

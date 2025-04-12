@@ -83,8 +83,12 @@
                                 <Border Style="{StaticResource IndicatorStyle}"/>
 
                                 <!-- Icon -->
-                                <Path Data="{Binding Icon, ElementName=this, FallbackValue={StaticResource DefaultIcon}, TargetNullValue={StaticResource DefaultIcon}}" Margin="{Binding IconMargin, FallbackValue='0,0,0,0', TargetNullValue='20,0,0,0'}"
-                               Stretch="Uniform" Width="{Binding IconWidth, ElementName=this, FallbackValue=20,TargetNullValue=20}" Style="{StaticResource MenuIconStyle}"/>
+                                <Path x:Name="IconPath"
+                                      Data="{Binding Icon, ElementName=this, FallbackValue={StaticResource DefaultIcon}, TargetNullValue={StaticResource DefaultIcon}}"
+                                      Margin="{Binding IconMargin, FallbackValue='0,0,0,0', TargetNullValue='20,0,0,0'}"
+                                      Stretch="Uniform"
+                                      Width="{Binding IconWidth, ElementName=this, FallbackValue=20, TargetNullValue=20}"
+                                      Fill="{Binding IconBrush, ElementName=this}"/>
 
                                 <!-- Menu Text -->
                                 <TextBlock Style="{StaticResource MenuTextStyle}" FontWeight="Regular" FontSize="14" Grid.Column="1" Text="{Binding Text, ElementName=this, FallbackValue=MenuText, TargetNullValue=MenuText}" Margin="0,0,0,0"/>

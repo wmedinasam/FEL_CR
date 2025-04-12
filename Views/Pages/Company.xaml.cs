@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using WIS_Security;
 using System.Threading.Tasks;
+using FELRD.Services;
 
 namespace FELRD.Views.Pages
 {
@@ -59,7 +60,7 @@ namespace FELRD.Views.Pages
                     }
                     else
                     {
-                        MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageService.ShowError("Error de Sistema", response.Message);
                     }
                     LoaderOverlay.Visibility = Visibility.Collapsed;
                 });
@@ -88,7 +89,7 @@ namespace FELRD.Views.Pages
                     }
                     else
                     {
-                        MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageService.ShowError("Error de Sistema", response.Message);
                     }
                     LoaderOverlay.Visibility = Visibility.Collapsed;
                 });
@@ -150,7 +151,7 @@ namespace FELRD.Views.Pages
 
             if (ValidationHelper.HasValidationErrors(fieldsToValidate))
             {
-                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageService.ShowWarning("Error de validación", "Por favor completa todos los campos requeridos.");
                 return;
             }
 
@@ -174,7 +175,7 @@ namespace FELRD.Views.Pages
             }
             if (response.Success)
             {
-                MessageBox.Show("Empresa guardada correctamente", "Sistema", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageService.ShowSuccess("Éxito!", "Empresa guardada con éxito.");
                 _ = GetCompaniesAsync();
                 _ = GetCertifiersAsync();
                 ClearControllers();
@@ -182,7 +183,7 @@ namespace FELRD.Views.Pages
             }
             else
             {
-                MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageService.ShowError("Error de Sistema", response.Message);
             }
         }
 

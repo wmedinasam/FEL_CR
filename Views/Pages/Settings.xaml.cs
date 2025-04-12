@@ -17,6 +17,8 @@ using WIS_Security.DAO;
 using WIS_Security;
 using Newtonsoft.Json;
 using FELRD.Helpers;
+using FELRD.Services;
+using System.Configuration;
 
 namespace FELRD.Views.Pages
 {
@@ -50,7 +52,7 @@ namespace FELRD.Views.Pages
             }
             else
             {
-                MessageBox.Show(configuration.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageService.ShowError("Error de Sistema", configuration.Message);
             }
         }
         private void GetSettings()
@@ -63,7 +65,7 @@ namespace FELRD.Views.Pages
             }
             else
             {
-                MessageBox.Show(settingsResponse.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageService.ShowError("Error de Sistema", settingsResponse.Message);
             }
         }
         private void SyncTime_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -88,7 +90,7 @@ namespace FELRD.Views.Pages
 
             if (ValidationHelper.HasValidationErrors(fieldsToValidate))
             {
-                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageService.ShowWarning("Error de validación", "Por favor completa todos los campos requeridos.");
                 return;
             }
 
@@ -108,21 +110,21 @@ namespace FELRD.Views.Pages
                     var responseSave = configModel.SaveConfiguration(configModel);
                     if (responseSave.Success)
                     {
-                        MessageBox.Show("Configuraciones Guardadas Correctamente\nCierre el programa y Vuelvalo a abrir para ver el cambio", "CONFIGURACIONES", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageService.ShowInfo("Configuración", "Configuraciones Guardadas Correctamente\nCierre el programa y Vuelvalo a abrir para ver el cambio");
                     }
                     else
                     {
-                        MessageBox.Show(responseSave.Message, "ERROR DE SISTEMA", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageService.ShowError("Error de Sistema", responseSave.Message);
                     }
                 }
                 else
                 {
-                    MessageBox.Show(response.Message, "Error de usuario", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageService.ShowError("Error de Sistema", response.Message);
                 }
             }
             else
             {
-                MessageBox.Show("Llave no corresponde al sistema", "Error de usuario", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageService.ShowError("Error de Sistema", "La llave ingresada no corresponde a este sistema");
             }
 
 
@@ -140,7 +142,7 @@ namespace FELRD.Views.Pages
 
             if (ValidationHelper.HasValidationErrors(fieldsToValidate))
             {
-                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageService.ShowWarning("Error de validación", "Por favor completa todos los campos requeridos.");
                 return;
             }
 
@@ -153,7 +155,7 @@ namespace FELRD.Views.Pages
             var settingsResponseMake = settingModel.ActionSetting(action, settingModel);
             if (settingsResponseMake.Success)
             {
-                MessageBox.Show("Configuraciones Guardadas Correctamente", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageService.ShowSuccess("Éxito!", "Configuraciones Guardadas Correctamente");
                 GetSettings();
                 DisableControlls();
                 _id = string.Empty;
@@ -163,7 +165,7 @@ namespace FELRD.Views.Pages
             }
             else
             {
-                MessageBox.Show(settingsResponseMake.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageService.ShowError("Error de Sistema", settingsResponseMake.Message);
             }
         }
         private void DisableControlls()

@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using WIS_Security;
 using Monitor = FELRD.Views.Pages.Monitor;
 using Application = System.Windows.Application;
+using FELRD.Controls;
 
 namespace FELRD.Views
 {
@@ -57,17 +58,17 @@ namespace FELRD.Views
             {
                 ConfigurationModel configurationModel = new ConfigurationModel();
                 var response = configurationModel.GetConfiguration();
+                Monitor monitor = new Monitor();
 
                 if (userModel.role.CanAccessMonitor)
                 {
-                    Monitor monitor = new Monitor();
                     monitor._sync = response.Object.SyncTime;
                     monitor.canUserSign = _userModel.role.CanSign;
                     fContainerMonitor.Navigate(monitor);
-                    fContainerMonitor.Visibility = Visibility.Hidden;
+                    fContainerMonitor.Visibility = Visibility.Collapsed;
                 }
 
-                Home home = new Home();
+                Home home = new Home(monitor);
                 home.user = _userModel.UserName;
                 home.sync = response.Object.SyncTime.ToString();
                 fContainerHome.Navigate(home);
@@ -100,15 +101,15 @@ namespace FELRD.Views
 
         private void GrantAccess(UserModel userModel)
         {
-            btnMonitoring.Visibility = userModel.role.CanAccessMonitor ? Visibility.Visible : Visibility.Hidden;
-            btnDocuments.Visibility = userModel.role.CanAccessDocuments ? Visibility.Visible : Visibility.Hidden;
-            btnCompany.Visibility = userModel.role.CanAccessCompanies ? Visibility.Visible : Visibility.Hidden;
-            btnSubsidiary.Visibility = userModel.role.CanAccessCompanies ? Visibility.Visible : Visibility.Hidden;
-            btnUsers.Visibility = userModel.role.CanAccessUsers ? Visibility.Visible : Visibility.Hidden;
-            btnLogs.Visibility = userModel.role.CanAccessLogs ? Visibility.Visible : Visibility.Hidden;
-            btnSetting.Visibility = userModel.role.CanAccessConfigurations ? Visibility.Visible : Visibility.Hidden;
-            btnRole.Visibility = userModel.role.CanAccessRoles ? Visibility.Visible : Visibility.Hidden;
-            btnCertifier.Visibility = userModel.role.CanAccessCertifiers ? Visibility.Visible : Visibility.Hidden;
+            btnMonitoring.Visibility = userModel.role.CanAccessMonitor ? Visibility.Visible : Visibility.Collapsed;
+            btnDocuments.Visibility = userModel.role.CanAccessDocuments ? Visibility.Visible : Visibility.Collapsed;
+            btnCompany.Visibility = userModel.role.CanAccessCompanies ? Visibility.Visible : Visibility.Collapsed;
+            btnSubsidiary.Visibility = userModel.role.CanAccessCompanies ? Visibility.Visible : Visibility.Collapsed;
+            btnUsers.Visibility = userModel.role.CanAccessUsers ? Visibility.Visible : Visibility.Collapsed;
+            btnLogs.Visibility = userModel.role.CanAccessLogs ? Visibility.Visible : Visibility.Collapsed;
+            btnSetting.Visibility = userModel.role.CanAccessConfigurations ? Visibility.Visible : Visibility.Collapsed;
+            btnRole.Visibility = userModel.role.CanAccessRoles ? Visibility.Visible : Visibility.Collapsed;
+            btnCertifier.Visibility = userModel.role.CanAccessCertifiers ? Visibility.Visible : Visibility.Collapsed;
         }
 
 
@@ -120,112 +121,69 @@ namespace FELRD.Views
         // Start: MenuLeft PopupButton //
         private void btnHome_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (Tg_Btn.IsChecked == false)
-            {
-                Popup.PlacementTarget = btnHome;
-                Popup.Placement = PlacementMode.Right;
-                Popup.IsOpen = true;
-                Header.PopupText.Text = "Inicio";
-            }
+            ShowPopup(btnHome, "Inicio");
         }
 
         private void btnHome_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Popup.Visibility = Visibility.Collapsed;
-            Popup.IsOpen = false;
+            HidePopup();
         }
 
 
 
         private void btnMonitoring_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (Tg_Btn.IsChecked == false)
-            {
-                Popup.PlacementTarget = btnMonitoring;
-                Popup.Placement = PlacementMode.Right;
-                Popup.IsOpen = true;
-                Header.PopupText.Text = "Monitor";
-            }
+            ShowPopup(btnMonitoring, "Monitor");
         }
 
         private void btnMonitoring_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Popup.Visibility = Visibility.Collapsed;
-            Popup.IsOpen = false;
+            HidePopup();
         }
 
         private void btnCompany_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (Tg_Btn.IsChecked == false)
-            {
-                Popup.PlacementTarget = btnCompany;
-                Popup.Placement = PlacementMode.Right;
-                Popup.IsOpen = true;
-                Header.PopupText.Text = "Empresa";
-            }
+            ShowPopup(btnCompany, "Empresa");
         }
 
         private void btnCompany_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Popup.Visibility = Visibility.Collapsed;
-            Popup.IsOpen = false;
+            HidePopup();
         }
 
         private void btnUsers_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (Tg_Btn.IsChecked == false)
-            {
-                Popup.PlacementTarget = btnUsers;
-                Popup.Placement = PlacementMode.Right;
-                Popup.IsOpen = true;
-                Header.PopupText.Text = "Usuarios";
-            }
+            ShowPopup(btnUsers, "Usuarios");
         }
 
         private void btnUsers_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Popup.Visibility = Visibility.Collapsed;
-            Popup.IsOpen = false;
+            HidePopup();
         }
 
         private void btnConsultDocuments_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Popup.Visibility = Visibility.Collapsed;
-            Popup.IsOpen = false;
+            HidePopup();
         }
 
         private void btnLogs_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (Tg_Btn.IsChecked == false)
-            {
-                Popup.PlacementTarget = btnLogs;
-                Popup.Placement = PlacementMode.Right;
-                Popup.IsOpen = true;
-                Header.PopupText.Text = "Logs";
-            }
+            ShowPopup(btnLogs, "Logs");
         }
 
         private void btnLogs_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Popup.Visibility = Visibility.Collapsed;
-            Popup.IsOpen = false;
+            HidePopup();
         }
 
         private void btnSetting_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (Tg_Btn.IsChecked == false)
-            {
-                Popup.PlacementTarget = btnSetting;
-                Popup.Placement = PlacementMode.Right;
-                Popup.IsOpen = true;
-                Header.PopupText.Text = "Configuracion";
-            }
+            ShowPopup(btnSetting, "Configuracion");
         }
 
         private void btnSetting_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Popup.Visibility = Visibility.Collapsed;
-            Popup.IsOpen = false;
+            HidePopup();
         }
         // End: MenuLeft PopupButton //
 
@@ -252,7 +210,7 @@ namespace FELRD.Views
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             fContainer.Navigate(new System.Uri("../Views/Pages/Home.xaml", UriKind.RelativeOrAbsolute));
-            fContainerMonitor.Visibility = Visibility.Hidden;
+            fContainerMonitor.Visibility = Visibility.Collapsed;
             fContainerHome.Visibility = Visibility.Visible;
         }
 
@@ -260,73 +218,66 @@ namespace FELRD.Views
         private void btnMonitoring_Click(object sender, RoutedEventArgs e)
         {
             fContainer.Navigate(new System.Uri("../Views/Pages/Monitor.xaml", UriKind.RelativeOrAbsolute));
-            fContainerHome.Visibility = Visibility.Hidden;
+            fContainerHome.Visibility = Visibility.Collapsed;
             fContainerMonitor.Visibility = Visibility.Visible;
         }
 
         private void btnCompany_Click(object sender, RoutedEventArgs e)
         {
-            fContainerHome.Visibility = Visibility.Hidden;
-            fContainerMonitor.Visibility = Visibility.Hidden;
+            fContainerHome.Visibility = Visibility.Collapsed;
+            fContainerMonitor.Visibility = Visibility.Collapsed;
             fContainer.Navigate(new System.Uri("../Views/Pages/Company.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void btnUsers_Click(object sender, RoutedEventArgs e)
         {
-            fContainerHome.Visibility = Visibility.Hidden;
-            fContainerMonitor.Visibility = Visibility.Hidden;
+            fContainerHome.Visibility = Visibility.Collapsed;
+            fContainerMonitor.Visibility = Visibility.Collapsed;
             fContainer.Navigate(new System.Uri("../Views/Pages/User.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void btnConsultDocuments_Click(object sender, RoutedEventArgs e)
         {
-            fContainerHome.Visibility = Visibility.Hidden;
-            fContainerMonitor.Visibility = Visibility.Hidden;
+            fContainerHome.Visibility = Visibility.Collapsed;
+            fContainerMonitor.Visibility = Visibility.Collapsed;
             fContainer.Navigate(new System.Uri("../Views/Pages/ConsultDocuments.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void btnAnulllments_Click(object sender, RoutedEventArgs e)
         {
-            fContainerHome.Visibility = Visibility.Hidden;
-            fContainerMonitor.Visibility = Visibility.Hidden;
+            fContainerHome.Visibility = Visibility.Collapsed;
+            fContainerMonitor.Visibility = Visibility.Collapsed;
             fContainer.Navigate(new System.Uri("../Views/Pages/Anullments.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void btnLogs_Click(object sender, RoutedEventArgs e)
         {
-            fContainerHome.Visibility = Visibility.Hidden;
-            fContainerMonitor.Visibility = Visibility.Hidden;
+            fContainerHome.Visibility = Visibility.Collapsed;
+            fContainerMonitor.Visibility = Visibility.Collapsed;
             fContainer.Navigate(new System.Uri("../Views/Pages/Logs.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void btnSetting_Click(object sender, RoutedEventArgs e)
         {
-            fContainerHome.Visibility = Visibility.Hidden;
-            fContainerMonitor.Visibility = Visibility.Hidden;
+            fContainerHome.Visibility = Visibility.Collapsed;
+            fContainerMonitor.Visibility = Visibility.Collapsed;
             fContainer.Navigate(new System.Uri("../Views/Pages/Settings.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void btnSubsidiary_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (Tg_Btn.IsChecked == false)
-            {
-                Popup.PlacementTarget = btnSubsidiary;
-                Popup.Placement = PlacementMode.Right;
-                Popup.IsOpen = true;
-                Header.PopupText.Text = "Sucursal";
-            }
+            ShowPopup(btnSubsidiary, "Sucursal");
         }
 
         private void btnSubsidiary_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Popup.Visibility = Visibility.Collapsed;
-            Popup.IsOpen = false;
+            HidePopup();
         }
 
         private void btnSubsidiary_Click(object sender, RoutedEventArgs e)
         {
-            fContainerHome.Visibility = Visibility.Hidden;
-            fContainerMonitor.Visibility = Visibility.Hidden;
+            fContainerHome.Visibility = Visibility.Collapsed;
+            fContainerMonitor.Visibility = Visibility.Collapsed;
             fContainer.Navigate(new System.Uri("../Views/Pages/Subsidiary.xaml", UriKind.RelativeOrAbsolute));
         }
 
@@ -337,49 +288,35 @@ namespace FELRD.Views
 
         private void btnRole_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (Tg_Btn.IsChecked == false)
-            {
-                Popup.PlacementTarget = btnRole;
-                Popup.Placement = PlacementMode.Right;
-                Popup.IsOpen = true;
-                Header.PopupText.Text = "Roles";
-            }
+            ShowPopup(btnRole, "Roles");
         }
 
         private void btnRole_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Popup.Visibility = Visibility.Collapsed;
-            Popup.IsOpen = false;
+            HidePopup();
         }
 
         private void btnRole_Click(object sender, RoutedEventArgs e)
         {
-            fContainerHome.Visibility = Visibility.Hidden;
-            fContainerMonitor.Visibility = Visibility.Hidden;
+            fContainerHome.Visibility = Visibility.Collapsed;
+            fContainerMonitor.Visibility = Visibility.Collapsed;
             fContainer.Navigate(new System.Uri("../Views/Pages/Role.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void btnCertifier_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (Tg_Btn.IsChecked == false)
-            {
-                Popup.PlacementTarget = btnCertifier;
-                Popup.Placement = PlacementMode.Right;
-                Popup.IsOpen = true;
-                Header.PopupText.Text = "Certificadores";
-            }
+            ShowPopup(btnCertifier, "Certificadores");
         }
 
         private void btnCertifier_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Popup.Visibility = Visibility.Collapsed;
-            Popup.IsOpen = false;
+            HidePopup();
         }
 
         private void btnCertifier_Click(object sender, RoutedEventArgs e)
         {
-            fContainerHome.Visibility = Visibility.Hidden;
-            fContainerMonitor.Visibility = Visibility.Hidden;
+            fContainerHome.Visibility = Visibility.Collapsed;
+            fContainerMonitor.Visibility = Visibility.Collapsed;
             fContainer.Navigate(new System.Uri("../Views/Pages/Certifier.xaml", UriKind.RelativeOrAbsolute));
         }
 
@@ -416,26 +353,79 @@ namespace FELRD.Views
 
         private void btnDocuments_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (Tg_Btn.IsChecked == false)
-            {
-                Popup.PlacementTarget = btnDocuments;
-                Popup.Placement = PlacementMode.Right;
-                Popup.IsOpen = true;
-                Header.PopupText.Text = "Documentos";
-            }
+            ShowPopup(btnDocuments, "Consulta Documentos");
         }
 
         private void btnDocuments_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Popup.Visibility = Visibility.Collapsed;
-            Popup.IsOpen = false;
+            HidePopup();
         }
 
         private void btnDocuments_Click(object sender, RoutedEventArgs e)
         {
-            fContainerHome.Visibility = Visibility.Hidden;
-            fContainerMonitor.Visibility = Visibility.Hidden;
+            fContainerHome.Visibility = Visibility.Collapsed;
+            fContainerMonitor.Visibility = Visibility.Collapsed;
             fContainer.Navigate(new System.Uri("../Views/Pages/Documents.xaml", UriKind.RelativeOrAbsolute));
         }
+
+        public static readonly DependencyProperty IconBrushProperty =
+        DependencyProperty.Register("IconBrush", typeof(Brush), typeof(System.Windows.Controls.MenuItem), new PropertyMetadata(Brushes.Black));
+
+        public Brush IconBrush
+        {
+            get { return (Brush)GetValue(IconBrushProperty); }
+            set { SetValue(IconBrushProperty, value); }
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            var result = customMessageBox.Show(
+                    "Cerrar Sesión",
+                    "¿Estás seguro que deseas cerrar sesión?",
+                    customMessageBox.MessageBoxType.Warning,
+                    customMessageBox.MessageBoxButtons.YesNo);
+
+            if (result == customMessageBox.CustomMessageBoxResult.Yes)
+            {
+                // Mostrar Login nuevamente
+                Login loginWindow = new Login();
+                loginWindow.Show();
+
+                // Cerrar el Dashboard actual
+                this.Close();
+            }
+        }
+
+        private void btnLogout_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+
+            ShowPopup(btnLogout, "Cerrar Sesión");
+
+        }
+
+        private void btnLogout_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            HidePopup();
+        }
+
+
+        private void ShowPopup(System.Windows.Controls.Button target, string text)
+        {
+            if (Tg_Btn.IsChecked == false)
+            {
+                Popup.PlacementTarget = target;
+                Popup.Placement = PlacementMode.Right;
+                Header.PopupText.Text = text;
+                Popup.IsOpen = true;
+            }
+        }
+
+        private void HidePopup()
+        {
+            Popup.IsOpen = false;
+            Popup.Visibility = Visibility.Collapsed;
+        }
+
+
     }
 }

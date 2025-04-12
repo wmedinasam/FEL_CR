@@ -24,5 +24,11 @@ namespace FELRD.Controls
         {
             InitializeComponent();
         }
+
+        public string Text
+        {
+            get => PopupText.Text;
+            set => PopupText.Text = value;
+        }
     }
 }

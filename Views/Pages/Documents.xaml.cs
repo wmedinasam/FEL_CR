@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FELRD.Helpers;
 using FELRD.Models;
+using FELRD.Services;
 using WIS_Security;
 
 namespace FELRD.Views.Pages
@@ -92,7 +93,7 @@ namespace FELRD.Views.Pages
                 else
                 {
                     LoaderOverlay.Visibility = Visibility.Collapsed;
-                    MessageBox.Show("El número de documento ingresado no es válido.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageService.ShowWarning("Error de validación", "El número de documento ingresado no es válido.");
                 }
             }
             else if (selectedFilter.StartsWith("2"))
@@ -110,7 +111,7 @@ namespace FELRD.Views.Pages
 
             if (string.IsNullOrEmpty(selectedFilter))
             {
-                MessageBox.Show("Debe seleccionar un filtro.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageService.ShowWarning("Error de validación", "Debes seleccionar un Filtro.");
                 return false;
             }
 
@@ -118,7 +119,7 @@ namespace FELRD.Views.Pages
             {
                 if (string.IsNullOrWhiteSpace(txtNoDocument.Text))
                 {
-                    MessageBox.Show("Debe ingresar un número de documento.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageService.ShowWarning("Error de validación", "Debes ingresar un numero de documento.");
                     return false;
                 }
 
@@ -128,7 +129,7 @@ namespace FELRD.Views.Pages
             {
                 if (!startDate.SelectedDate.HasValue || !endDate.SelectedDate.HasValue)
                 {
-                    MessageBox.Show("Debe seleccionar ambas fechas.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageService.ShowWarning("Error de validación", "Debe seleccionar ambas fechas.");
                     return false;
                 }
 
@@ -138,13 +139,13 @@ namespace FELRD.Views.Pages
 
                 if (start > today || end > today)
                 {
-                    MessageBox.Show("Las fechas no pueden ser mayores a la fecha actual.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageService.ShowWarning("Error de validación", "Las fechas no pueden ser mayores a la fecha actual.");
                     return false;
                 }
 
                 if (start > end)
                 {
-                    MessageBox.Show("La fecha inicial no puede ser mayor que la fecha final.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageService.ShowWarning("Error de validación", "La fecha inicial no puede ser mayor que la fecha final.");
                     return false;
                 }
 
@@ -170,7 +171,7 @@ namespace FELRD.Views.Pages
                     }
                     else
                     {
-                        MessageBox.Show(documentsRespose.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageService.ShowError("Error de Sistema", documentsRespose.Message);
                     }
                     LoaderOverlay.Visibility = Visibility.Collapsed;
                 });
@@ -193,7 +194,7 @@ namespace FELRD.Views.Pages
                     }
                     else
                     {
-                        MessageBox.Show(documentsRespose.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageService.ShowError("Error de Sistema", documentsRespose.Message);
                     }
                     LoaderOverlay.Visibility = Visibility.Collapsed;
                 });
@@ -206,7 +207,7 @@ namespace FELRD.Views.Pages
             var row = (sender as FrameworkElement)?.DataContext as TransactionModel;
             if (row != null)
             {
-                MessageBox.Show($"Ver detalle del documento con ID {row.Id}", "Detalle", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageService.ShowInfo("Atención!", $"Ver detalle del documento con ID {row.Id}");
                 // Aquí puedes abrir un modal o nueva pantalla con más detalle
             }
         }
@@ -216,7 +217,7 @@ namespace FELRD.Views.Pages
             var row = (sender as FrameworkElement)?.DataContext as TransactionModel;
             if (row != null)
             {
-                MessageBox.Show($"Descargar PDF del documento {row.SAEDocumentId}", "Descargar", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageService.ShowInfo("Atención!", $"Descargar PDF del documento {row.SAEDocumentId}");
                 // Aquí iría la lógica real de descarga
             }
         }

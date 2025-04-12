@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using FELRD.Services;
 
 namespace FELRD.Views.Pages
 {
@@ -63,7 +64,7 @@ namespace FELRD.Views.Pages
                     }
                     else
                     {
-                        MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageService.ShowError("Error de Sistema", response.Message);
                     }
                     LoaderOverlay.Visibility = Visibility.Collapsed;
                 });
@@ -134,7 +135,7 @@ namespace FELRD.Views.Pages
 
             if (ValidationHelper.HasValidationErrors(fieldsToValidate))
             {
-                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageService.ShowWarning("Error de validación", "Por favor completa todos los campos requeridos.");
                 return;
             }
             RoleModel model = new RoleModel();
@@ -164,7 +165,7 @@ namespace FELRD.Views.Pages
 
             if (response.Success)
             {
-                MessageBox.Show("Usuario guardado correctamente", "Sistema", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageService.ShowSuccess("Éxito!", "Rol guardado con éxito.");
                 _ = GetRolesAsync();
 
                 New();
@@ -184,7 +185,7 @@ namespace FELRD.Views.Pages
             }
             else
             {
-                MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageService.ShowError("Error de Sistema", response.Message);
             }
         }
 

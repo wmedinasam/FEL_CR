@@ -20,6 +20,7 @@ namespace FELRD.Views.Pages
     {
         #region Campos y propiedades principales
 
+
         public int _sync = 10;
         public int Sync
         {
@@ -38,6 +39,22 @@ namespace FELRD.Views.Pages
         public bool canUserSign = false;
         private readonly TransactionModel transactionModel = new TransactionModel();
         private ResponseModel<List<TransactionModel>> transactionsResponse = new ResponseModel<List<TransactionModel>>();
+
+        public static Monitor Instance { get; private set; }
+
+        private int _rejectedCount;
+        public int RejectedCount
+        {
+            get => _rejectedCount;
+            set { _rejectedCount = value; OnPropertyChanged(nameof(RejectedCount)); }
+        }
+
+        private int _acceptedCount;
+        public int AcceptedCount
+        {
+            get => _acceptedCount;
+            set { _acceptedCount = value; OnPropertyChanged(nameof(AcceptedCount)); }
+        }
 
         #endregion
 
@@ -204,8 +221,14 @@ namespace FELRD.Views.Pages
                 else if (tx.Status == "RECHAZADO" || tx.Status == "PROCESANDO")
                     TransactionsRejected.Add(tx);
             }
-
-            LastUpdated = "Última actualización: " + DateTime.Now.ToString("HH:mm:ss");
+            AcceptedCount = TransactionsSuccess.Count;
+            RejectedCount = TransactionsRejected.Count;
+            LastUpdated = DateTime.Now.ToString("HH:mm:ss");
+            Application.Current.Dispatcher.Invoke(async () =>
+            {
+                await Task.Delay(150);
+                Home.Instance?.AnimateAllDashboardCards();
+            });
         }
 
         private void StartProcess()
@@ -258,7 +281,9 @@ namespace FELRD.Views.Pages
         public Monitor()
         {
             InitializeComponent();
+            Instance = this;
             this.DataContext = this;
+            LastUpdated = "Sin sincronizar";
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -338,5 +363,8 @@ namespace FELRD.Views.Pages
         }
 
         #endregion
+
+
+
     }
 }

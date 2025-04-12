@@ -1,5 +1,6 @@
 ﻿using FELRD.Helpers;
 using FELRD.Models;
+using FELRD.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -70,7 +71,7 @@ namespace FELRD.Views.Pages
                     }
                     else
                     {
-                        MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageService.ShowError("Error de Sistema", response.Message);
                     }
                     LoaderOverlay.Visibility = Visibility.Collapsed;
                 });
@@ -97,7 +98,7 @@ namespace FELRD.Views.Pages
                     }
                     else
                     {
-                        MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageService.ShowError("Error de Sistema", response.Message);
                     }
                     LoaderOverlay.Visibility = Visibility.Collapsed;
 
@@ -139,7 +140,7 @@ namespace FELRD.Views.Pages
 
             if (ValidationHelper.HasValidationErrors(fieldsToValidate))
             {
-                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageService.ShowWarning("Error de validación", "Por favor completa todos los campos requeridos.");
                 return;
             }
 
@@ -148,13 +149,13 @@ namespace FELRD.Views.Pages
 
             if (!ValidationHelper.IsPasswordComplex(txtPassword))
             {
-                MessageBox.Show("La contraseña debe tener al menos 6 caracteres, una mayúscula, un número y un símbolo.", "Contraseña no segura", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageService.ShowWarning("Contraseña no segura", "La contraseña debe tener al menos 6 caracteres, una mayúscula, un número y un símbolo.");
                 return;
             }
 
             if (!ValidationHelper.ArePasswordsMatching(txtPassword, txtConfirmPassword))
             {
-                MessageBox.Show("Las contraseñas no coinciden.", "Error de confirmación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageService.ShowWarning("Error de confirmación", "Las contraseñas no coinciden.");
                 return;
             }
 
@@ -178,7 +179,7 @@ namespace FELRD.Views.Pages
 
             if (response.Success)
             {
-                MessageBox.Show("Usuario guardado correctamente", "Sistema", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageService.ShowSuccess("Exito!", "Usuario guardado correctamente");
                 _ = GetUsersAsync();
 
                 _id = 0;
@@ -191,7 +192,7 @@ namespace FELRD.Views.Pages
             }
             else
             {
-                MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageService.ShowError("Error de Sistema", response.Message);
             }
         }
 

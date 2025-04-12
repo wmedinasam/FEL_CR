@@ -18,6 +18,7 @@ using FELRD.Helpers;
 using System.Xml.Linq;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using FELRD.Services;
 
 namespace FELRD.Views.Pages
 {
@@ -76,7 +77,7 @@ namespace FELRD.Views.Pages
                     }
                     else
                     {
-                        MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageService.ShowError("Error de Sistema", response.Message);
                     }
                     LoaderOverlay.Visibility = Visibility.Collapsed;
                 });
@@ -120,7 +121,7 @@ namespace FELRD.Views.Pages
                     }
                     else
                     {
-                        MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageService.ShowError("Error de Sistema", response.Message);
                     }
                     LoaderOverlay.Visibility = Visibility.Collapsed;
                 });
@@ -181,7 +182,7 @@ namespace FELRD.Views.Pages
 
             if (ValidationHelper.HasValidationErrors(fieldsToValidate))
             {
-                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageService.ShowWarning("Error de validación", "Por favor completa todos los campos requeridos.");
                 return;
             }
 
@@ -204,15 +205,17 @@ namespace FELRD.Views.Pages
             }
             if (response.Success)
             {
+                MessageService.ShowSuccess("Éxito!", "Sucursal agregada con éxito!");
                 _ = GetUsersAsync();
                 _ = GetSubsidiariesAsync();
                 _ = GetCountriesAsync();
                 ClearControllers();
                 DisableControllers();
+
             }
             else
             {
-                MessageBox.Show(response.Message, "Error del sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageService.ShowError("Error de Sistema", response.Message);
             }
         }
 

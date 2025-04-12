@@ -38,6 +38,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
@@ -98,10 +99,37 @@
                     <!-- End: MenuItem -->
 
                     <!-- Start: Popup User Control -->
-                    <Popup x:Name="Popup"  AllowsTransparency="True"  HorizontalOffset="0" VerticalOffset="10">
-                        <ctls:UserPopup x:Name="Header" Foreground="{DynamicResource PrimaryTextColor}"/>
+                    <Popup x:Name="Popup"
+                           AllowsTransparency="True"
+                           HorizontalOffset="0"
+                           VerticalOffset="10"
+                           Placement="Right"
+                           StaysOpen="True">
+                        <ctls:UserPopup x:Name="Header"
+                    Foreground="{DynamicResource PrimaryTextColor}" />
                     </Popup>
+
                     <!-- End: Popup User Control -->
+
+                    <!-- Start: LogOff Button-->
+                    <Button Grid.Row="2"
+                            x:Name="btnLogout"
+                            Style="{DynamicResource PopupButtonStyle}"
+                            Click="btnLogout_Click"
+                            MouseEnter="btnLogout_MouseEnter"
+                            MouseLeave="btnLogout_MouseLeave"
+                            VerticalAlignment="Bottom"
+                            Margin="0,10,0,10">
+                        <ctls:MenuItem GroupName="MenuItem"
+                                       IndicatorBrush="Crimson"
+                                       Icon="{DynamicResource logout}"
+                                       IconWidth="25"
+                                       IconBrush="Crimson"
+                                       Foreground="Crimson"
+                                       Text="Cerrar Sesión"
+                                       VerticalAlignment="Center"/>
+                    </Button>
+                    <!-- End: LogOff Button-->
 
                 </Grid>
             </Border>

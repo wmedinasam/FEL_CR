@@ -108,6 +108,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\customMessageBox.xaml.cs">
+      <DependentUpon>customMessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MenuItem.xaml.cs">
       <DependentUpon>MenuItem.xaml</DependentUpon>
     </Compile>
@@ -145,6 +148,7 @@
     <Compile Include="Services\DashboardService.cs" />
     <Compile Include="Services\DocumentService.cs" />
     <Compile Include="Services\IDefaultService.cs" />
+    <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\SaeFelService.cs" />
     <Compile Include="Services\SettingService.cs" />
@@ -177,6 +181,10 @@
     <Compile Include="Views\Pages\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\HomeViewModel.cs" />
+    <Compile Include="Views\Pages\Logs.xaml.cs">
+      <DependentUpon>Logs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\Monitor.xaml.cs">
       <DependentUpon>Monitor.xaml</DependentUpon>
     </Compile>
@@ -198,6 +206,10 @@
     <Page Include="Assets\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\customMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MenuItem.xaml">
       <SubType>Designer</SubType>
@@ -234,6 +246,10 @@
     <Page Include="Views\Pages\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Logs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Pages\Monitor.xaml">
       <SubType>Designer</SubType>
@@ -291,9 +307,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DTECore\DTECore.csproj">

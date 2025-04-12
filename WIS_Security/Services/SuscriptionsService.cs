@@ -10,6 +10,8 @@ namespace WIS_Security
         /// Returns the server Date in Date Time format
         /// </summary>
         /// <returns></returns>
+        /// 
+
         public static ResponseModel<DateTime> GetServerDate()
         {
             ResponseModel<DateTime> responseDate = new ResponseModel<DateTime>();
@@ -36,12 +38,13 @@ namespace WIS_Security
         /// <returns>Due Date inf Date Time format</returns>
         public static DateTime GetDueDate()
         {
+            string[] formatos = { "dd/MM/yyyy", "dd-MM-yyyy" };
             ConfigurationModel _configurationModel = new ConfigurationModel();
             HandleCfg handleCfg = new HandleCfg();
             var json = handleCfg.ReadCfg(_configurationModel.path);
             _configurationModel = JsonConvert.DeserializeObject<ConfigurationModel>(json);
             var dateString = _configurationModel.Key.FechaVencimiento;
-            DateTime date = DateTime.ParseExact(dateString, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            DateTime date = DateTime.ParseExact(dateString, formatos, CultureInfo.InvariantCulture, DateTimeStyles.None);
             return date;
         }
 

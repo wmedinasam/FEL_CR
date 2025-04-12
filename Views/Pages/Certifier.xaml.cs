@@ -18,6 +18,7 @@ using WIS_Security;
 using FELRD.Helpers;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using FELRD.Services;
 
 namespace FELRD.Views.Pages
 {
@@ -69,7 +70,7 @@ namespace FELRD.Views.Pages
                     }
                     else
                     {
-                        MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageService.ShowError("Error de Sistema", response.Message);
                     }
                     LoaderOverlay.Visibility = Visibility.Collapsed;
                 });
@@ -87,6 +88,7 @@ namespace FELRD.Views.Pages
             txtUsuarioWS.IsEnabled = true;
             txtPasswordWS.IsEnabled = true;
             txtSecurityKey.IsEnabled = true;
+            btnSave.IsEnabled = true;
         }
 
         private void DisableControls()
@@ -114,7 +116,7 @@ namespace FELRD.Views.Pages
             };
             if (ValidationHelper.HasValidationErrors(fieldsToValidate))
             {
-                MessageBox.Show("Por favor completa todos los campos requeridos.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageService.ShowWarning("Error de validación", "Por favor completa todos los campos requeridos.");
                 return;
             }
 
@@ -140,7 +142,7 @@ namespace FELRD.Views.Pages
 
             if (response.Success)
             {
-                MessageBox.Show("Usuario guardado correctamente", "Sistema", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageService.ShowSuccess("Éxito!", "Certificador guardado con éxito.");
                 _ = GetCertifiersAsync();
 
                 _id = 0;
@@ -155,7 +157,7 @@ namespace FELRD.Views.Pages
             }
             else
             {
-                MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageService.ShowError("Error de Sistema", response.Message);
             }
         }
 

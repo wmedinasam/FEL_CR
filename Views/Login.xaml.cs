@@ -1,4 +1,6 @@
-﻿using FELRD.Models;
+﻿using FELRD.Controls;
+using FELRD.Models;
+using FELRD.Services;
 using System;
 using System.Reflection;
 using System.Windows;
@@ -43,7 +45,7 @@ namespace FELRD.Views
                     if (isExpired)
                     {
                         BlockControls();
-                        MessageBox.Show("Tu suscripcion ha vencido");
+                        MessageService.ShowWarning("Suscripción vencida", "Tu suscripción ha vencido. Contactate con Soporte Técnico para obtener mas información.");
                     }
                 }
             }
@@ -67,7 +69,7 @@ namespace FELRD.Views
             HandleCfg file = new HandleCfg();
             if (!file.CfgExists(config.path))
             {
-                MessageBox.Show("No existe archivo de configuración, para iniciar el sistema debe configuralo primero.", "ADVERTENCIA", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageService.ShowWarning("Licencia No Encontrada", "No existe archivo de configuración, para iniciar el sistema debe configuralo primero.");
                 Dashboard dashboard = new Dashboard(userModel, true);
                 dashboard.ShowDialog();
                 if (Application.Current != null)
@@ -90,38 +92,39 @@ namespace FELRD.Views
                 UserModel userModel = new UserModel();
                 var response = userModel.GetUserByUserName(txtUsername.Text);
 
-
-                if (response.Success)
+                if (response.Success && response.Object != null)
                 {
-                    if (response.Object != null)
+                    var decryptedPassword = response.Object.UserPassword.DesencriptarDatos();
+
+                    if (decryptedPassword == txtPassword.Password)
                     {
-                        var decryptedPassword = response.Object.UserPassword.DesencriptarDatos();
-                        if (decryptedPassword == txtPassword.Password)
+
+                        try
                         {
-                            this.Hide();
                             Dashboard dashboard = new Dashboard(response.Object, false);
+                            this.Hide();
                             dashboard.ShowDialog();
-                            //Application.Current.Shutdown();
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            MessageBox.Show("Usurio o contraseña inválidos", "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("ERROR AL ABRIR DASHBOARD: " + ex.Message + "\n\n" + ex.StackTrace);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Usurio o contraseña inválidos", "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageService.ShowError("Error de Sistema", "Usuario o contraseña inválidos.");
                     }
                 }
                 else
                 {
-                    MessageBox.Show(response.Message, "Error de sistema", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageService.ShowError("Error de Sistema", "Usuario o contraseña inválidos.");
                 }
             }
             else
             {
-                MessageBox.Show("Debe ingresar usuario y contraseña!", "MENSAJE DE SISTEMA", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageService.ShowError("Error de validación", "Debe ingresar usuario y contraseña!");
             }
+
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
