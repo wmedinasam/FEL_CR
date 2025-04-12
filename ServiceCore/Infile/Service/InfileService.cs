@@ -2,6 +2,7 @@
 using ServiceCore.Infile.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -140,6 +141,34 @@ namespace ServiceCore.Infile.Service
                 result.Success = false;
                 result.Message = ($"Error: {ex.Message} + {ex.StackTrace}");
                 return result;
+            }
+        }
+
+        /// <summary>
+        /// Método para construir una URL y abrirla en el navegador
+        /// </summary>
+        /// <param name="baseUrl"></param>
+        /// <param name="rnc"></param>
+        /// <param name="encf"></param>
+        /// <param name="codigoSeguridad"></param>
+        public void GetDocumentPdfInBrowser(string baseUrl, string rnc, string encf, string codigoSeguridad)
+        {                        
+            string formato = "pdf";
+            string operacion = "ecf";
+
+            string url = $"{baseUrl}?rnc={rnc}&encf={encf}&codigo_seguridad={codigoSeguridad}&formato={formato}&operacion={operacion}";
+
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al abrir la URL: {ex.Message}");
             }
         }
     }
