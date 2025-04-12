@@ -18,7 +18,7 @@ using static System.Net.WebRequestMethods;
 namespace ServiceCore.Infile.Service
 {
     public class InfileService
-    {                
+    {
         /// <summary>
         /// Método para obtener el token de autenticación
         /// </summary>
@@ -78,6 +78,68 @@ namespace ServiceCore.Infile.Service
             {
 
                 return ($"Error: {ex.Message} + {ex.StackTrace}");
+            }
+        }
+
+
+        /// <summary>
+        /// Envio de XML a firma
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="token"></param>
+        /// <param name="xmlContent"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public ResponseModel<RootObject> SendXmlDocument(string url, string token, string xmlContent)
+        {
+            var request = (HttpWebRequest)WebRequest.CreateHttp(url);
+            ResponseModel<RootObject> result = new ResponseModel<RootObject>();
+            // Autorización Bearer
+            request.Headers.Add("Authorization", "Bearer " + token);
+
+            // Body del request
+            byte[] postDataBytes = Encoding.UTF8.GetBytes(xmlContent);
+
+            request.Method = Method.POST.ToString();
+            request.ContentType = string.Format($"application/{Model.ContentType.JSON.ToString().ToLower()}");
+            request.ContentLength = postDataBytes.Length;
+
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(postDataBytes, 0, postDataBytes.Length);
+            }
+
+            try
+            {
+                var response = (HttpWebResponse)request.GetResponse();
+
+                using (response)
+                {
+                    using (var reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        string responseText = reader.ReadToEnd();
+                        RootObject responseObject = JsonConvert.DeserializeObject<RootObject>(responseText);
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            result.Success = true;
+                            result.Object = responseObject;
+                            return result;
+                        }
+                        else
+                        {
+                            result.Success = false;
+                            result.Message = ($"Error: {response.StatusCode}, {responseObject.descripcion}");
+                            return result;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = ($"Error: {ex.Message} + {ex.StackTrace}");
+                return result;
             }
         }
     }
