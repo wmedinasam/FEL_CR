@@ -27,6 +27,7 @@ namespace DTECore
                     IdDoc = new ECFEncabezadoIdDoc
                     {
                         TipoeCF = Convert.ToInt32(row["TipoeCF"].ToString()),
+                        eNCF = row["eNCF"].ToString(), // Número interno de documento por ejemplo: E320000000001 E32 es el tipo de documento y el número es el correlativo
                         TipoIngresos = row["TipoIngresos"].ToString(),
                         TipoPago = row["TipoPago"].ToString()
                     },
@@ -71,6 +72,16 @@ namespace DTECore
                     {
                         MontoTotal = 0,
                         MontoExento = 0,
+                        MontoGravadoTotalSpecified = false,
+                        MontoGravadoI1Specified = false,
+                        MontoGravadoI3Specified = false,
+                        ITBIS1Specified = false,
+                        ITBIS3Specified = false,
+                        TotalITBISSpecified = false,
+                        TotalITBIS1Specified = false,
+                        TotalITBIS3Specified = false,
+                        TotalITBISRetenidoSpecified = false,
+                        TotalISRRetencionSpecified = false
                     }
                 };
 
@@ -79,17 +90,20 @@ namespace DTECore
                 List<ECFItem> items = new List<ECFItem>();
                 foreach (DataRow itemRow in datos.Rows)
                 {
+                    var descuentoMontoIsVsible = Math.Round(Convert.ToDecimal(itemRow["DescuentoMonto"].ToString()), 2) > 0  ? true : false;
+
                     ECFItem item = new ECFItem
                     {
                         NumeroLinea = Convert.ToInt32(itemRow["NumeroLinea"].ToString()),
                         IndicadorFacturacion = Convert.ToInt32(itemRow["IndicadorFacturacion"].ToString()),
                         NombreItem = itemRow["NombreItem"].ToString(),
                         IndicadorBienoServicio = Convert.ToInt32(itemRow["IndicadorBienoServicio"].ToString()),
-                        CantidadItem = Math.Round(Convert.ToDecimal(itemRow["CantidadItem"].ToString()),2),
+                        CantidadItem = Math.Round(Convert.ToDecimal(itemRow["CantidadItem"].ToString()), 2),
                         UnidadMedida = Convert.ToInt32(itemRow["UnidadMedida"].ToString()),
-                        PrecioUnitarioItem = Math.Round(Convert.ToDecimal(itemRow["PrecioUnitarioItem"].ToString()),2),
-                        DescuentoMonto = Math.Round(Convert.ToDecimal(itemRow["DescuentoMonto"].ToString()),2),
-                        MontoItem = Math.Round(Convert.ToDecimal(itemRow["MontoItem"].ToString()),2),                        
+                        PrecioUnitarioItem = Math.Round(Convert.ToDecimal(itemRow["PrecioUnitarioItem"].ToString()), 2),
+                        DescuentoMonto = Math.Round(Convert.ToDecimal(itemRow["DescuentoMonto"].ToString()), 2),
+                        DescuentoMontoSpecified = descuentoMontoIsVsible,
+                        MontoItem = Math.Round(Convert.ToDecimal(itemRow["MontoItem"].ToString()), 2),
                     };
                     items.Add(item);
                     sumMontoItem += item.MontoItem;
@@ -98,6 +112,7 @@ namespace DTECore
 
                 // llenado de totales
                 documento.Encabezado.Totales.MontoExento = sumMontoItem;
+                documento.Encabezado.Totales.MontoExentoSpecified = true;
                 documento.Encabezado.Totales.MontoTotal = sumMontoItem;
 
             }

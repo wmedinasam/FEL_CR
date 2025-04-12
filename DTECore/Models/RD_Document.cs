@@ -1196,112 +1196,212 @@ namespace DTECore
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public partial class ECFEncabezadoTotales
     {
-        private decimal? montoGravadoTotalField;
-        private decimal? montoGravadoI1Field;
-        private decimal? montoGravadoI3Field;
-        private decimal? montoExentoField;
-        private decimal? iTBIS1Field;
-        private decimal? iTBIS3Field;
-        private decimal? totalITBISField;
-        private decimal? totalITBIS1Field;
-        private decimal? totalITBIS3Field;
-        private decimal? montoTotalField;
-        private decimal? totalITBISRetenidoField;
-        private decimal? totalISRRetencionField;
+        private decimal montoGravadoTotalField;
 
-        [XmlElement(IsNullable = true)]
-        public decimal? MontoExento
+        private bool montoGravadoTotalSpecified;
+
+        private decimal montoGravadoI1Field;
+
+        private bool montoGravadoI1Specified;
+
+        private decimal montoGravadoI3Field;
+
+        private bool montoGravadoI3Specified;
+
+        private decimal montoExentoField;
+
+        private bool montoExentoSpecified;
+
+        private decimal iTBIS1Field;
+
+        private bool iTBIS1Specified;
+
+        private decimal iTBIS3Field;
+
+        private bool iTBIS3Specified;
+
+        private decimal totalITBISField;
+
+        private bool totalITBISSpecified;
+
+        private decimal totalITBIS1Field;
+
+        private bool totalITBIS1Specified;
+
+        private decimal totalITBIS3Field;
+
+        private bool totalITBIS3Specified;
+
+        private decimal montoTotalField;
+        
+        private decimal totalITBISRetenidoField;
+
+        private bool totalITBISRetenidoSpecified;
+
+        private decimal totalISRRetencionField;
+
+        private bool totalISRRetencionSpecified;
+
+        [XmlElement(IsNullable = false)]
+        public decimal MontoExento
         {
             get { return this.montoExentoField; }
             set { this.montoExentoField = value; }
         }
 
-        [XmlElement(IsNullable = true)]
-        public decimal? MontoTotal
+        [XmlIgnore]
+        public bool MontoExentoSpecified
+        {
+            get { return this.montoExentoSpecified; }
+            set { this.montoExentoSpecified = value; }
+        }
+
+        [XmlElement(IsNullable = false)]
+        public decimal MontoTotal
         {
             get { return this.montoTotalField; }
             set { this.montoTotalField = value; }
         }
 
-        [XmlElement(IsNullable = true)]
-        public decimal? MontoGravadoTotal
+        [XmlElement(IsNullable = false)]
+        public decimal MontoGravadoTotal
         {
             get { return this.montoGravadoTotalField; }
             set { this.montoGravadoTotalField = value; }
         }
 
-        [XmlElement(IsNullable = true)]
-        public decimal? MontoGravadoI1
+        [XmlIgnore]
+        public bool MontoGravadoTotalSpecified
+        {
+            get { return this.montoGravadoTotalSpecified; }
+            set { this.montoGravadoTotalSpecified = value; }
+        }
+
+        [XmlElement(IsNullable = false)]
+        public decimal MontoGravadoI1
         {
             get { return this.montoGravadoI1Field; }
             set { this.montoGravadoI1Field = value; }
         }
 
-        [XmlElement(IsNullable = true)]
-        public decimal? MontoGravadoI3
+        [XmlIgnore]
+        public bool MontoGravadoI1Specified
+        {
+            get { return this.montoGravadoI1Specified; }
+            set { this.montoGravadoI1Specified = value; }
+        }
+
+        [XmlElement(IsNullable = false)]
+        public decimal MontoGravadoI3
         {
             get { return this.montoGravadoI3Field; }
             set { this.montoGravadoI3Field = value; }
         }
-        
-        [XmlElement(IsNullable = true)]
-        public decimal? ITBIS1
+
+        [XmlIgnore]
+        public bool MontoGravadoI3Specified
+        {
+            get { return this.montoGravadoI3Specified; }
+            set { this.montoGravadoI3Specified = value; }
+        }
+
+        [XmlElement(IsNullable = false)]
+        public decimal ITBIS1
         {
             get { return this.iTBIS1Field; }
             set { this.iTBIS1Field = value; }
         }
 
-        [XmlElement(IsNullable = true)]
-        public decimal? ITBIS3
+        [XmlIgnore]
+        public bool ITBIS1Specified
+        {
+            get { return this.iTBIS1Specified; }
+            set { this.iTBIS1Specified = value; }
+        }
+
+        [XmlElement(IsNullable = false)]
+        public decimal ITBIS3
         {
             get { return this.iTBIS3Field; }
             set { this.iTBIS3Field = value; }
         }
 
-        [XmlElement(IsNullable = true)]
-        public decimal? TotalITBIS
+        [XmlIgnore]
+        public bool ITBIS3Specified
+        {
+            get { return this.iTBIS3Specified; }
+            set { this.iTBIS3Specified = value; }
+        }
+
+        [XmlElement(IsNullable = false)]
+        public decimal TotalITBIS
         {
             get { return this.totalITBISField; }
             set { this.totalITBISField = value; }
         }
 
-        [XmlElement(IsNullable = true)]
-        public decimal? TotalITBIS1
+        [XmlIgnore]
+        public bool TotalITBISSpecified
+        {
+            get { return this.totalITBISSpecified; }
+            set { this.totalITBISSpecified = value; }
+        }
+
+        [XmlElement(IsNullable = false)]
+        public decimal TotalITBIS1
         {
             get { return this.totalITBIS1Field; }
             set { this.totalITBIS1Field = value; }
         }
 
-        [XmlElement(IsNullable = true)]
-        public decimal? TotalITBIS3
+        [XmlIgnore]
+        public bool TotalITBIS1Specified
+        {
+            get { return this.totalITBIS1Specified; }
+            set { this.totalITBIS1Specified = value; }
+        }
+
+        [XmlElement(IsNullable = false)]
+        public decimal TotalITBIS3
         {
             get { return this.totalITBIS3Field; }
             set { this.totalITBIS3Field = value; }
         }
-        
-        [XmlElement(IsNullable = true)]
-        public decimal? TotalITBISRetenido
+
+        [XmlIgnore]
+        public bool TotalITBIS3Specified
+        {
+            get { return this.totalITBIS3Specified; }
+            set { this.totalITBIS3Specified = value; }
+        }
+
+        [XmlElement(IsNullable = false)]
+        public decimal TotalITBISRetenido
         {
             get { return this.totalITBISRetenidoField; }
             set { this.totalITBISRetenidoField = value; }
         }
 
-        [XmlElement(IsNullable = true)]
-        public decimal? TotalISRRetencion
+        [XmlIgnore]
+        public bool TotalITBISRetenidoSpecified
+        {
+            get { return this.totalITBISRetenidoSpecified; }
+            set { this.totalITBISRetenidoSpecified = value; }
+        }
+
+        [XmlElement(IsNullable = false)]
+        public decimal TotalISRRetencion
         {
             get { return this.totalISRRetencionField; }
             set { this.totalISRRetencionField = value; }
         }
 
-        public bool ShouldSerializeMontoGravadoTotal() => montoGravadoTotalField.HasValue;
-        public bool ShouldSerializeMontoGravadoI1() => montoGravadoI1Field.HasValue;
-        public bool ShouldSerializeMontoExento() => montoExentoField.HasValue;
-        public bool ShouldSerializeITBIS1() => iTBIS1Field.HasValue;
-        public bool ShouldSerializeTotalITBIS() => totalITBISField.HasValue;
-        public bool ShouldSerializeTotalITBIS1() => totalITBIS1Field.HasValue;
-        public bool ShouldSerializeMontoTotal() => montoTotalField.HasValue;
-        public bool ShouldSerializeTotalITBISRetenido() => totalITBISRetenidoField.HasValue;
-        public bool ShouldSerializeTotalISRRetencion() => totalISRRetencionField.HasValue;
+        [XmlIgnore]
+        public bool TotalISRRetencionSpecified
+        {
+            get { return this.totalISRRetencionSpecified; }
+            set { this.totalISRRetencionSpecified = value; }
+        }
     }
 
     /// <remarks/>
@@ -1328,6 +1428,8 @@ namespace DTECore
         private decimal precioUnitarioItemField;
 
         private decimal descuentoMontoField;
+
+        private bool descuentoMontoSpecified;
 
         private ECFItemSubDescuento[] tablaSubDescuentoField;
 
@@ -1453,6 +1555,19 @@ namespace DTECore
             set
             {
                 this.descuentoMontoField = value;
+            }
+        }
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool DescuentoMontoSpecified
+        {
+            get
+            {
+                return this.descuentoMontoSpecified;
+            }
+            set
+            {
+                this.descuentoMontoSpecified = value;
             }
         }
 

@@ -14,7 +14,7 @@ namespace DTECore
             {
                 Encoding = new UTF8Encoding(false),
                 Indent = true,
-                OmitXmlDeclaration = false,
+                OmitXmlDeclaration = false,                
             };
 
             using (MemoryStream memoryStream = new MemoryStream())
