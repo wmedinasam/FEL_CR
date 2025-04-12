@@ -69,5 +69,15 @@ namespace ServiceCore.Infile.Service.Tests
             Assert.IsTrue(!response.Success);
 
         }
+
+        [TestMethod()]
+        public void GetDocumentPdfInBrowserTest()
+        {
+            string baseUrl = "https://report-test.infile.com.do/report/v1/documento/emision";
+            string rnc = "132788419";
+            string encf = "E310000000421";
+            string codigoSeguridad = "mUkF4P";
+            infileService.GetDocumentPdfInBrowser(baseUrl, rnc, encf, codigoSeguridad);
+        }
     }
 }
