@@ -59,6 +59,10 @@
       <Project>{A0395469-3D95-47AC-889F-7245AE5ECADD}</Project>
       <Name>ServiceCore</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WIS_Security\WIS_Security.csproj">
+      <Project>{B622B39E-B365-461D-ABC5-F0781734EBED}</Project>
+      <Name>WIS_Security</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
