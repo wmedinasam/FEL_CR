@@ -14,6 +14,7 @@ namespace DTECore
             datos.Columns.Add("TipoeCF", typeof(int));
             datos.Columns.Add("TipoIngresos", typeof(string));
             datos.Columns.Add("TipoPago", typeof(string));
+            datos.Columns.Add("eNCF", typeof(string));
 
             // Emisor
             datos.Columns.Add("RNCEmisor", typeof(int));
@@ -65,7 +66,8 @@ namespace DTECore
             fila1["TipoeCF"] = 32;
             fila1["TipoIngresos"] = "01";
             fila1["TipoPago"] = "1";
-            fila1["RNCEmisor"] = "132788419";
+            fila1["eNCF"] = "E320000000001";
+            fila1["RNCEmisor"] = "131098207";
             fila1["RazonSocialEmisor"] = "DOCUMENTOS ELECTRONICOS DE 02";
             fila1["NombreComercial"] = "DOCUMENTOS ELECTRONICOS DE 02";
             fila1["DireccionEmisor"] = "AVE. ISABEL AGUIAR NO. 269, ZONA INDUSTRIAL DE HERRERA";
@@ -90,6 +92,7 @@ namespace DTECore
             fila1["FechaOrdenCompra"] = "10-11-2018";
             fila1["NumeroOrdenCompra"] = "4500352238";
             fila1["CodigoInternoComprador"] = "10633440";
+
             fila1["MontoExento"] = 0;
             fila1["MontoTotal"] = 0;
 
@@ -98,61 +101,61 @@ namespace DTECore
             fila1["IndicadorFacturacion"] = 1;
             fila1["NombreItem"] = "ACCESO A APLICACION";
             fila1["IndicadorBienoServicio"] = 2;
-            fila1["CantidadItem"] = 3;
-            fila1["UnidadMedida"] = 43;
-            fila1["PrecioUnitarioItem"] = 2500.00;
-            fila1["MontoItem"] = 6500;
-            fila1["DescuentoMonto"] = 1000;
+            fila1["CantidadItem"] = 7500;
+            fila1["UnidadMedida"] = 47;
+            fila1["PrecioUnitarioItem"] = 40;
+            fila1["MontoItem"] = 300000;
+            fila1["DescuentoMonto"] = 0;
 
 
             datos.Rows.Add(fila1);
 
-            DataRow fila2 = datos.NewRow();
-            fila2["Version"] = "1.0";
-            fila2["TipoeCF"] = 32;
-            fila2["TipoIngresos"] = "01";
-            fila2["TipoPago"] = "1";
-            fila2["RNCEmisor"] = "132788419";
-            fila2["RazonSocialEmisor"] = "DOCUMENTOS ELECTRONICOS DE 02";
-            fila2["NombreComercial"] = "DOCUMENTOS ELECTRONICOS DE 02";
-            fila2["DireccionEmisor"] = "AVE. ISABEL AGUIAR NO. 269, ZONA INDUSTRIAL DE HERRERA";
-            fila2["Municipio"] = "320301";
-            fila2["Provincia"] = "320000";
-            fila2["TelefonoEmisor"] = "32484480";
-            fila2["CorreoEmisor"] = "test@test.com";
-            fila2["WebSite"] = "www.test.com";
-            fila2["CodigoVendedor"] = "AA0000000100000000010000000002000000000300000000050000000006";
-            fila2["NumeroFacturaInterna"] = "123456789016";
-            fila2["NumeroPedidoInterno"] = "123456789016";
-            fila2["ZonaVenta"] = "NORTE";
-            fila2["FechaEmision"] = "01-04-2020";
-            fila2["RNCComprador"] = "131880681";
-            fila2["RazonSocialComprador"] = "DOCUMENTOS ELECTRONICOS DE 03";
-            fila2["ContactoComprador"] = "MARCOS LATIPLOL";
-            fila2["CorreoComprador"] = "contacto@test.com";
-            fila2["DireccionComprador"] = "CALLE JACINTO DE LA CONCHA FELIZ ESQUINA 27 DE FEBRERO,FRENTE A DOMINO";
-            fila2["MunicipioComprador"] = "010100";
-            fila2["ProvinciaComprador"] = "010000";
-            fila2["FechaEntrega"] = "10-10-2020";
-            fila2["FechaOrdenCompra"] = "10-11-2018";
-            fila2["NumeroOrdenCompra"] = "4500352238";
-            fila2["CodigoInternoComprador"] = "10633440";
-            fila2["MontoExento"] = 0;
-            fila2["MontoTotal"] = 0;
+            //DataRow fila2 = datos.NewRow();
+            //fila2["Version"] = "1.0";
+            //fila2["TipoeCF"] = 32;
+            //fila2["TipoIngresos"] = "01";
+            //fila2["TipoPago"] = "1";
+            //fila2["RNCEmisor"] = "131098207";
+            //fila2["RazonSocialEmisor"] = "DOCUMENTOS ELECTRONICOS DE 02";
+            //fila2["NombreComercial"] = "DOCUMENTOS ELECTRONICOS DE 02";
+            //fila2["DireccionEmisor"] = "AVE. ISABEL AGUIAR NO. 269, ZONA INDUSTRIAL DE HERRERA";
+            //fila2["Municipio"] = "320301";
+            //fila2["Provincia"] = "320000";
+            //fila2["TelefonoEmisor"] = "809-472-7676";
+            //fila2["CorreoEmisor"] = "test@test.com";
+            //fila2["WebSite"] = "www.test.com";
+            //fila2["CodigoVendedor"] = "AA0000000100000000010000000002000000000300000000050000000006";
+            //fila2["NumeroFacturaInterna"] = "123456789016";
+            //fila2["NumeroPedidoInterno"] = "123456789016";
+            //fila2["ZonaVenta"] = "NORTE";
+            //fila2["FechaEmision"] = "01-04-2020";
+            //fila2["RNCComprador"] = "131880681";
+            //fila2["RazonSocialComprador"] = "DOCUMENTOS ELECTRONICOS DE 03";
+            //fila2["ContactoComprador"] = "MARCOS LATIPLOL";
+            //fila2["CorreoComprador"] = "contacto@test.com";
+            //fila2["DireccionComprador"] = "CALLE JACINTO DE LA CONCHA FELIZ ESQUINA 27 DE FEBRERO,FRENTE A DOMINO";
+            //fila2["MunicipioComprador"] = "010100";
+            //fila2["ProvinciaComprador"] = "010000";
+            //fila2["FechaEntrega"] = "10-10-2020";
+            //fila2["FechaOrdenCompra"] = "10-11-2018";
+            //fila2["NumeroOrdenCompra"] = "4500352238";
+            //fila2["CodigoInternoComprador"] = "10633440";
+            //fila2["MontoExento"] = 0;
+            //fila2["MontoTotal"] = 0;
 
 
-            fila2["NumeroLinea"] = 2;
-            fila2["IndicadorFacturacion"] = 1;
-            fila2["NombreItem"] = "ACCESO A APLICACION";
-            fila2["IndicadorBienoServicio"] = 2;
-            fila2["CantidadItem"] = 1;
-            fila2["UnidadMedida"] = 47;
-            fila2["PrecioUnitarioItem"] = 4000.00;
-            fila2["MontoItem"] = 3350.00;
-            fila2["DescuentoMonto"] = 700;
+            //fila2["NumeroLinea"] = 2;
+            //fila2["IndicadorFacturacion"] = 1;
+            //fila2["NombreItem"] = "ACCESO A APLICACION";
+            //fila2["IndicadorBienoServicio"] = 2;
+            //fila2["CantidadItem"] = 1;
+            //fila2["UnidadMedida"] = 47;
+            //fila2["PrecioUnitarioItem"] = 4000.00;
+            //fila2["MontoItem"] = 3350.00;
+            //fila2["DescuentoMonto"] = 700;
 
 
-            datos.Rows.Add(fila2);
+            //datos.Rows.Add(fila2);
 
 
             IDocumentStrategy strategy = new InvoiceDocumentStrategy();
