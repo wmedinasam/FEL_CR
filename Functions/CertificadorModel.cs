@@ -32,7 +32,8 @@ namespace FELRD.Models
                 {
                     Id = Int32.Parse(fila["Id"].ToString()),
                     Name = fila["Name"].ToString(),
-                    EndPoint = fila["EndPoint"].ToString(),                    
+                    EndPoint = fila["EndPoint"].ToString(),
+                    PrintEndPoint = fila["PrintEndPoint"].ToString(),
                     CommercialName = fila["CommercialName"].ToString(),
                     Nit = fila["Nit"].ToString(),
                     UsuarioWS = fila["UsuarioWS"].ToString(),
@@ -71,7 +72,8 @@ namespace FELRD.Models
                 {
                     Id = Int32.Parse(fila["Id"].ToString()),
                     Name = fila["Name"].ToString(),
-                    EndPoint = fila["EndPoint"].ToString(),                   
+                    EndPoint = fila["EndPoint"].ToString(),
+                    PrintEndPoint = fila["PrintEndPoint"].ToString(),
                     CommercialName = fila["CommercialName"].ToString(),
                     Nit = fila["Nit"].ToString(),
                     UsuarioWS = fila["UsuarioWS"].ToString(),

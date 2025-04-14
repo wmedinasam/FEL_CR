@@ -14,6 +14,8 @@ namespace FELRD.Models
 
         public string EndPoint { get; set; }
         
+        public string PrintEndPoint { get; set; }
+
         public string CommercialName { get; set; }
 
         public string Nit { get; set; }

@@ -83,9 +83,10 @@ namespace FELRD.Views.Pages
         {
             txtName.IsEnabled = true;
             txtEndPoint.IsEnabled = true;
+            txtPrintEndPoint.IsEnabled = true;
             txtCommercialName.IsEnabled = true;
             txtNit.IsEnabled = true;
-            txtUsuarioWS.IsEnabled = true;
+            txtUsuarioWS.IsEnabled = true;            
             txtPasswordWS.IsEnabled = true;
             txtSecurityKey.IsEnabled = true;
             btnSave.IsEnabled = true;
@@ -95,6 +96,7 @@ namespace FELRD.Views.Pages
         {
             txtName.IsEnabled = false;
             txtEndPoint.IsEnabled = false;
+            txtPrintEndPoint.IsEnabled = false;
             txtCommercialName.IsEnabled = false;
             txtNit.IsEnabled = false;
             txtUsuarioWS.IsEnabled = false;
@@ -124,6 +126,7 @@ namespace FELRD.Views.Pages
             model.Id = _id;
             model.Name = txtName.Text;
             model.EndPoint = txtEndPoint.Text;
+            model.PrintEndPoint = txtPrintEndPoint.Text;
             model.CommercialName = txtCommercialName.Text;
             model.Nit = txtNit.Text;
             model.UsuarioWS = txtUsuarioWS.Text;
@@ -148,6 +151,7 @@ namespace FELRD.Views.Pages
                 _id = 0;
                 txtName.Text = string.Empty;
                 txtEndPoint.Text = string.Empty;
+                txtPrintEndPoint.Text = string.Empty;   
                 txtCommercialName.Text = string.Empty;
                 txtNit.Text = string.Empty;
                 txtUsuarioWS.Text = string.Empty;
@@ -166,6 +170,7 @@ namespace FELRD.Views.Pages
             _id = 0;
             txtName.Text = string.Empty;
             txtEndPoint.Text = string.Empty;
+            txtPrintEndPoint.Text = string.Empty;
             txtCommercialName.Text = string.Empty;
             txtNit.Text = string.Empty;
             txtUsuarioWS.Text = string.Empty;
@@ -181,6 +186,7 @@ namespace FELRD.Views.Pages
             _id = model.Id;
             txtName.Text = model.Name;
             txtEndPoint.Text = model.EndPoint;
+            txtPrintEndPoint.Text = model.PrintEndPoint;
             txtCommercialName.Text = model.CommercialName;
             txtNit.Text = model.Nit;
             txtUsuarioWS.Text = model.UsuarioWS;
