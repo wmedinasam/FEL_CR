@@ -47,6 +47,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <materialDesign:PackIcon Kind="UserAdd" Margin="30,20" Width="30" Height="30" Grid.Column="0" Grid.Row="0" Foreground="{DynamicResource PrimaryIconColor}"/>
@@ -59,37 +60,42 @@
                                  Style="{StaticResource CleanOutlinedTextBox}"
                                  materialDesign:HintAssist.Hint="Ingrese EndPoint para firma" MaxLength="100"/>
 
-                        <materialDesign:PackIcon Kind="Web" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="1" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <materialDesign:PackIcon Kind="Web" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="2" Foreground="{DynamicResource PrimaryIconColor}"/>
                         <TextBox x:Name="txtPrintEndPoint" Grid.Column="1" Grid.Row="2" Margin="5,5"
                          Style="{StaticResource CleanOutlinedTextBox}"
                          materialDesign:HintAssist.Hint="Ingrese EndPoint para consultar PDF" MaxLength="100"/>    
 
-                        <materialDesign:PackIcon Kind="User" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="2" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <materialDesign:PackIcon Kind="User" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="3" Foreground="{DynamicResource PrimaryIconColor}"/>
                         <TextBox x:Name="txtCommercialName" Grid.Column="1" Grid.Row="3" Margin="5,5"
                                  Style="{StaticResource CleanOutlinedTextBox}"
                                  materialDesign:HintAssist.Hint="Ingrese Nombre Comercial" MaxLength="100"/>
 
-                        <materialDesign:PackIcon Kind="FileDocument" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="3" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <materialDesign:PackIcon Kind="FileDocument" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="4" Foreground="{DynamicResource PrimaryIconColor}"/>
                         <TextBox x:Name="txtNit" Grid.Column="1" Grid.Row="4" Margin="5,5"
                                  Style="{StaticResource CleanOutlinedTextBox}"
                                  materialDesign:HintAssist.Hint="Ingrese Nit" MaxLength="100"/>
 
-                        <materialDesign:PackIcon Kind="User" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="4" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <materialDesign:PackIcon Kind="User" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="5" Foreground="{DynamicResource PrimaryIconColor}"/>
                         <TextBox x:Name="txtUsuarioWS" Grid.Column="1" Grid.Row="5" Margin="5,5"
                                  Style="{StaticResource CleanOutlinedTextBox}"
                                  materialDesign:HintAssist.Hint="Ingrese Usuario" MaxLength="100"/>
 
-                        <materialDesign:PackIcon Kind="Password" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="5" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <materialDesign:PackIcon Kind="Password" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="6" Foreground="{DynamicResource PrimaryIconColor}"/>
                         <TextBox x:Name="txtPasswordWS" Grid.Column="1" Grid.Row="6" Margin="5,5"
                                  Style="{StaticResource CleanOutlinedTextBox}"
                                  materialDesign:HintAssist.Hint="Ingrese Contraseña" MaxLength="100"/>
 
-                        <materialDesign:PackIcon Kind="Security" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="6" Foreground="{DynamicResource PrimaryIconColor}"/>
-                        <TextBox x:Name="txtSecurityKey" Grid.Column="1" Grid.Row="7" Margin="5,5"
-                                 Style="{StaticResource CleanOutlinedTextBox}"
-                                 materialDesign:HintAssist.Hint="Ingrese Llave" MaxLength="100"/>
+                        <materialDesign:PackIcon Kind="Key" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="7" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtKey" Grid.Column="1" Grid.Row="7" Margin="5,5"
+                         Style="{StaticResource CleanOutlinedTextBox}"
+                         materialDesign:HintAssist.Hint="Ingrese llave" MaxLength="100"/>
 
-                        <Button x:Name="btnSave" Grid.Column="1" Grid.Row="8" Margin="5,30"
+                        <materialDesign:PackIcon Kind="Security" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="8" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtSecurityKey" Grid.Column="1" Grid.Row="8" Margin="5,5"
+                                 Style="{StaticResource CleanOutlinedTextBox}"
+                                 materialDesign:HintAssist.Hint="Ingrese llave de seguridad" MaxLength="100"/>
+
+                        <Button x:Name="btnSave" Grid.Column="1" Grid.Row="9" Margin="5,30"
                                 Content="Guardar" Width="250"
                                 Style="{StaticResource SaveButtonStyle}"
                                 Click="btnAceptar_Click"/>

@@ -86,9 +86,10 @@ namespace FELRD.Views.Pages
             txtPrintEndPoint.IsEnabled = true;
             txtCommercialName.IsEnabled = true;
             txtNit.IsEnabled = true;
-            txtUsuarioWS.IsEnabled = true;            
+            txtUsuarioWS.IsEnabled = true;
             txtPasswordWS.IsEnabled = true;
             txtSecurityKey.IsEnabled = true;
+            txtKey.IsEnabled = true;
             btnSave.IsEnabled = true;
         }
 
@@ -102,6 +103,7 @@ namespace FELRD.Views.Pages
             txtUsuarioWS.IsEnabled = false;
             txtPasswordWS.IsEnabled = false;
             txtSecurityKey.IsEnabled = false;
+            txtKey.IsEnabled = false;
             btnSave.IsEnabled = false;
 
         }
@@ -132,6 +134,7 @@ namespace FELRD.Views.Pages
             model.UsuarioWS = txtUsuarioWS.Text;
             model.PasswordWS = txtPasswordWS.Text;
             model.SecurityKey = txtSecurityKey.Text;
+            model.Key = txtKey.Text;
 
             ResponseModel<CertificadorModel> response = new ResponseModel<CertificadorModel>();
             if (_id == 0)
@@ -151,12 +154,13 @@ namespace FELRD.Views.Pages
                 _id = 0;
                 txtName.Text = string.Empty;
                 txtEndPoint.Text = string.Empty;
-                txtPrintEndPoint.Text = string.Empty;   
+                txtPrintEndPoint.Text = string.Empty;
                 txtCommercialName.Text = string.Empty;
                 txtNit.Text = string.Empty;
                 txtUsuarioWS.Text = string.Empty;
                 txtPasswordWS.Text = string.Empty;
                 txtSecurityKey.Text = string.Empty;
+                txtKey.Text = string.Empty;
                 DisableControls();
             }
             else
@@ -176,6 +180,7 @@ namespace FELRD.Views.Pages
             txtUsuarioWS.Text = string.Empty;
             txtPasswordWS.Text = string.Empty;
             txtSecurityKey.Text = string.Empty;
+            txtKey.Text = string.Empty;
             EnableControls();
         }
 
@@ -192,6 +197,7 @@ namespace FELRD.Views.Pages
             txtUsuarioWS.Text = model.UsuarioWS;
             txtPasswordWS.Text = model.PasswordWS;
             txtSecurityKey.Text = model.SecurityKey;
+            txtKey.Text = model.Key;
             EnableControls();
         }
         public event PropertyChangedEventHandler PropertyChanged;

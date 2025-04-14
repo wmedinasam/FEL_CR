@@ -6,123 +6,146 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DTECore;
+using System.Data;
+using WIS_Security;
+using DTECore.Models;
+using System.Xml.Schema;
+using ServiceCore.Infile.Service;
+using ServiceCore.Infile.Model;
 
 namespace FELRD
 {
     public static class TransactionMethods
     {
         /// <summary>
-        /// Método encargado de firmar cualquier documento
+        /// Método encargado de obtener los documentos pendientes de firmar
         /// </summary>
-        public static void SignDocument()
+        /// <returns></returns>
+        public static ResponseModel<List<TransactionModel>> GetPendings()
         {
-            TransactionModel model = new TransactionModel();
+            var model = new TransactionModel();
             var responseGetPendingTransactions = model.GetPendings();
-            if (responseGetPendingTransactions.Success)
+
+            if (responseGetPendingTransactions.Success && responseGetPendingTransactions.Object.Count > 0)
             {
-                if (responseGetPendingTransactions.Object.Count > 0)
-                {
-                    var transaction = responseGetPendingTransactions.Object.FirstOrDefault();
-                    transaction.Status = "PROCESANDO";
-                    transaction.Result = string.Empty;
-                    var responseActionTransactionSetProcessing = model.ActionTransaction("ChangeStatusResult", transaction);
-                    if (responseActionTransactionSetProcessing.Success)
-                    {
-                        HandleLogs.SaveLog("Log", "Cambio de estatus realizado con existo a PENDIENTE");
-                        SaeFelModel saeFelModel = new SaeFelModel();
-                        var responseGetSaeFelData = saeFelModel.GetSaeFelData(transaction.Company.Id, transaction.Subsidiary.Id, transaction.SAENumber, transaction.SAESerial, transaction.DocumentType, transaction.Company.DBSAE, transaction.Company.SuffixTable);
-                        if (responseGetSaeFelData.Success)
-                        {
-                            HandleLogs.SaveLog("Log", "Obteniendo datos del SAE");
-                            //Document rDDocument = new Document();
-                            //var responseDocument = rDDocument.MakeDocument(responseGetSaeFelData.Object); // crear DT con datos desde SAE
-                            //if (responseDocument.Success)
-                            //{
-                                HandleLogs.SaveLog("Log", "Creando el JSON Request");
-                                //InfileService infileService = new InfileService();
-                                //    CertificadorModel cert = new CertificadorModel();
-                                //    var certResponse = cert.Get(transaction.Company.Certificador.Id);
-                                //    //string output = responseDocument.Object.SerializeDocument(responseDocument.Object);
-                                //    //string output = DTECore.Helpers.SerializeDocument(responseDocument.Object);
-
-
-                                //    HandleLogs.SaveJson(transaction.SAESerial + transaction.SAENumber, output);
-                                //    var internalId = string.Format($"{transaction.SAESerial}{transaction.SAENumber}");
-                                //    var responseInfileService = infileService.SignDocument(certResponse.Object.EndPointFirma, output, certResponse.Object.UsuarioWS, certResponse.Object.PasswordWS, internalId);
-                                //    HandleLogs.SaveLog("Log", $"Se envió a firmar el documento: {internalId} con respuesta: {responseInfileService.Success} - {responseInfileService.Message}");
-                                //    if (responseInfileService.Success)
-                                //    {
-                                //        HandleLogs.SaveLog("Log", "Entramos a Documento firmado con exito");
-                                //        transaction.Result = responseInfileService.Message;
-                                //        transaction.Status = "ACEPTADO";
-                                //        transaction.UUID = responseInfileService.Object.respuesta.codigoGeneracion;
-                                //        transaction.ControlNumber = responseInfileService.Object.respuesta.numeroControl;
-                                //        transaction.Sign = responseInfileService.Object.json.firmaElectronica;
-                                //        transaction.ReceivedStamp = responseInfileService.Object.json.selloRecibido;
-                                //        // Save Response JSON to JSON path
-                                //        HandleLogs.SaveJson($"Response-{transaction.SAESerial}-{transaction.SAENumber}", responseInfileService.Object.json.ToString());
-
-                                //        var responseActionTransaction = model.ActionTransaction("Accepted", transaction);
-                                //        if (!responseActionTransaction.Success)
-                                //        {
-                                //            HandleLogs.SaveLog("Debug", "Problemas para actualizar estatus de transaccion rechazada Serie: " + transaction.SAESerial + " y Numero: " + transaction.SAENumber + " Error: " + responseActionTransaction.Message);
-                                //        }
-                                //    }
-                                //    else
-                                //    {
-                                //        HandleLogs.SaveLog("Debug", $"Error al firmar el documento {internalId}");
-                                //        transaction.Result = responseInfileService.Message.Replace('{', ' ').Replace('}', ' ');
-                                //        transaction.Status = "RECHAZADO";
-                                //        var responseActionTransaction = model.ActionTransaction("ChangeStatusResult", transaction);
-
-                                //        if (!responseActionTransaction.Success)
-                                //        {
-                                //            HandleLogs.SaveLog("Debug", "Problemas para actualizar estatus de transaccion rechazada Serie: " + transaction.SAESerial + " y Numero: " + transaction.SAENumber + " Error: " + responseActionTransaction.Message);
-                                //        }
-                                //    }
-                                //}
-                                //else
-                                //{
-
-                                //    transaction.Status = "RECHAZADO";
-                                //    transaction.Result = $"Problemas para llenar objeto Serie: {transaction.SAESerial} y Numero: {transaction.SAENumber} Error: {responseDocument.Message}";
-                                //    var responseActionTransactionSetReject = model.ActionTransaction("ChangeStatusResult", transaction);
-                                //    HandleLogs.SaveLog("Debug", transaction.Result);
-                                //}
-
-                            //}
-                            //else
-                            //{
-                            //    transaction.Status = "RECHAZADO";
-                            //    transaction.Result = "Problemas para obtener la factura desde SAE documento con Serie: " + transaction.SAESerial + " y Numero: " + transaction.SAENumber + " Error: " + responseGetSaeFelData.Message;
-                            //    var response = model.ActionTransaction("ChangeStatusResult", transaction);
-                            //    HandleLogs.SaveLog("Debug", transaction.Result);
-                            //}
-                        }
-                        else
-                        {
-                            HandleLogs.SaveLog("Debug", "Problemas al tomar documento con Serie: " + transaction.SAESerial + " y Numero: " + transaction.SAENumber + " Error: " + responseActionTransactionSetProcessing.Message);
-                            transaction.Status = "RECHAZADO";
-                            var responseActionTransactionSetReject = model.ActionTransaction("ChangeStatus", transaction);
-                        }
-                    }
-                }
-                else
-                {
-                    HandleLogs.SaveLog("Debug", "Problemas al obtener documentos pendientes " + responseGetPendingTransactions.Message);
-
-                }
+                return responseGetPendingTransactions;
             }
+
+            return new ResponseModel<List<TransactionModel>>
+            {
+                Success = false,
+                Message = "No fueron encontradas transacciones pendientes.",
+                Object = new List<TransactionModel>()
+            };
         }
 
         /// <summary>
-        /// Método encargado de anular cualquier documento.
+        /// Método encargado de serializar el XML de acuerdo al tipo de documento
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="documentType"></param>
+        /// <param name="pendingDocument"></param>
         /// <returns></returns>
-        public static bool CancelDocument(int Id)
+        /// <exception cref="ArgumentException"></exception>
+        public static string ReturnXml(string documentType, DataTable pendingDocument)
         {
-            return true;
+            string xmlContent = string.Empty;
+            IDocumentStrategy strategy = null;
+
+            switch (documentType)
+            {
+                case "FACT":
+                    strategy = new InvoiceDocumentStrategy();
+                    break;
+                case "FCAM":
+                    strategy = new FiscalCreditInvoiceDocumentStrategy();
+                    break;
+                case "FEXP":
+                    strategy = new ExportInvoiceDocumentStrategy();
+                    break;
+                default:
+                    throw new ArgumentException("Tipo de documento inválido");
+            }
+
+            var response = strategy.MakeDocument(pendingDocument);
+            if (!response.Success)
+            {
+                HandleLogs.SaveLog("Error", $"Error al serializar el documento interno: {response.Message}");
+                return xmlContent;
+            }
+            xmlContent = Methods.SerializeObjectToXML(response.Object);
+            return xmlContent;
+        }
+
+        /// <summary>
+        /// Método encargado de firmar documentos
+        /// </summary>
+        /// <param name="document"></param>
+        public static void Sign(TransactionModel document)
+        {
+            try
+            {
+                var pendingTransactions = GetPendings();
+
+                if (!pendingTransactions.Success || pendingTransactions.Object.Count == 0)
+                {
+                    return;
+                }
+
+                foreach (var transaction in pendingTransactions.Object)
+                {
+                    var saeDataTableResponse = SaeFelModel.GetSaeFelData(document.Company.Id, document.Subsidiary.Id, document.SAENumber, document.SAESerial, document.DocumentType, document.Company.DBSAE, document.Company.SuffixTable);
+                    if (saeDataTableResponse.Object.Rows.Count == 0)
+                    {
+                        HandleLogs.SaveLog("Info", $"No se encontro data para documento interno: {transaction.SAESerial}-{transaction.SAENumber}.");
+                        continue;
+                    }
+
+                    var xmlContent = ReturnXml(document.DocumentType, saeDataTableResponse.Object);
+                    if (String.IsNullOrEmpty(xmlContent))
+                    {
+                        HandleLogs.SaveLog("Error", $"Error al serializar el documento interno: {transaction.SAESerial}-{transaction.SAENumber}.");
+                        continue;
+                    }
+
+                    var requestToken = new RequestToken
+                    {
+                        rnc = document.Company.Certificador.Nit,
+                        llave = document.Company.Certificador.SecurityKey
+                    };
+
+                    var token = new InfileService().GetToken(document.Company.Certificador.EndPoint, document.Company.Certificador.UsuarioWS, document.Company.Certificador.PasswordWS, document.Company.Certificador.Key, requestToken);
+                    if (token.ToLower().Contains("error"))
+                    {
+                        // Error al obtener token
+                        HandleLogs.SaveLog("Error", "Error al obtener token.");
+                        continue;
+                    }
+
+                    var response = new InfileService().SendXmlDocument(document.Company.Certificador.EndPoint, token, xmlContent);
+                    if (!response.Success && response.Object.cantidad_errores > 0)
+                    {
+                        // Transacción no firmada por algún error en el XML
+                        HandleLogs.SaveLog("Error", $"Error de estructura del XML del documento interno: {transaction.SAESerial}-{transaction.SAENumber} por: {response.Message}");
+                        continue;
+                    }
+
+                    document.Result = response.Object.descripcion;
+                    document.UUID = response.Object.solicitud_id;
+                    document.ReceivedStamp = response.Object.fecha.ToLongTimeString();
+
+                    // Actualizar estado a firmado de la transacción
+                    var responseActionPendingTransaction = document.ActionTransaction("Accepted", document);
+                    if (!responseActionPendingTransaction.Success)
+                    {
+                        HandleLogs.SaveLog("Error", $"Error actualizando la  transaction: {transaction.SAESerial}-{transaction.SAENumber} por:  {responseActionPendingTransaction.Message}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleLogs.SaveLog("Error", $"Exception en método de firmado:  {ex.Message}");
+                throw;
+            }
         }
     }
 }

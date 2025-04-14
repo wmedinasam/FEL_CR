@@ -179,14 +179,14 @@ namespace FELRD.Views.Pages
 
             if (transactionsResponse.Success && canUserSign)
             {
-                try
-                {
-                    await Task.Run(() => TransactionMethods.SignDocument());
-                }
-                catch (Exception ex)
-                {
-                    HandleLogs.SaveLog("Debug", "Problemas al firmar documento: " + ex.Message);
-                }
+                //try
+                //{
+                //    await Task.Run(() => TransactionMethods.SignDocument());
+                //}
+                //catch (Exception ex)
+                //{
+                //    HandleLogs.SaveLog("Debug", "Problemas al firmar documento: " + ex.Message);
+                //}
             }
         }
 
@@ -374,10 +374,10 @@ namespace FELRD.Views.Pages
 
             if (confirmation.Ok)
             {
-                var response = TransactionMethods.CancelDocument(selectedItem.Id);
-                MessageBox.Show(response ? $"Documento {selectedItem.UUID} anulado con éxito!"
-                                        : "Documento no se pudo anular, revisar el Log de errores!");
-                GetTransactionsAfterAction();
+                //var response = TransactionMethods.CancelDocument(selectedItem.Id);
+                //MessageBox.Show(response ? $"Documento {selectedItem.UUID} anulado con éxito!"
+                //                        : "Documento no se pudo anular, revisar el Log de errores!");
+                //GetTransactionsAfterAction();
             }
         }
 

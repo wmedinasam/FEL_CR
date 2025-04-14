@@ -39,6 +39,7 @@ namespace FELRD.Models
                     UsuarioWS = fila["UsuarioWS"].ToString(),
                     PasswordWS = fila["PasswordWS"].ToString(),
                     SecurityKey = fila["SecurityKey"].ToString(),
+                    Key = fila["Key"].ToString(),
                 }).ToList<CertificadorModel>();
             }
             catch (Exception ex)
@@ -79,6 +80,7 @@ namespace FELRD.Models
                     UsuarioWS = fila["UsuarioWS"].ToString(),
                     PasswordWS = fila["PasswordWS"].ToString(),
                     SecurityKey = fila["SecurityKey"].ToString(),
+                    Key = fila["Key"].ToString(),
                 }).ToList<CertificadorModel>();
             }
             catch (Exception ex)

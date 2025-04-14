@@ -24,6 +24,8 @@ namespace FELRD.Models
 
         public string PasswordWS { get; set; }
 
+        public string Key { get; set; }
+
         public string SecurityKey { get; set; }
     }
 }
