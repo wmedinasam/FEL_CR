@@ -88,7 +88,26 @@ namespace FELRD.Views.Pages
         public string LastUpdated
         {
             get => _lastUpdated;
-            set { _lastUpdated = value; OnPropertyChanged(nameof(LastUpdated)); }
+            set { 
+                _lastUpdated = value; 
+                OnPropertyChanged(nameof(LastUpdated));
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var tb = FindName("txtLastUpdated") as TextBlock;
+                    if (tb != null)
+                    {
+                        var anim = new DoubleAnimation(1, 1.5, TimeSpan.FromMilliseconds(500))
+                        {
+                            AutoReverse = true,
+                            EasingFunction = new SineEase()
+                        };
+                        tb.RenderTransform = new ScaleTransform(1, 1.75);
+                        tb.RenderTransformOrigin = new Point(0.5, 0.5);
+                        tb.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, anim);
+                        tb.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, anim);
+                    }
+                });
+            }
         }
 
         public SolidColorBrush CardColor { get; set; }
