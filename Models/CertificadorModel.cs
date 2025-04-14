@@ -14,6 +14,8 @@ namespace FELRD.Models
 
         public string EndPoint { get; set; }
         
+        public string PrintEndPoint { get; set; }
+
         public string CommercialName { get; set; }
 
         public string Nit { get; set; }
@@ -21,6 +23,8 @@ namespace FELRD.Models
         public string UsuarioWS { get; set; }
 
         public string PasswordWS { get; set; }
+
+        public string Key { get; set; }
 
         public string SecurityKey { get; set; }
     }

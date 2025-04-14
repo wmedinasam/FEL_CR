@@ -9,9 +9,9 @@ using WIS_Security;
 
 namespace FELRD.Models
 {
-    public class SaeFelModel
+    public static class SaeFelModel
     {
-        public ResponseModel<DataTable> GetSaeFelData(int idEmpresa, int idEstablecimiento, string numero, string serie, string tipoDoc, string db, string tableSufix)
+        public static ResponseModel<DataTable> GetSaeFelData(int idEmpresa, int idEstablecimiento, string numero, string serie, string tipoDoc, string db, string tableSufix)
         {
             ResponseModel<DataTable> res = new ResponseModel<DataTable>();
             DataTable dt = new DataTable();
@@ -33,7 +33,7 @@ namespace FELRD.Models
             return res;
         }
 
-        public ResponseModel<DataTable> GetSaeCancelData(int Id)
+        public static ResponseModel<DataTable> GetSaeCancelData(int Id)
         {
             ResponseModel<DataTable> res = new ResponseModel<DataTable>();
             DataTable dt = new DataTable();

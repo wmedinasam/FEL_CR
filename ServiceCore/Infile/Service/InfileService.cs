@@ -122,6 +122,18 @@ namespace ServiceCore.Infile.Service
                         RootObject responseObject = JsonConvert.DeserializeObject<RootObject>(responseText);
                         if (response.StatusCode == HttpStatusCode.OK)
                         {
+                            // validar cantidad de errores de estructura
+                            if (responseObject.cantidad_errores > 0)
+                            {
+                                result.Success = false;
+                                result.Object = responseObject;
+                                foreach (var error in responseObject.errores)
+                                {
+                                    result.Message += error.descripcion + ", ";
+                                }
+                                return result;
+                            }
+
                             result.Success = true;
                             result.Object = responseObject;
                             return result;
@@ -152,7 +164,7 @@ namespace ServiceCore.Infile.Service
         /// <param name="encf"></param>
         /// <param name="codigoSeguridad"></param>
         public void GetDocumentPdfInBrowser(string baseUrl, string rnc, string encf, string codigoSeguridad)
-        {                        
+        {
             string formato = "pdf";
             string operacion = "ecf";
 
