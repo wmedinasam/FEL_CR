@@ -10,14 +10,20 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
+DROP TABLE [dbo].[Certificador]
+GO
+
 CREATE TABLE [dbo].[Certificador](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[Name] [varchar](50) NULL,
 	[EndPoint] [varchar](100) NULL,
+	[PrintEndPoint] [varchar](100) NULL,
 	[CommercialName] [varchar](100) NULL,
 	[Nit] [varchar](100) NULL,
 	[UsuarioWS] [varchar](100) NULL,
 	[PasswordWS] [varchar](100) NULL,
+	[Key] [varchar](100) NULL,
 	[SecurityKey] [varchar](100) NULL,
 PRIMARY KEY CLUSTERED 
 (
