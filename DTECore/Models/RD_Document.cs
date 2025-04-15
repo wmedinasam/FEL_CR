@@ -8,7 +8,7 @@
 namespace DTECore
 {
     using System.Xml.Serialization;
-   
+
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -29,7 +29,7 @@ namespace DTECore
             this.encabezadoField = new ECFEncabezado();
             this.detallesItemsField = new ECFItem[0];
         }
-        
+
         public ECFEncabezado Encabezado
         {
             get
@@ -68,7 +68,7 @@ namespace DTECore
             }
         }
 
-        
+
     }
 
     /// <remarks/>
@@ -92,7 +92,7 @@ namespace DTECore
 
         private ECFEncabezadoTotales totalesField;
 
-        [XmlElement(IsNullable = false)]        
+        [XmlElement(IsNullable = false)]
         public string Version
         {
             get
@@ -364,7 +364,7 @@ namespace DTECore
             }
         }
 
-        public ECFEncabezadoIdDocTablaFormasPago() 
+        public ECFEncabezadoIdDocTablaFormasPago()
         {
             this.formaDePagoField = new ECFEncabezadoIdDocTablaFormasPagoFormaDePago();
         }
@@ -379,45 +379,87 @@ namespace DTECore
 
         private string fechaEmbarqueField;
 
+        private bool fechaEmbarqueFieldSpecified;
+
         private string numeroEmbarqueField;
+
+        private bool numeroEmbarqueFieldSpecified;
 
         private string numeroContenedorField;
 
+        private bool numeroContenedorFieldSpecified;
+
         private string numeroReferenciaField;
+
+        private bool numeroReferenciaFieldSpecified;
 
         private string nombrePuertoEmbarqueField;
 
+        private bool nombrePuertoEmbarqueFieldSpecified;
+
         private string condicionesEntregaField;
+
+        private bool condicionesEntregaFieldSpecified;
 
         private decimal totalFobField;
 
+        private bool totalFobFieldSpecified;
+
         private decimal seguroField;
+
+        private bool seguroFieldSpecified;
 
         private decimal fleteField;
 
+        private bool fleteFieldSpecified;
+
         private decimal totalCifField;
+
+        private bool totalCifFieldSpecified;
 
         private string regimenAduaneroField;
 
+        private bool regimenAduaneroFieldSpecified;
+
         private string nombrePuertoSalidaField;
+
+        private bool nombrePuertoSalidaFieldSpecified;
 
         private string nombrePuertoDesembarqueField;
 
+        private bool nombrePuertoDesembarqueFieldSpecified;
+
         private decimal pesoBrutoField;
+
+        private bool pesoBrutoFieldSpecified;
 
         private decimal pesoNetoField;
 
+        private bool pesoNetoFieldSpecified;
+
         private string unidadPesoBrutoField;
+
+        private bool unidadPesoBrutoFieldSpecified;
 
         private string unidadPesoNetoField;
 
+        private bool unidadPesoNetoFieldSpecified;
+
         private decimal cantidadBultoField;
+
+        private bool cantidadBultoFieldSpecified;
 
         private string unidadBultoField;
 
+        private bool unidadBultoFieldSpecified;
+
         private string volumenBultoField;
 
+        private bool volumenBultoFieldSpecified;
+
         private string unidadVolumenField;
+
+        private bool unidadVolumenFieldSpecified;
 
         [XmlElement(IsNullable = false)]
         public string FechaEmbarque
@@ -429,6 +471,19 @@ namespace DTECore
             set
             {
                 this.fechaEmbarqueField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool FechaEmbarqueSpecified
+        {
+            get
+            {
+                return this.fechaEmbarqueFieldSpecified;
+            }
+            set
+            {
+                this.fechaEmbarqueFieldSpecified = value;
             }
         }
 
@@ -445,6 +500,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool NumeroEmbarqueSpecified
+        {
+            get
+            {
+                return this.numeroEmbarqueFieldSpecified;
+            }
+            set
+            {
+                this.numeroEmbarqueFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string NumeroContenedor
         {
@@ -455,6 +523,19 @@ namespace DTECore
             set
             {
                 this.numeroContenedorField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool NumeroContenedorSpecified
+        {
+            get
+            {
+                return this.numeroContenedorFieldSpecified;
+            }
+            set
+            {
+                this.numeroContenedorFieldSpecified = value;
             }
         }
 
@@ -471,6 +552,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool NumeroReferenciaSpecified
+        {
+            get
+            {
+                return this.numeroReferenciaFieldSpecified;
+            }
+            set
+            {
+                this.numeroReferenciaFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string NombrePuertoEmbarque
         {
@@ -481,6 +575,19 @@ namespace DTECore
             set
             {
                 this.nombrePuertoEmbarqueField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool NombrePuertoEmbarqueSpecified
+        {
+            get
+            {
+                return this.nombrePuertoEmbarqueFieldSpecified;
+            }
+            set
+            {
+                this.nombrePuertoEmbarqueFieldSpecified = value;
             }
         }
 
@@ -497,6 +604,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool CondicionesEntregaSpecified
+        {
+            get
+            {
+                return this.condicionesEntregaFieldSpecified;
+            }
+            set
+            {
+                this.condicionesEntregaFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public decimal TotalFob
         {
@@ -507,6 +627,19 @@ namespace DTECore
             set
             {
                 this.totalFobField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool TotalFobSpecified
+        {
+            get
+            {
+                return this.totalFobFieldSpecified;
+            }
+            set
+            {
+                this.totalFobFieldSpecified = value;
             }
         }
 
@@ -523,6 +656,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool SeguroSpecified
+        {
+            get
+            {
+                return this.seguroFieldSpecified;
+            }
+            set
+            {
+                this.seguroFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public decimal Flete
         {
@@ -533,6 +679,19 @@ namespace DTECore
             set
             {
                 this.fleteField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool FleteSpecified
+        {
+            get
+            {
+                return this.fleteFieldSpecified;
+            }
+            set
+            {
+                this.fleteFieldSpecified = value;
             }
         }
 
@@ -549,6 +708,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool TotalCifSpecified
+        {
+            get
+            {
+                return this.totalCifFieldSpecified;
+            }
+            set
+            {
+                this.totalCifFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string RegimenAduanero
         {
@@ -559,6 +731,19 @@ namespace DTECore
             set
             {
                 this.regimenAduaneroField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool RegimenAduaneroSpecified
+        {
+            get
+            {
+                return this.regimenAduaneroFieldSpecified;
+            }
+            set
+            {
+                this.regimenAduaneroFieldSpecified = value;
             }
         }
 
@@ -575,6 +760,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool NombrePuertoSalidaSpecified
+        {
+            get
+            {
+                return this.nombrePuertoSalidaFieldSpecified;
+            }
+            set
+            {
+                this.nombrePuertoSalidaFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string NombrePuertoDesembarque
         {
@@ -585,6 +783,19 @@ namespace DTECore
             set
             {
                 this.nombrePuertoDesembarqueField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool NombrePuertoDesembarqueSpecified
+        {
+            get
+            {
+                return this.nombrePuertoDesembarqueFieldSpecified;
+            }
+            set
+            {
+                this.nombrePuertoDesembarqueFieldSpecified = value;
             }
         }
 
@@ -601,6 +812,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool PesoBrutoSpecified
+        {
+            get
+            {
+                return this.pesoBrutoFieldSpecified;
+            }
+            set
+            {
+                this.pesoBrutoFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public decimal PesoNeto
         {
@@ -611,6 +835,19 @@ namespace DTECore
             set
             {
                 this.pesoNetoField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool PesoNetoSpecified
+        {
+            get
+            {
+                return this.pesoNetoFieldSpecified;
+            }
+            set
+            {
+                this.pesoNetoFieldSpecified = value;
             }
         }
 
@@ -627,6 +864,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool UnidadPesoBrutoSpecified
+        {
+            get
+            {
+                return this.unidadPesoBrutoFieldSpecified;
+            }
+            set
+            {
+                this.unidadPesoBrutoFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string UnidadPesoNeto
         {
@@ -637,6 +887,19 @@ namespace DTECore
             set
             {
                 this.unidadPesoNetoField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool UnidadPesoNetoSpecified
+        {
+            get
+            {
+                return this.unidadPesoNetoFieldSpecified;
+            }
+            set
+            {
+                this.unidadPesoNetoFieldSpecified = value;
             }
         }
 
@@ -653,6 +916,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool CantidadBultoSpecified
+        {
+            get
+            {
+                return this.cantidadBultoFieldSpecified;
+            }
+            set
+            {
+                this.cantidadBultoFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string UnidadBulto
         {
@@ -663,6 +939,19 @@ namespace DTECore
             set
             {
                 this.unidadBultoField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool UnidadBultoSpecified
+        {
+            get
+            {
+                return this.unidadBultoFieldSpecified;
+            }
+            set
+            {
+                this.unidadBultoFieldSpecified = value;
             }
         }
 
@@ -679,6 +968,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool VolumenBultoSpecified
+        {
+            get
+            {
+                return this.volumenBultoFieldSpecified;
+            }
+            set
+            {
+                this.volumenBultoFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string UnidadVolumen
         {
@@ -689,6 +991,19 @@ namespace DTECore
             set
             {
                 this.unidadVolumenField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool UnidadVolumenSpecified
+        {
+            get
+            {
+                return this.unidadVolumenFieldSpecified;
+            }
+            set
+            {
+                this.unidadVolumenFieldSpecified = value;
             }
         }
     }
@@ -1233,7 +1548,7 @@ namespace DTECore
         private bool totalITBIS3Specified;
 
         private decimal montoTotalField;
-        
+
         private decimal totalITBISRetenidoField;
 
         private bool totalITBISRetenidoSpecified;
@@ -1868,13 +2183,23 @@ namespace DTECore
 
         private string viaTransporteField;
 
+        private bool viaTransporteFieldSpecified;
+
         private string paisOrigenField;
+
+        private bool paisOrigenFieldSpecified;
 
         private string direccionDestinoField;
 
+        private bool direccionDestinoFieldSpecified;
+
         private string paisDestinoField;
 
+        private bool paisDestinoFieldSpecified;
+
         private string numeroAlbaranField;
+
+        private bool numeroAlbaranFieldSpecified;
 
         [XmlElement(IsNullable = false)]
         public string ViaTransporte
@@ -1886,6 +2211,19 @@ namespace DTECore
             set
             {
                 this.viaTransporteField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool ViaTransporteSpecified
+        {
+            get
+            {
+                return this.viaTransporteFieldSpecified;
+            }
+            set
+            {
+                this.viaTransporteFieldSpecified = value;
             }
         }
 
@@ -1902,6 +2240,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool PaisOrigenSpecified
+        {
+            get
+            {
+                return this.paisOrigenFieldSpecified;
+            }
+            set
+            {
+                this.paisOrigenFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string DireccionDestino
         {
@@ -1912,6 +2263,19 @@ namespace DTECore
             set
             {
                 this.direccionDestinoField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool DireccionDestinoSpecified
+        {
+            get
+            {
+                return this.direccionDestinoFieldSpecified;
+            }
+            set
+            {
+                this.direccionDestinoFieldSpecified = value;
             }
         }
 
@@ -1928,6 +2292,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool PaisDestinoSpecified
+        {
+            get
+            {
+                return this.paisDestinoFieldSpecified;
+            }
+            set
+            {
+                this.paisDestinoFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string NumeroAlbaran
         {
@@ -1938,6 +2315,19 @@ namespace DTECore
             set
             {
                 this.numeroAlbaranField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool NumeroAlbaranSpecified
+        {
+            get
+            {
+                return this.numeroAlbaranFieldSpecified;
+            }
+            set
+            {
+                this.numeroAlbaranFieldSpecified = value;
             }
         }
     }

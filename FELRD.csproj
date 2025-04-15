@@ -339,6 +339,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\rep-dom-flag.png" />
+    <Content Include="Script Master\SM-14042025 Create Procedures.sql" />
     <Content Include="Script Master\SM1-2025-04-5 - Create Tables.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

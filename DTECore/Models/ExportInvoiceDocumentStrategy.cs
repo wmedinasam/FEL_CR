@@ -14,26 +14,29 @@ namespace DTECore.Models
         {
             ECF documento = new ECF();
             ResponseModel<ECF> response = new ResponseModel<ECF>();
-
-            // Mapear los datos del DataTable a la clase ECF para una factura de crédito fiscal
-            if (datos.Rows.Count > 0)
+            try
             {
-                DataRow row = datos.Rows[0];
-                documento.Encabezado = new ECFEncabezado
+                // Mapear los datos del DataTable a la clase ECF para una factura de crédito fiscal
+                if (datos.Rows.Count > 0)
                 {
-                    Version = row["Version"].ToString(),
+                    DataRow row = datos.Rows[0];
+                    var tipoEcf = Convert.ToInt32(row["TipoeCF"].ToString());
 
-                    IdDoc = new ECFEncabezadoIdDoc
+                    documento.Encabezado = new ECFEncabezado
                     {
-                        TipoeCF = Convert.ToInt32(row["TipoeCF"].ToString()),
-                        eNCF = row["eNCF"].ToString(),
-                        FechaVencimientoSecuencia = row["FechaVencimientoSecuencia"].ToString(),                        
-                        TipoIngresos = row["TipoIngresos"].ToString(),
-                        FechaLimitePago = row["FechaLimitePago"].ToString(),
-                        TerminoPago = row["TerminoPago"].ToString(),
-                        TipoPago = row["TipoPago"].ToString(),
-                        TablaFormasPago = new ECFEncabezadoIdDocTablaFormasPago[]
+                        Version = row["Version"].ToString(),
+
+                        IdDoc = new ECFEncabezadoIdDoc
                         {
+                            TipoeCF = Convert.ToInt32(row["TipoeCF"].ToString()),
+                            eNCF = $"E{tipoEcf}{row["eNCF"].ToString().PadLeft(10, '0')}",
+                            FechaVencimientoSecuencia = row["FechaVencimientoSecuencia"].ToString(),
+                            TipoIngresos = row["TipoIngresos"].ToString(),
+                            FechaLimitePago = row["FechaLimitePago"].ToString(),
+                            TerminoPago = row["TerminoPago"].ToString(),
+                            TipoPago = row["TipoPago"].ToString(),
+                            TablaFormasPago = new ECFEncabezadoIdDocTablaFormasPago[]
+                            {
                             new ECFEncabezadoIdDocTablaFormasPago
                             {
                                 FormaDePago = new ECFEncabezadoIdDocTablaFormasPagoFormaDePago
@@ -42,115 +45,160 @@ namespace DTECore.Models
                                     MontoPago = Convert.ToDecimal(row["MontoPago"].ToString())
                                 }
                             }
-                        }
-                    },
-
-                    Emisor = new ECFEncabezadoEmisor
-                    {
-                        RNCEmisor = Convert.ToUInt32(row["RNCEmisor"].ToString()),
-                        RazonSocialEmisor = row["RazonSocialEmisor"].ToString(),
-                        NombreComercial = row["NombreComercial"].ToString(),
-                        DireccionEmisor = row["DireccionEmisor"].ToString(),
-                        Municipio = row["Municipio"].ToString(),
-                        Provincia = row["Provincia"].ToString(),
-                        TablaTelefonoEmisor = new string[]
-                        {
-                            row["TelefonoEmisor"].ToString(),
+                            }
                         },
-                        CorreoEmisor = row["CorreoEmisor"].ToString(),
-                        WebSite = row["WebSite"].ToString(),
-                        CodigoVendedor = row["CodigoVendedor"].ToString(),
-                        NumeroFacturaInterna = row["NumeroFacturaInterna"].ToString(),
-                        NumeroPedidoInterno = row["NumeroPedidoInterno"].ToString(),
-                        ZonaVenta = row["ZonaVenta"].ToString(),
-                        FechaEmision = row["FechaEmision"].ToString(), // enviarlo como dd/MM/yyyy
-                    },
 
-                    Comprador = new ECFEncabezadoComprador
-                    {
-                        RNCComprador = Convert.ToUInt32(row["RNCComprador"].ToString()),
-                        RazonSocialComprador = row["RazonSocialComprador"].ToString(),
-                        ContactoComprador = row["ContactoComprador"].ToString(),
-                        CorreoComprador = row["CorreoComprador"].ToString(),
-                        DireccionComprador = row["DireccionComprador"].ToString(),
-                        MunicipioComprador = row["MunicipioComprador"].ToString(),
-                        ProvinciaComprador = row["ProvinciaComprador"].ToString(),
-                        FechaEntrega = row["FechaEntrega"].ToString(),
-                        ContactoEntrega = row["ContactoEntrega"].ToString(),
-                        DireccionEntrega = row["DireccionEntrega"].ToString(),
-                        TelefonoAdicional = row["TelefonoAdicional"].ToString(),
-                        FechaOrdenCompra = row["FechaOrdenCompra"].ToString(),
-                        NumeroOrdenCompra = row["NumeroOrdenCompra"].ToString(),
-                        CodigoInternoComprador = row["CodigoInternoComprador"].ToString(),
-                    },
+                        Emisor = new ECFEncabezadoEmisor
+                        {
+                            RNCEmisor = Convert.ToUInt32(row["RNCEmisor"].ToString()),
+                            RazonSocialEmisor = row["RazonSocialEmisor"].ToString(),
+                            NombreComercial = row["NombreComercial"].ToString(),
+                            DireccionEmisor = row["DireccionEmisor"].ToString(),
+                            Municipio = row["Municipio"].ToString(),
+                            Provincia = row["Provincia"].ToString(),
+                            TablaTelefonoEmisor = new string[]
+                            {
+                            row["TelefonoEmisor"].ToString(),
+                            },
+                            CorreoEmisor = row["CorreoEmisor"].ToString(),
+                            WebSite = row["WebSite"].ToString(),
+                            CodigoVendedor = row["CodigoVendedor"].ToString(),
+                            NumeroFacturaInterna = row["NumeroFacturaInterna"].ToString(),
+                            NumeroPedidoInterno = row["NumeroPedidoInterno"].ToString(),
+                            ZonaVenta = row["ZonaVenta"].ToString(),
+                            FechaEmision = row["FechaEmision"].ToString(), // enviarlo como dd/MM/yyyy
+                        },
 
-                    InformacionesAdicionales = new ECFEncabezadoInformacionesAdicionales
-                    {
-                        FechaEmbarque = row["FechaEmbarque"].ToString(),
-                        NumeroEmbarque = row["NumeroEmbarque"].ToString(),
-                        NumeroContenedor = row["NumeroContenedor"].ToString(),
-                        NumeroReferencia = row["NumeroReferencia"].ToString(),
-                        NombrePuertoEmbarque = row["NombrePuertoEmbarque"].ToString(),
-                        CondicionesEntrega = row["CondicionesEntrega"].ToString(),
-                        TotalFob = Convert.ToDecimal(row["TotalFob"].ToString()),
-                        Seguro = Convert.ToDecimal(row["Seguro"].ToString()),
-                        Flete = Convert.ToDecimal(row["Flete"].ToString()),
-                        TotalCif = Convert.ToDecimal(row["TotalCif"].ToString()),
-                        RegimenAduanero = row["RegimenAduanero"].ToString(),
-                        NombrePuertoSalida = row["NombrePuertoSalida"].ToString(),
-                        NombrePuertoDesembarque = row["NombrePuertoDesembarque"].ToString(),
-                        PesoBruto = Convert.ToDecimal(row["PesoBruto"].ToString()),
-                        PesoNeto = Convert.ToDecimal(row["PesoNeto"].ToString()),
-                        UnidadPesoBruto = row["UnidadPesoBruto"].ToString(),
-                        UnidadPesoNeto = row["UnidadPesoNeto"].ToString(),
-                        CantidadBulto = Convert.ToInt32(row["CantidadBulto"].ToString()),
-                        UnidadBulto = row["UnidadBulto"].ToString(),
-                        UnidadVolumen = row["UnidadVolumen"].ToString(),
+                        Comprador = new ECFEncabezadoComprador
+                        {
+                            RNCComprador = Convert.ToUInt32(row["RNCComprador"].ToString()),
+                            RazonSocialComprador = row["RazonSocialComprador"].ToString(),
+                            ContactoComprador = row["ContactoComprador"].ToString(),
+                            CorreoComprador = row["CorreoComprador"].ToString(),
+                            DireccionComprador = row["DireccionComprador"].ToString(),
+                            MunicipioComprador = row["MunicipioComprador"].ToString(),
+                            ProvinciaComprador = row["ProvinciaComprador"].ToString(),
+                            FechaEntrega = row["FechaEntrega"].ToString(),
+                            ContactoEntrega = row["ContactoEntrega"].ToString(),
+                            DireccionEntrega = row["DireccionEntrega"].ToString(),
+                            TelefonoAdicional = row["TelefonoAdicional"].ToString(),
+                            FechaOrdenCompra = row["FechaOrdenCompra"].ToString(),
+                            NumeroOrdenCompra = row["NumeroOrdenCompra"].ToString(),
+                            CodigoInternoComprador = row["CodigoInternoComprador"].ToString(),
+                        },
 
-                    },
+                        InformacionesAdicionales = new ECFEncabezadoInformacionesAdicionales
+                        {
+                            FechaEmbarque = row["FechaEmbarque"].ToString(),
+                            FechaEmbarqueSpecified = row["FechaEmbarque"] != DBNull.Value,
+                            NumeroEmbarque = row["NumeroEmbarque"].ToString(),
+                            NumeroEmbarqueSpecified = row["NumeroEmbarque"] != DBNull.Value,
+                            NumeroContenedor = row["NumeroContenedor"].ToString(),
+                            NumeroContenedorSpecified = row["NumeroContenedor"] != DBNull.Value,
+                            NumeroReferencia = row["NumeroReferencia"].ToString(),
+                            NumeroReferenciaSpecified = row["NumeroReferencia"] != DBNull.Value,
+                            NombrePuertoEmbarque = row["NombrePuertoEmbarque"].ToString(),
+                            NombrePuertoEmbarqueSpecified = row["NombrePuertoEmbarque"] != DBNull.Value,
+                            CondicionesEntrega = row["CondicionesEntrega"].ToString(),
+                            CondicionesEntregaSpecified = row["CondicionesEntrega"] != DBNull.Value,
+                            TotalFob = Convert.ToDecimal(row["TotalFob"].ToString()),
+                            TotalFobSpecified = Convert.ToDecimal(row["TotalFob"].ToString()) > 0,
+                            Seguro = Convert.ToDecimal(row["Seguro"].ToString()),
+                            SeguroSpecified = Convert.ToDecimal(row["Seguro"].ToString()) > 0,
+                            Flete = Convert.ToDecimal(row["Flete"].ToString()),
+                            FleteSpecified = Convert.ToDecimal(row["Flete"].ToString()) > 0,
+                            TotalCif = Convert.ToDecimal(row["TotalCif"].ToString()),
+                            TotalCifSpecified = Convert.ToDecimal(row["TotalCif"].ToString()) > 0,
+                            RegimenAduanero = row["RegimenAduanero"].ToString(),
+                            RegimenAduaneroSpecified = row["RegimenAduanero"] != DBNull.Value,
+                            NombrePuertoSalida = row["NombrePuertoSalida"].ToString(),
+                            NombrePuertoSalidaSpecified = row["NombrePuertoSalida"] != DBNull.Value,
+                            NombrePuertoDesembarque = row["NombrePuertoDesembarque"].ToString(),
+                            NombrePuertoDesembarqueSpecified = row["NombrePuertoDesembarque"] != DBNull.Value,
+                            PesoBruto = Convert.ToDecimal(row["PesoBruto"].ToString()),
+                            PesoBrutoSpecified = Convert.ToDecimal(row["PesoBruto"].ToString()) > 0,
+                            PesoNeto = Convert.ToDecimal(row["PesoNeto"].ToString()),
+                            PesoNetoSpecified = Convert.ToDecimal(row["PesoNeto"].ToString()) > 0,
+                            UnidadPesoBruto = row["UnidadPesoBruto"].ToString(),
+                            UnidadPesoBrutoSpecified = row["UnidadPesoBruto"] != DBNull.Value,
+                            UnidadPesoNeto = row["UnidadPesoNeto"].ToString(),
+                            UnidadPesoNetoSpecified = row["UnidadPesoNeto"] != DBNull.Value,
+                            CantidadBulto = Convert.ToInt32(row["CantidadBulto"].ToString()),
+                            CantidadBultoSpecified = Convert.ToInt32(row["CantidadBulto"].ToString()) > 0,
+                            UnidadBulto = row["UnidadBulto"].ToString(),
+                            UnidadBultoSpecified = row["UnidadBulto"] != DBNull.Value,
+                            UnidadVolumen = row["UnidadVolumen"].ToString(),
+                            UnidadVolumenSpecified = row["UnidadVolumen"] != DBNull.Value,
+                        },
 
-                    Transporte = new ECFEncabezadoTransporte
-                    {
-                        ViaTransporte = row["ViaTransporte"].ToString(),
-                        PaisOrigen = row["PaisOrigen"].ToString(),
-                        DireccionDestino = row["DireccionDestino"].ToString(),
-                        PaisDestino = row["PaisDestino"].ToString(),
-                        NumeroAlbaran = row["NumeroAlbaran"].ToString(),
-                    },
+                        Transporte = new ECFEncabezadoTransporte
+                        {
+                            ViaTransporte = row["ViaTransporte"].ToString(),
+                            ViaTransporteSpecified = row["ViaTransporte"] != DBNull.Value,
+                            PaisOrigen = row["PaisOrigen"].ToString(),
+                            PaisOrigenSpecified = row["PaisOrigen"] != DBNull.Value,
+                            DireccionDestino = row["DireccionDestino"].ToString(),
+                            DireccionDestinoSpecified = row["DireccionDestino"] != DBNull.Value,
+                            PaisDestino = row["PaisDestino"].ToString(),
+                            PaisDestinoSpecified = row["PaisDestino"] != DBNull.Value,
+                            NumeroAlbaran = row["NumeroAlbaran"].ToString(),
+                            NumeroAlbaranSpecified = row["NumeroAlbaran"] != DBNull.Value,
+                        },
 
-                    Totales = new ECFEncabezadoTotales
-                    {
-                        MontoGravadoTotal = Convert.ToDecimal(row["MontoGravadoTotal"].ToString()),
-                        MontoGravadoI3 = Convert.ToDecimal(row["MontoGravadoI3"].ToString()),
-                        ITBIS3 = Convert.ToDecimal(row["ITBIS3"].ToString()),
-                        TotalITBIS = Convert.ToDecimal(row["TotalITBIS"].ToString()),
-                        TotalITBIS3 = Convert.ToDecimal(row["TotalITBIS3"].ToString()),
-                        MontoTotal = Convert.ToDecimal(row["MontoTotal"].ToString()),
-                    }
-                };
-
-                List<ECFItem> items = new List<ECFItem>();
-                foreach (DataRow itemRow in datos.Rows)
-                {
-                    ECFItem item = new ECFItem
-                    {
-                        NumeroLinea = Convert.ToInt32(itemRow["NumeroLinea"].ToString()),
-                        IndicadorFacturacion = Convert.ToInt32(itemRow["IndicadorFacturacion"].ToString()),
-                        NombreItem = itemRow["NombreItem"].ToString(),
-                        IndicadorBienoServicio = Convert.ToInt32(itemRow["IndicadorBienoServicio"].ToString()),
-                        CantidadItem = Convert.ToDecimal(itemRow["CantidadItem"].ToString()),
-                        UnidadMedida = Convert.ToInt32(itemRow["UnidadMedida"].ToString()),
-                        PrecioUnitarioItem = Convert.ToDecimal(itemRow["PrecioUnitarioItem"].ToString()),
-                        MontoItem = Convert.ToDecimal(itemRow["MontoItem"].ToString()),
+                        Totales = new ECFEncabezadoTotales
+                        {
+                            MontoGravadoTotal = Convert.ToDecimal(row["MontoGravadoTotal"].ToString()),
+                            MontoGravadoI3 = Convert.ToDecimal(row["MontoGravadoI3"].ToString()),
+                            ITBIS3 = Convert.ToDecimal(row["ITBIS3"].ToString()),
+                            TotalITBIS = Convert.ToDecimal(row["TotalITBIS"].ToString()),
+                            TotalITBIS3 = Convert.ToDecimal(row["TotalITBIS3"].ToString()),
+                            MontoTotal = Convert.ToDecimal(row["MontoTotal"].ToString()),
+                        }
                     };
-                    items.Add(item);
-                }
-                documento.DetallesItems = items.ToArray();
-            }
 
-            response.Object = documento;
-            response.Success = true;
-            response.Message = "Documento de factura creado y serializado correctamente.";
+                    var sumMontoItem = 0m;
+                    var sumMontoExento = 0m;
+
+                    List<ECFItem> items = new List<ECFItem>();
+                    foreach (DataRow itemRow in datos.Rows)
+                    {
+                        var descuentoMontoIsVsible = Math.Round(Convert.ToDecimal(itemRow["DescuentoMonto"].ToString()), 2) > 0 ? true : false;
+                        ECFItem item = new ECFItem
+                        {
+                            NumeroLinea = Convert.ToInt32(itemRow["NumeroLinea"].ToString()),
+                            IndicadorFacturacion = Convert.ToInt32(itemRow["IndicadorFacturacion"].ToString()),
+                            NombreItem = itemRow["NombreItem"].ToString(),
+                            IndicadorBienoServicio = Convert.ToInt32(itemRow["IndicadorBienoServicio"].ToString()),
+                            CantidadItem = Convert.ToDecimal(itemRow["CantidadItem"].ToString()),
+                            UnidadMedida = Convert.ToInt32(itemRow["UnidadMedida"].ToString()),
+                            PrecioUnitarioItem = Convert.ToDecimal(itemRow["PrecioUnitarioItem"].ToString()),
+                            DescuentoMonto = Math.Round(Convert.ToDecimal(itemRow["DescuentoMonto"].ToString()), 2),
+                            DescuentoMontoSpecified = descuentoMontoIsVsible,
+                            MontoItem = Convert.ToDecimal(itemRow["MontoItem"].ToString()),
+                        };
+                        items.Add(item);
+                        sumMontoItem += item.MontoItem;
+                        sumMontoExento += item.IndicadorFacturacion == 4 ? item.MontoItem : 0; // Sumar solo si el IndicadorFacturacion es 4
+                    }
+                    documento.DetallesItems = items.ToArray();
+
+                    // Validar si algún item tiene IndicadorFacturacion igual a 4
+                    documento.Encabezado.Totales.MontoExentoSpecified = items.Any(i => i.IndicadorFacturacion == 4);
+
+                    // llenado de totales
+                    documento.Encabezado.Totales.MontoExento = sumMontoItem;
+                    documento.Encabezado.Totales.MontoTotal = sumMontoItem;
+                }
+
+                response.Object = documento;
+                response.Success = true;
+                response.Message = "Documento de factura creado y serializado correctamente.";
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = String.Format($"Error al crear el documento de factura exportación por: {ex.Message}");
+            }
 
             return response;
         }

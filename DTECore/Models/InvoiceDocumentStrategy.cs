@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -22,14 +23,15 @@ namespace DTECore
                 if (datos.Rows.Count > 0)
                 {
                     DataRow row = datos.Rows[0];
+                    var tipoEcf = Convert.ToInt32(row["TipoeCF"].ToString());
                     documento.Encabezado = new ECFEncabezado
                     {
                         Version = row["Version"].ToString(),
 
                         IdDoc = new ECFEncabezadoIdDoc
                         {
-                            TipoeCF = Convert.ToInt32(row["TipoeCF"].ToString()),
-                            eNCF = row["eNCF"].ToString(), // Número interno de documento por ejemplo: E320000000001 E32 es el tipo de documento y el número es el correlativo
+                            TipoeCF = tipoEcf,
+                            eNCF = $"E{tipoEcf}{row["eNCF"].ToString().PadLeft(10, '0')}",
                             TipoIngresos = row["TipoIngresos"].ToString(),
                             TipoPago = row["TipoPago"].ToString()
                         },
@@ -44,7 +46,7 @@ namespace DTECore
                             Provincia = row["Provincia"].ToString(),
                             TablaTelefonoEmisor = new string[]
                             {
-                                    row["TelefonoEmisor"].ToString(),
+                                        row["TelefonoEmisor"].ToString(),
                             },
                             CorreoEmisor = row["CorreoEmisor"].ToString(),
                             WebSite = row["WebSite"].ToString(),
@@ -88,6 +90,7 @@ namespace DTECore
                     };
 
                     var sumMontoItem = 0m;
+                    var sumMontoExento = 0m;
 
                     List<ECFItem> items = new List<ECFItem>();
                     foreach (DataRow itemRow in datos.Rows)
@@ -109,12 +112,15 @@ namespace DTECore
                         };
                         items.Add(item);
                         sumMontoItem += item.MontoItem;
+                        sumMontoExento += item.IndicadorFacturacion == 4 ? item.MontoItem : 0; // Sumar solo si el IndicadorFacturacion es 4
                     }
                     documento.DetallesItems = items.ToArray();
 
+                    // Validar si algún item tiene IndicadorFacturacion igual a 4
+                    documento.Encabezado.Totales.MontoExentoSpecified = items.Any(i => i.IndicadorFacturacion == 4);
+
                     // llenado de totales
                     documento.Encabezado.Totales.MontoExento = sumMontoItem;
-                    documento.Encabezado.Totales.MontoExentoSpecified = true;
                     documento.Encabezado.Totales.MontoTotal = sumMontoItem;
 
                 }

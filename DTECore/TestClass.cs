@@ -14,7 +14,7 @@ namespace DTECore
             datos.Columns.Add("TipoeCF", typeof(int));
             datos.Columns.Add("TipoIngresos", typeof(string));
             datos.Columns.Add("TipoPago", typeof(string));
-            datos.Columns.Add("eNCF", typeof(string));
+            datos.Columns.Add("eNCF", typeof(int));
 
             // Emisor
             datos.Columns.Add("RNCEmisor", typeof(int));
@@ -66,7 +66,7 @@ namespace DTECore
             fila1["TipoeCF"] = 32;
             fila1["TipoIngresos"] = "01";
             fila1["TipoPago"] = "1";
-            fila1["eNCF"] = "E320000000001";
+            fila1["eNCF"] = 70;
             fila1["RNCEmisor"] = "131098207";
             fila1["RazonSocialEmisor"] = "DOCUMENTOS ELECTRONICOS DE 02";
             fila1["NombreComercial"] = "DOCUMENTOS ELECTRONICOS DE 02";
@@ -298,7 +298,7 @@ namespace DTECore
             // fake data
             datos.Columns.Add("Version", typeof(decimal)); // cambiar según catálogo de tipo de documentos
             datos.Columns.Add("TipoeCF", typeof(int));
-            datos.Columns.Add("eNCF", typeof(string));
+            datos.Columns.Add("eNCF", typeof(int));
             datos.Columns.Add("FechaVencimientoSecuencia", typeof(string));            
             datos.Columns.Add("TipoIngresos", typeof(string));
             datos.Columns.Add("FechaLimitePago", typeof(string));
@@ -386,13 +386,14 @@ namespace DTECore
             datos.Columns.Add("UnidadMedida", typeof(int));
             datos.Columns.Add("PrecioUnitarioItem", typeof(decimal));
             datos.Columns.Add("MontoItem", typeof(decimal));
+            datos.Columns.Add("DescuentoMonto", typeof(decimal));
 
             // Agregar filas manualmente
             DataRow fila1 = datos.NewRow();
             fila1["Version"] = "1.0";
-            fila1["TipoeCF"] = 32;
-            fila1["eNCF"] = "E310000000401";
-            fila1["FechaVencimientoSecuencia"] = "31-12-2025";
+            fila1["TipoeCF"] = 46;
+            fila1["eNCF"] = 77;
+            //fila1["FechaVencimientoSecuencia"] = "31-12-2025";
             fila1["TipoIngresos"] = "01";
             fila1["TipoPago"] = "2";
             fila1["FechaLimitePago"] = "06-05-2025";
@@ -428,10 +429,10 @@ namespace DTECore
             fila1["NumeroOrdenCompra"] = "4500352238";
             fila1["CodigoInternoComprador"] = "10633440";
 
-            fila1["FechaEmbarque"] = "10-04-2020";
-            fila1["NumeroEmbarque"] = "10010-1207-000254";
-            fila1["NumeroContenedor"] = "ERTY227958722";
-            fila1["NumeroReferencia"] = "1448";
+            fila1["FechaEmbarque"] = null;
+            fila1["NumeroEmbarque"] = null;
+            fila1["NumeroContenedor"] = null;
+            fila1["NumeroReferencia"] = null;
             fila1["NombrePuertoEmbarque"] = "ZONA HAINA";
             fila1["CondicionesEntrega"] = "FOB";
             fila1["TotalFob"] = 1800.00;
@@ -452,9 +453,9 @@ namespace DTECore
 
             fila1["ViaTransporte"] = "02";
             fila1["PaisOrigen"] = "RAPUBLICA DOMINICANA";
-            fila1["DireccionDestino"] = "CALLE GUALLUBI NO. 09";
-            fila1["PaisDestino"] = "PUERTO RICO";
-            fila1["NumeroAlbaran"] = "56789UJILLL";
+            fila1["DireccionDestino"] = null;
+            fila1["PaisDestino"] = null;
+            fila1["NumeroAlbaran"] = null;
 
 
             fila1["MontoTotal"] = 100;
@@ -472,6 +473,7 @@ namespace DTECore
             fila1["UnidadMedida"] = 47;
             fila1["PrecioUnitarioItem"] = 40.00;
             fila1["MontoItem"] = 300000.00;
+            fila1["DescuentoMonto"] = 0;
 
 
             datos.Rows.Add(fila1);
