@@ -12,7 +12,7 @@
       TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
     <Page.DataContext>
-        <all:RegistrationVM/>
+        <local:CompanyValidations/>
     </Page.DataContext>
 
     <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}">
@@ -52,23 +52,42 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <!-- Iconos y campos -->
                         <materialDesign:PackIcon Kind="Company" Grid.Row="0" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
-                        <TextBox x:Name="txtTaxId" Grid.Row="0" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Nit Empresa" MaxLength="15"/>
+                        <TextBox x:Name="txtTaxId" Grid.Row="0" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="RNC Empresa" MaxLength="15"/>
 
                         <materialDesign:PackIcon Kind="RenameBox" Grid.Row="1" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
-                        <TextBox x:Name="txtName" Grid.Row="1" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Nombre Empresa" MaxLength="100"/>
+                        <TextBox x:Name="txtName" Grid.Row="1" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Nombre Empresa" MaxLength="255"/>
 
-                        <materialDesign:PackIcon Kind="Numeric" Grid.Row="2" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
-                        <TextBox x:Name="txtPrefix" Grid.Row="2" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Prefijo Empresa" MaxLength="50"/>
+                        <materialDesign:PackIcon Kind="Home" Grid.Row="2" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtAddress" Grid.Row="2" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Dirección" MaxLength="100"/>
 
-                        <materialDesign:PackIcon Kind="CardAccountDetails" Grid.Row="3" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
-                        <ComboBox x:Name="cbCertifiers" Grid.Row="3" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedComboBox}" materialDesign:HintAssist.Hint="Seleccione Certificador"/>
+                        <materialDesign:PackIcon Kind="GoogleStreetView" Grid.Row="3" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtMunicipality" Grid.Row="3" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Municipalidad" MaxLength="50"/>
 
-                        <materialDesign:PackIcon Kind="Folder" Grid.Row="4" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
-                        <Grid Grid.Row="4" Grid.Column="1" Margin="5,10">
+                        <materialDesign:PackIcon Kind="Home" Grid.Row="4" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtProvince" Grid.Row="4" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Provincia" MaxLength="50"/>
+
+                        <materialDesign:PackIcon Kind="Phone" Grid.Row="5" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtPhone" Grid.Row="5" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" 
+                                 materialDesign:HintAssist.Hint="Teléfono" 
+                                 MaxLength="50"                                                               
+                                 >
+                            <TextBox.Text>
+                                <Binding Path="Phone" UpdateSourceTrigger="PropertyChanged" ValidatesOnExceptions="True">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <materialDesign:PackIcon Kind="CardAccountDetails" Grid.Row="6" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <ComboBox x:Name="cbCertifiers" Grid.Row="6" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedComboBox}" materialDesign:HintAssist.Hint="Seleccione Certificador"/>
+
+                        <materialDesign:PackIcon Kind="Folder" Grid.Row="7" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <Grid Grid.Row="7" Grid.Column="1" Margin="5,10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="80*"/>
                                 <ColumnDefinition Width="15*"/>
@@ -79,13 +98,17 @@
                             </Button>
                         </Grid>
 
-                        <materialDesign:PackIcon Kind="Database" Grid.Row="5" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
-                        <TextBox x:Name="txtDBSae" Grid.Row="5" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="BD SAE" MaxLength="50"/>
+                        <materialDesign:PackIcon Kind="Database" Grid.Row="8" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtDBSae" Grid.Row="8" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="BD SAE" MaxLength="50"/>
 
-                        <materialDesign:PackIcon Kind="DatabaseTick" Grid.Row="6" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
-                        <TextBox x:Name="txtSuffixTable" Grid.Row="6" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Sufijo BD SAE" MaxLength="2"/>
+                        <materialDesign:PackIcon Kind="DatabaseTick" Grid.Row="9" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtSuffixTable" Grid.Row="9" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Sufijo BD SAE" MaxLength="2"/>
 
-                        <Button x:Name="btnAceptar" Grid.Row="7" Grid.Column="1" Margin="5,10" Style="{StaticResource SaveButtonStyle}" Content="Guardar" Width="250" Click="btnAceptar_Click"/>
+
+
+                        <Grid Grid.Row="10" Grid.Column="1">
+                            <Button x:Name="btnAceptar" Grid.Row="10" Grid.Column="1" Margin="5,10" Style="{StaticResource SaveButtonStyle}" Content="Guardar" Width="250" Click="btnAceptar_Click"/>
+                        </Grid>
                     </Grid>
                 </ScrollViewer>
 
