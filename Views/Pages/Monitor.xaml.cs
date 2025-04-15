@@ -88,8 +88,9 @@ namespace FELRD.Views.Pages
         public string LastUpdated
         {
             get => _lastUpdated;
-            set { 
-                _lastUpdated = value; 
+            set
+            {
+                _lastUpdated = value;
                 OnPropertyChanged(nameof(LastUpdated));
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -169,24 +170,25 @@ namespace FELRD.Views.Pages
             brush.BeginAnimation(SolidColorBrush.ColorProperty, animation);
         }
 
-        #endregion
-
-        #region Lógica principal del monitor
-
         private async Task GetTransactionsAsync()
         {
             transactionsResponse = await Task.Run(() => transactionModel.GetProcessed());
 
             if (transactionsResponse.Success && canUserSign)
             {
-                //try
-                //{
-                //    await Task.Run(() => TransactionMethods.SignDocument());
-                //}
-                //catch (Exception ex)
-                //{
-                //    HandleLogs.SaveLog("Debug", "Problemas al firmar documento: " + ex.Message);
-                //}
+                try
+                {
+                    var pendings = await Task.Run(() => TransactionMethods.GetPendings());
+
+                    foreach (var pending in pendings.Object)
+                    {
+                        await Task.Run(() => TransactionMethods.Sign(pending));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    HandleLogs.SaveLog("Debug", "Problemas al firmar documento: " + ex.Message);
+                }
             }
         }
 

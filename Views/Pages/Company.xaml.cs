@@ -102,7 +102,10 @@ namespace FELRD.Views.Pages
         {
             _id = 0;
             txtTaxId.Text = string.Empty;
-            txtPrefix.Text = string.Empty;
+            txtAddress.Text = string.Empty;
+            txtMunicipality.Text = string.Empty;
+            txtProvince.Text = string.Empty;
+            txtPhone.Text = string.Empty;
             txtDTEFolder.Text = string.Empty;
             txtDBSae.Text = string.Empty;
             txtSuffixTable.Text = string.Empty;
@@ -113,7 +116,10 @@ namespace FELRD.Views.Pages
         private void EnableControllers()
         {
             txtTaxId.IsEnabled = true;
-            txtPrefix.IsEnabled = true;
+            txtAddress.IsEnabled = true;
+            txtMunicipality.IsEnabled = true;
+            txtProvince.IsEnabled = true;
+            txtPhone.IsEnabled = true;
             txtDTEFolder.IsEnabled = true;
             txtDBSae.IsEnabled = true;
             txtSuffixTable.IsEnabled = true;
@@ -125,7 +131,10 @@ namespace FELRD.Views.Pages
         private void DisableControllers()
         {
             txtTaxId.IsEnabled = false;
-            txtPrefix.IsEnabled = false;
+            txtAddress.IsEnabled = false;
+            txtMunicipality.IsEnabled = false;
+            txtProvince.IsEnabled = false;
+            txtPhone.IsEnabled = false;
             txtDTEFolder.IsEnabled = false;
             txtDBSae.IsEnabled = false;
             txtSuffixTable.IsEnabled = false;
@@ -142,7 +151,10 @@ namespace FELRD.Views.Pages
             {
                 txtTaxId,
                 txtName,
-                txtPrefix,
+                txtAddress,
+                txtMunicipality,
+                txtProvince,
+                txtPhone,
                 txtDBSae,
                 txtSuffixTable,
                 txtDTEFolder,
@@ -158,7 +170,10 @@ namespace FELRD.Views.Pages
             CompanyModel companyModel = new CompanyModel();
             companyModel.Id = _id;
             companyModel.Nit = txtTaxId.Text;
-            companyModel.Prefix = txtPrefix.Text;
+            companyModel.Address = txtAddress.Text;
+            companyModel.Municipality = txtMunicipality.Text;
+            companyModel.Province = txtProvince.Text;
+            companyModel.Phone = txtPhone.Text;
             companyModel.DTEFolder = txtDTEFolder.Text;
             companyModel.DBSAE = txtDBSae.Text;
             companyModel.SuffixTable = txtSuffixTable.Text;
@@ -195,7 +210,10 @@ namespace FELRD.Views.Pages
             {
                 _id = model.Id;
                 txtTaxId.Text = model.Nit;
-                txtPrefix.Text = model.Prefix;
+                txtAddress.Text = model.Address;
+                txtMunicipality.Text = model.Municipality;
+                txtProvince.Text = model.Province;
+                txtPhone.Text = model.Phone;
                 txtDTEFolder.Text = model.DTEFolder;
                 txtDBSae.Text = model.DBSAE;
                 txtSuffixTable.Text = model.SuffixTable;

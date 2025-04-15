@@ -36,11 +36,18 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
+Drop Table [dbo].[Company]
+GO
+
 CREATE TABLE [dbo].[Company](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[IdCertificador] [bigint] NOT NULL,
 	[Nit] [varchar](15) NOT NULL,
-	[Prefix] [varchar](50) NOT NULL,
+	[Address] [varchar](100) NOT NULL,
+	[Municipality] [varchar](50) NULL,
+	[Province] [varchar](50) NULL,
+	[Phone] [varchar](50) NULL,
 	[DTEFolder] [varchar](250) NULL,
 	[DBSAE] [varchar](50) NOT NULL,
 	[SuffixTable] [varchar](2) NULL,

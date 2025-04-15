@@ -33,7 +33,10 @@ namespace FELRD.Models
                 {
                     Id = Int32.Parse(fila["Id"].ToString()),
                     Certificador = certificador.Get(Int32.Parse(fila["IdCertificador"].ToString())).Object,
-                    Prefix = fila["Prefix"].ToString(),
+                    Address = fila["Address"].ToString(),
+                    Municipality = fila["Municipality"].ToString(),
+                    Province = fila["Province"].ToString(),
+                    Phone = fila["Phone"].ToString(),
                     DTEFolder = fila["DTEFolder"].ToString(),
                     DBSAE = fila["DBSAE"].ToString(),
                     SuffixTable = fila["SuffixTable"].ToString(),
@@ -73,7 +76,10 @@ namespace FELRD.Models
                 {
                     Id = Int32.Parse(fila["Id"].ToString()),
                     Certificador = certificador.Get(Int32.Parse(fila["IdCertificador"].ToString())).Object,
-                    Prefix = fila["Prefix"].ToString(),
+                    Address = fila["Address"].ToString(),
+                    Municipality = fila["Municipality"].ToString(),
+                    Province = fila["Province"].ToString(),
+                    Phone = fila["Phone"].ToString(),
                     DTEFolder = fila["DTEFolder"].ToString(),
                     DBSAE = fila["DBSAE"].ToString(),
                     SuffixTable = fila["SuffixTable"].ToString(),
