@@ -125,6 +125,8 @@ namespace FELRD
                 document.Result = response.Object.descripcion;
                 document.UUID = response.Object.solicitud_id;
                 document.ReceivedStamp = response.Object.fecha.ToLongTimeString();
+                document.Sign = response.Object.codigo_seguridad;
+                document.url_pdf = response.Object.url_pdf.ToString();
 
                 // Actualizar estado a firmado de la transacción
                 var responseActionPendingTransaction = document.ActionTransaction("Accepted", document);

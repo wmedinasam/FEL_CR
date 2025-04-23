@@ -148,10 +148,20 @@ namespace DTECore.Models
                         Totales = new ECFEncabezadoTotales
                         {
                             MontoGravadoTotal = Convert.ToDecimal(row["MontoGravadoTotal"].ToString()),
+                            MontoGravadoTotalSpecified = Convert.ToDecimal(row["MontoGravadoTotal"].ToString()) > 0,
+                            MontoGravadoI1 = Convert.ToDecimal(row["MontoGravadoI1"].ToString()),
+                            MontoGravadoI1Specified = Convert.ToDecimal(row["MontoGravadoI1"].ToString()) > 0,
                             MontoGravadoI3 = Convert.ToDecimal(row["MontoGravadoI3"].ToString()),
+                            MontoGravadoI3Specified = Convert.ToDecimal(row["MontoGravadoI3"].ToString()) > 0,
+                            ITBIS1 = Convert.ToDecimal(row["ITBIS1"].ToString()),
+                            ITBIS1Specified = Convert.ToDecimal(row["ITBIS1"].ToString()) > 0,
                             ITBIS3 = Convert.ToDecimal(row["ITBIS3"].ToString()),
+                            ITBIS3Specified = Convert.ToDecimal(row["ITBIS3"].ToString()) > 0,
                             TotalITBIS = Convert.ToDecimal(row["TotalITBIS"].ToString()),
+                            TotalITBIS1 = Convert.ToDecimal(row["TotalITBIS1"].ToString()),
+                            TotalITBIS1Specified = Convert.ToDecimal(row["TotalITBIS1"].ToString()) > 0,
                             TotalITBIS3 = Convert.ToDecimal(row["TotalITBIS3"].ToString()),
+                            TotalITBIS3Specified = Convert.ToDecimal(row["TotalITBIS3"].ToString()) > 0,
                             MontoTotal = Convert.ToDecimal(row["MontoTotal"].ToString()),
                         }
                     };

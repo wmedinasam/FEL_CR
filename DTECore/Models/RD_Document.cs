@@ -17,11 +17,16 @@ namespace DTECore
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
     public partial class ECF
     {
-
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order = 0)]
         private ECFEncabezado encabezadoField;
 
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order = 1)]
         private ECFItem[] detallesItemsField;
 
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order = 2)]
         private ECFInformacionReferencia informacionReferenciaField;
 
         public ECF()
@@ -41,6 +46,19 @@ namespace DTECore
                 this.encabezadoField = value;
             }
         }
+       
+        [System.Xml.Serialization.XmlArrayItemAttribute("Item", IsNullable = false)]
+        public ECFItem[] DetallesItems
+        {
+            get
+            {
+                return this.detallesItemsField;
+            }
+            set
+            {
+                this.detallesItemsField = value;
+            }
+        }
 
         [XmlElement(IsNullable = false)]
         public ECFInformacionReferencia InformacionReferencia
@@ -52,19 +70,6 @@ namespace DTECore
             set
             {
                 this.informacionReferenciaField = value;
-            }
-        }
-
-        [System.Xml.Serialization.XmlArrayItemAttribute("Item", IsNullable = false)]
-        public ECFItem[] DetallesItems
-        {
-            get
-            {
-                return this.detallesItemsField;
-            }
-            set
-            {
-                this.detallesItemsField = value;
             }
         }
 
@@ -197,6 +202,8 @@ namespace DTECore
 
         private string fechaVencimientoSecuenciaField;
 
+        private int indicadorNotaCreditoField;
+
         private string indicadorMontoGravadoField;
 
         private string tipoIngresosField;
@@ -247,6 +254,19 @@ namespace DTECore
             set
             {
                 this.fechaVencimientoSecuenciaField = value;
+            }
+        }
+
+        [XmlElement(IsNullable =false)]
+        public int IndicadorNotaCredito
+        {
+            get
+            {
+                return this.indicadorNotaCreditoField;
+            }
+            set
+            {
+                this.indicadorNotaCreditoField = value;
             }
         }
 
@@ -2064,7 +2084,7 @@ namespace DTECore
 
         private string fechaNCFModificadoField;
 
-        private byte codigoModificacionField;
+        private string codigoModificacionField;
 
         private string razonModificacionField;
 
@@ -2095,7 +2115,7 @@ namespace DTECore
         }
 
         [XmlElement(IsNullable = false)]
-        public byte CodigoModificacion
+        public string CodigoModificacion
         {
             get
             {

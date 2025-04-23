@@ -153,7 +153,20 @@ exec (
 		(detalle.PREC * (1+detalle.IMPU4/100)) As PrecioUnitarioItem,
 		(detalle.TOT_PARTIDA) * (detalle.DESC1 / 100) As DescuentoMonto,
 		(detalle.TOT_PARTIDA + detalle.TOTIMP4) - (detalle.TOT_PARTIDA) * (detalle.DESC1 / 100) As MontoItem,
-		encabezado.IMPORTE As Total
+		encabezado.IMPORTE As Total,
+		-- *************************** Totales
+		0 As MontoGravadoTotal,
+		0 As MontoGravadoI1,
+		0 As MontoGravadoI2,
+		0 As MontoGravadoI3,
+		0 As ITBIS1,
+		0 As ITBIS2,
+		0 As ITBIS3,
+		0 As TotalITBIS,
+		0 As TotalITBIS1,
+		0 As TotalITBIS2,
+		0 As TotalITBIS3,
+		0 As MontoTotal
 	FROM
 	' + @DatabaseName + '.dbo.FACTF' + @TableSuffix + ' encabezado INNER JOIN
 	' + @DatabaseName + '.dbo.PAR_FACTF' + @TableSuffix + ' detalle ON encabezado.CVE_DOC = detalle.CVE_DOC INNER JOIN
@@ -166,90 +179,6 @@ exec (
 	encabezado.FOLIO =  ' + @Number  + '  AND encabezado.SERIE = ''' + @Serial + ''' AND documentos.CompanyId = ' + @CompanyId  + ' AND documentos.SubsidiaryId = ' + @SubsidiaryId + ';
 ')
 END
-GO
-/****** Object:  StoredProcedure [dbo].[cusp_WIS_FEL_FCAM_Get]    Script Date: 14/04/2025 20:12:15 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
--- FACTURA NORMAL, CF Y DE EXPORTACION
-CREATE OR ALTER  PROCEDURE [dbo].[cusp_WIS_FEL_FCAM_Get] @CompanyId AS INT,
-@SubsidiaryId AS INT,
-@DatabaseName AS VARCHAR(50),
-@TableSuffix AS VARCHAR(2),
-@Number AS INT,
-@Serial AS VARCHAR(10) AS 
-BEGIN 
-
-exec (
-    '
-	SELECT
-		documentos.CompanyId,
-		documentos.SubsidiaryId,
-		sucursal.Establishmentcode,
-		encabezado.CVE_DOC,
-		encabezado.SERIE,
-		encabezado.FOLIO,
-		''2'' AS ExportationItemType, 
-		''FCAM'' AS DocumentType,
-		CASE 
-			WHEN inventario.TIPO_ELE = ''P'' THEN ''1'' 
-			ELSE ''2'' 
-		END AS [ItemType], 
-		CASE 
-			WHEN encabezado.CONTADO =''S'' Then ''01''
-			ELSE '''' 
-		END AS PaymentType,
-		cliente.NOMBRE AS Name,
-		'''' AS CommercialName,
-		''02'' AS IdentityType,
-		cliente.RFC AS Nit,
-		''NIT'' AS CustomerIdDocumentType,
-		cliente.PAIS AS Country,
-		cliente.CALLE AS Address,
-		'''' AS Email,
-		'''' AS ActivityDescription,
-		cliente.ESTADO AS Department,
-		cliente.MUNICIPIO AS Municipality,
-		detalle.CVE_ART AS ProductId,
-		detalle.CANT AS Quantity,
-		ROUND((round(detalle.PREC,2)/detalle.TIP_CAM),2) AS Price,
-		detalle.DESC1 AS [Discount%],
-		CASE 
-			WHEN detalle.DESC1 != 0 THEN (detalle.PREC/detalle.TIP_CAM)*DESC1/100 * detalle.CANT 
-		ELSE 0 END AS [Discount],
-		detalle.IMPU4 AS [Tax%],
-		detalle.TOTIMP4/detalle.TIP_CAM AS [Tax],
-		detalle.TOT_PARTIDA/detalle.TIP_CAM AS [TotalWithoutTax],
-		CASE 
-			WHEN inventario.UNI_MED = ''pz'' THEN ''59''
-			ELSE ''99''
-		END AS [UnitOfMeasure],
-		inventario.DESCR AS [Description],
-		 CASE 
-			WHEN inventario.TIPO_ELE = ''P'' THEN ''B'' 
-			ELSE ''S'' 
-		 END AS [ProductType],
-		encabezado.FECHA_DOC As [Date]
-	FROM
-	' + @DatabaseName + '.dbo.FACTF' + @TableSuffix + ' encabezado INNER JOIN
-	' + @DatabaseName + '.dbo.PAR_FACTF' + @TableSuffix + ' detalle ON encabezado.CVE_DOC = detalle.CVE_DOC INNER JOIN
-	' + @DatabaseName + '.dbo.FOLIOSF' + @TableSuffix + ' folios ON folios.SERIE = encabezado.SERIE AND folios.TIP_DOC = ''F'' INNER JOIN
-	FELRD.dbo.Document documentos ON encabezado.SERIE = documentos.SAESerial collate database_default AND encabezado.CVE_DOC = documentos.SAEDocumentId collate database_default INNER JOIN
-	' + @DatabaseName + '.dbo.CLIE' + @TableSuffix + ' cliente ON encabezado.CVE_CLPV = cliente.CLAVE INNER JOIN
-	' + @DatabaseName + '.dbo.INVE' + @TableSuffix + ' inventario ON detalle.CVE_ART = inventario.CVE_ART INNER JOIN
-	FELRD.dbo.Subsidiary sucursal ON sucursal.Id = documentos.SubsidiaryId
-	WHERE 
-	encabezado.FOLIO =  ' + @Number  + '  AND encabezado.SERIE = ''' + @Serial + ''' AND documentos.CompanyId = ' + @CompanyId  + ' 
-	AND documentos.SubsidiaryId = ' + @SubsidiaryId + ';
-')
-
-END
-GO
-/****** Object:  StoredProcedure [dbo].[cusp_WIS_FEL_FEXP_Get]    Script Date: 14/04/2025 20:12:15 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE OR ALTER PROCEDURE [dbo].[cusp_WIS_FEL_FEXP_Get] 
@@ -341,7 +270,20 @@ exec (
 		(detalle.PREC * (1+detalle.IMPU4/100)) As PrecioUnitarioItem,
 		(detalle.TOT_PARTIDA) * (detalle.DESC1 / 100) As DescuentoMonto,
 		(detalle.TOT_PARTIDA + detalle.TOTIMP4) - (detalle.TOT_PARTIDA) * (detalle.DESC1 / 100) As MontoItem,
-		encabezado.IMPORTE As Total
+		encabezado.IMPORTE As Total,
+		-- *************************** Totales
+		0 As MontoGravadoTotal,
+		0 As MontoGravadoI1,
+		0 As MontoGravadoI2,
+		0 As MontoGravadoI3,
+		0 As ITBIS1,
+		0 As ITBIS2,
+		0 As ITBIS3,
+		0 As TotalITBIS,
+		0 As TotalITBIS1,
+		0 As TotalITBIS2,
+		0 As TotalITBIS3,
+		0 As MontoTotal
 	FROM
 	' + @DatabaseName + '.dbo.FACTF' + @TableSuffix + ' encabezado INNER JOIN
 	' + @DatabaseName + '.dbo.PAR_FACTF' + @TableSuffix + ' detalle ON encabezado.CVE_DOC = detalle.CVE_DOC INNER JOIN
@@ -386,3 +328,94 @@ BEGIN
 	WHERE d.[Status] = 'PENDIENTE'
 END
 GO
+
+
+-- NOTA DE CREDITO
+CREATE OR ALTER   PROCEDURE [dbo].[cusp_WIS_FEL_NCRE_Get] @CompanyId AS INT,
+@SubsidiaryId AS INT,
+@DatabaseName AS VARCHAR(50),
+@TableSuffix AS VARCHAR(2),
+@Number AS INT,
+@Serial AS VARCHAR(10) AS BEGIN DECLARE @SqlCmd AS NVARCHAR(MAX);
+
+exec (
+'
+	SELECT	
+		''1.0'' As [Version],
+		34 As TipoeCF,
+		encabezado.FOLIO As eNCF,
+		''01'' As TipoIngresos,
+		1 As TipoPago,
+		0 As IndicadorNotaDeCredito,
+		-- *************************** Emisor
+		empresa.Nit As [RNCEmisor],	
+		empresa.Name As [RazonSocialEmisor],
+		sucursal.EstablishmentName As [NombreComercial],
+		empresa.Address As [DireccionEmisor],
+		empresa.Municipality As Municipio,
+		empresa.Province As Provincia,
+		empresa.Phone As TelefonoEmisor,
+		null As CorreoEmisor,
+		null As WebSite,
+		null As CodigoVendedor,
+		encabezado.CVE_DOC As NumeroFacturaInterna,
+		null As NumeroPedidoInterno,
+		null As ZonaVenta,
+		format(encabezado.FECHA_DOC,''dd-MM-yyyy'',''en-US'') As FechaEmision,
+		-- *************************** Comprador
+		cliente.RFC As RNCComprador,
+		cliente.NOMBRE As RazonSocialComprador,
+		null As ContactoComprador,
+		null As CorreoComprador,
+		cliente.CALLE As DireccionComprador,
+		cliente.MUNICIPIO As MunicipioComprador,
+		cliente.ESTADO As ProvinciaComprador,
+		null As FechaEntrega,
+		null As FechaOrdenCompra,
+		null As NumeroOdenCompra,
+		null As CodigoInternoComprador,
+		-- *************************** Items
+		detalle.NUM_PAR As NumeroLinea,
+		CASE 		
+			WHEN detalle.IMPU4 = 18 THEN 1
+			WHEN detalle.IMPU4 = 16 THEN 2
+			WHEN detalle.IMPU4 = 0  THEN 4
+			ELSE 0
+		END As IndicadorFacturacion, -- 4 es exento
+		inventario.DESCR As NombreItem,
+		CASE 
+			WHEN inventario.TIPO_ELE = ''P'' THEN 1
+			ELSE 2
+		END AS IndicadorBienoServicio, 
+		detalle.CANT AS CantidadItem,
+		43 As UnidadMedida, -- Unidad
+		(detalle.PREC * (1+detalle.IMPU4/100)) As PrecioUnitarioItem,
+		(detalle.TOT_PARTIDA) * (detalle.DESC1 / 100) As DescuentoMonto,
+		(detalle.TOT_PARTIDA + detalle.TOTIMP4) - (detalle.TOT_PARTIDA) * (detalle.DESC1 / 100) As MontoItem,
+		encabezado.IMPORTE As Total,
+		-- *************************** Totales
+		0 As MontoGravadoTotal,
+		0 As MontoGravadoI1,
+		0 As MontoGravadoI2,
+		0 As MontoGravadoI3,
+		0 As ITBIS1,
+		0 As ITBIS2,
+		0 As ITBIS3,
+		0 As TotalITBIS,
+		0 As TotalITBIS1,
+		0 As TotalITBIS2,
+		0 As TotalITBIS3,
+		0 As MontoTotal
+	FROM
+	' + @DatabaseName + '.dbo.FACTD' + @TableSuffix + ' encabezado INNER JOIN
+	' + @DatabaseName + '.dbo.PAR_FACTD' + @TableSuffix + ' detalle ON encabezado.CVE_DOC = detalle.CVE_DOC INNER JOIN
+	' + @DatabaseName + '.dbo.FOLIOSF' + @TableSuffix + ' folios ON folios.SERIE = encabezado.SERIE AND folios.TIP_DOC = ''D'' LEFT JOIN
+	FELRD.dbo.Document documentos ON encabezado.SERIE = documentos.SAESerial collate database_default AND encabezado.CVE_DOC = documentos.SAEDocumentId collate database_default INNER JOIN
+	' + @DatabaseName + '.dbo.CLIE' + @TableSuffix + ' cliente ON encabezado.CVE_CLPV = cliente.CLAVE INNER JOIN
+	' + @DatabaseName + '.dbo.INVE' + @TableSuffix + ' inventario ON detalle.CVE_ART = inventario.CVE_ART INNER JOIN
+	FELRD.dbo.Subsidiary sucursal ON sucursal.Id = documentos.SubsidiaryId INNER JOIN
+	FELRD.dbo.Company empresa ON empresa.Id = documentos.CompanyId
+	encabezado.FOLIO =  ' + @Number  + '  AND encabezado.SERIE = ''' + @Serial + ''' AND documentos.CompanyId = ' + @CompanyId  + ' AND documentos.SubsidiaryId = ' + @SubsidiaryId + ';
+')
+
+END

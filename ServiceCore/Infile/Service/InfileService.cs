@@ -163,7 +163,7 @@ namespace ServiceCore.Infile.Service
         /// <param name="rnc"></param>
         /// <param name="encf"></param>
         /// <param name="codigoSeguridad"></param>
-        public void GetDocumentPdfInBrowser(string baseUrl, string rnc, string encf, string codigoSeguridad)
+        public static void GetDocumentPdfInBrowser(string baseUrl, string rnc, string encf, string codigoSeguridad)
         {
             string formato = "pdf";
             string operacion = "ecf";
@@ -183,5 +183,23 @@ namespace ServiceCore.Infile.Service
                 Console.WriteLine($"Error al abrir la URL: {ex.Message}");
             }
         }
+
+        public static void GetDocumentPdfInBrowser(string url)
+        {
+            
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al abrir la URL: {ex.Message}");
+            }
+        }
+
     }
 }

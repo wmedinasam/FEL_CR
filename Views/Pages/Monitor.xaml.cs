@@ -1,5 +1,6 @@
 ﻿using FELRD.Helpers;
 using FELRD.Models;
+using ServiceCore.Infile.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -361,8 +362,8 @@ namespace FELRD.Views.Pages
             var model = (sender as Button)?.DataContext as TransactionModel;
             if (model == null) return;
 
-            FilePDF filePDF = new FilePDF(model.Company.Certificador.EndPoint, model.UUID);
-            filePDF.ShowDialog();
+            InfileService.GetDocumentPdfInBrowser(model.url_pdf);
+
         }
 
         private void btnAnular_Click(object sender, RoutedEventArgs e)

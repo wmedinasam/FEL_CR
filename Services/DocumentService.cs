@@ -11,7 +11,7 @@ namespace FELRD.Services
 {
     public class DocumentService
     {
-        public DataSet GetDocumentsByNumber(int documentNumber)
+        public DataSet GetDocumentsByNumber(string documentNumber)
         {
             var query = string.Format($"SELECT [Id]\r\n" +
                                         $",[CompanyId]\r\n" +
@@ -28,7 +28,8 @@ namespace FELRD.Services
                                         $",[ControlNumber]\r\n" +
                                         $",[Sign]\r\n" +
                                         $",[ReceivedStamp]" +
-                                        $"FROM [FELRD].[dbo].[Document]\r\n WHERE [SAEDocumentId] = {documentNumber} ");
+                                        $",[url_pdf]" +
+                                        $"FROM [FELRD].[dbo].[Document]\r\n WHERE [SAEDocumentId] LIKE '%{documentNumber}%' ");
             var ds = DaoActions.GetMSSqlDataFromQuery(query);
             return ds;
         }
@@ -50,6 +51,7 @@ namespace FELRD.Services
                                         $",[ControlNumber]\r\n" +
                                         $",[Sign]\r\n" +
                                         $",[ReceivedStamp]" +
+                                        $",[url_pdf]" +
                                         $"FROM [FELRD].[dbo].[Document]\r\n WHERE TRY_CAST([SendDate] AS DATE) BETWEEN CAST('{dateInitial}' AS DATE) AND CAST('{dateFinal}' AS DATE)");
             var ds = DaoActions.GetMSSqlDataFromQuery(query);
             return ds;
