@@ -23,5 +23,6 @@ namespace FELRD.Models
         public string ControlNumber { get; set; }
         public string Sign { get; set; }
         public string ReceivedStamp { get; set; }
+        public string url_pdf { get; set; }
     }
 }

@@ -20,14 +20,14 @@ namespace FELRD.Services
 
         public DataSet GetProcessed()
         {
-            var query = string.Format($"SELECT [Id]\r\n      ,[CompanyId]\r\n      ,[SubsidiaryId]\r\n      ,[Status]\r\n      ,[Result]\r\n      ,[SAEDocumentId]\r\n      ,[SAENumber]\r\n      ,[SAESerial]\r\n      ,[SendDate]\r\n      ,[DocumentType]\r\n      ,[UUID]\r\n      ,[AnnulmentUUID]\r\n      ,[ControlNumber]\r\n      ,[Sign]  FROM [FELRD].[dbo].[Document] Order by [Id] Desc\r\n  ");
+            var query = string.Format($"SELECT [Id]\r\n      ,[CompanyId]\r\n      ,[SubsidiaryId]\r\n      ,[Status]\r\n      ,[Result]\r\n      ,[SAEDocumentId]\r\n      ,[SAENumber]\r\n      ,[SAESerial]\r\n      ,[SendDate]\r\n      ,[DocumentType]\r\n      ,[UUID]\r\n      ,[AnnulmentUUID]\r\n      ,[ControlNumber]\r\n      ,[Sign], [ReceivedStamp], [url_pdf]  FROM [FELRD].[dbo].[Document] Order by [Id] Desc\r\n  ");
             var ds = DaoActions.GetMSSqlDataFromQuery(query);
             return ds;
         }
 
         public DataSet GetById(int Id)
         {
-            var query = string.Format($"SELECT [Id]\r\n      ,[CompanyId]\r\n      ,[SubsidiaryId]\r\n      ,[Status]\r\n      ,[Result]\r\n      ,[SAEDocumentId]\r\n      ,[SAENumber]\r\n      ,[SAESerial]\r\n      ,[SendDate]\r\n      ,[DocumentType]\r\n      ,[UUID]\r\n      ,[AnnulmentUUID]\r\n      ,[ControlNumber]\r\n      ,[Sign]  FROM [FELRD].[dbo].[Document]\r\n WHERE Id = {Id} ");
+            var query = string.Format($"SELECT [Id]\r\n      ,[CompanyId]\r\n      ,[SubsidiaryId]\r\n      ,[Status]\r\n      ,[Result]\r\n      ,[SAEDocumentId]\r\n      ,[SAENumber]\r\n      ,[SAESerial]\r\n      ,[SendDate]\r\n      ,[DocumentType]\r\n      ,[UUID]\r\n      ,[AnnulmentUUID]\r\n      ,[ControlNumber]\r\n      ,[Sign], [ReceivedStamp], [url_pdf]  FROM [FELRD].[dbo].[Document]\r\n WHERE Id = {Id} ");
             var ds = DaoActions.GetMSSqlDataFromQuery(query);
             return ds;
         }
@@ -65,7 +65,8 @@ namespace FELRD.Services
                                string UUID,
                                string ControlNumber,
                                string Sign,
-                               string ReceivedStamp
+                               string ReceivedStamp,
+                               string url_pdf
                                )
         {
             string query = string.Empty;
@@ -78,6 +79,7 @@ namespace FELRD.Services
                                     $", [ControlNumber] = '{ControlNumber}' " +
                                     $", [Sign] = '{Sign}' " +
                                     $", [ReceivedStamp] = '{ReceivedStamp}' " +
+                                    $", [url_pdf] = '{url_pdf}' " +
                                     $"WHERE [Id] = {Id} ");
             }
             var ds = DaoActions.ExecuteMSSqlQuery(query);

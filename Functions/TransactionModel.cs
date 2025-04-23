@@ -32,7 +32,8 @@ namespace FELRD.Models
                     DocumentType = fila["DocumentType"].ToString(),
                     Company = company.Get(Convert.ToInt32(fila["CompanyId"])).Object,
                     Subsidiary = subsidiary.Get(Convert.ToInt32(fila["SubsidiaryId"])).Object,
-                    Status = fila["Status"].ToString()
+                    Status = fila["Status"].ToString(),
+                    url_pdf = fila["url_pdf"].ToString(),
                 }).ToList<TransactionModel>();
             }
             catch (Exception ex)
@@ -75,6 +76,8 @@ namespace FELRD.Models
                     AnnulmentUUID = fila["AnnulmentUUID"].ToString(),
                     ControlNumber = fila["ControlNumber"].ToString(),
                     Sign = fila["Sign"].ToString(),
+                    ReceivedStamp = fila["ReceivedStamp"].ToString(),
+                    url_pdf = fila["url_pdf"].ToString(),
                 }).ToList<TransactionModel>();
             }
             catch (Exception ex)
@@ -119,6 +122,8 @@ namespace FELRD.Models
                     AnnulmentUUID = fila["AnnulmentUUID"].ToString(),
                     ControlNumber = fila["ControlNumber"].ToString(),
                     Sign = fila["Sign"].ToString(),
+                    ReceivedStamp = fila["ReceivedStamp"].ToString(),
+                    url_pdf = fila["url_pdf"].ToString(),
                 }).ToList<TransactionModel>();
             }
             catch (Exception ex)
@@ -148,7 +153,9 @@ namespace FELRD.Models
                                     model.UUID,
                                     model.ControlNumber,
                                     model.Sign,
-                                    model.ReceivedStamp).Tables[0];
+                                    model.ReceivedStamp,
+                                    model.url_pdf
+                                    ).Tables[0];
                 }
                 else
                 {
@@ -172,7 +179,7 @@ namespace FELRD.Models
             return res;
         }
 
-        public ResponseModel<List<TransactionModel>> GetDocumentsByNumber(int documentNumber)
+        public ResponseModel<List<TransactionModel>> GetDocumentsByNumber(string documentNumber)
         {
             ResponseModel<List<TransactionModel>> res = new ResponseModel<List<TransactionModel>>();
             List<TransactionModel> lst = new List<TransactionModel>();
@@ -202,6 +209,7 @@ namespace FELRD.Models
                     ControlNumber = fila["ControlNumber"].ToString(),
                     Sign = fila["Sign"].ToString(),
                     ReceivedStamp = fila["ReceivedStamp"].ToString(),
+                    url_pdf = fila["url_pdf"].ToString(),
                 }).ToList<TransactionModel>();
             }
             catch (Exception ex)
@@ -245,6 +253,7 @@ namespace FELRD.Models
                     ControlNumber = fila["ControlNumber"].ToString(),
                     Sign = fila["Sign"].ToString(),
                     ReceivedStamp = fila["ReceivedStamp"].ToString(),
+                    url_pdf = fila["url_pdf"].ToString(),
                 }).ToList<TransactionModel>();
             }
             catch (Exception ex)

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using FELRD.Helpers;
 using FELRD.Models;
 using FELRD.Services;
+using ServiceCore.Infile.Service;
 using WIS_Security;
 
 namespace FELRD.Views.Pages
@@ -86,7 +87,8 @@ namespace FELRD.Views.Pages
 
             if (selectedFilter.StartsWith("1"))
             {
-                if (int.TryParse(txtNoDocument.Text.Trim(), out int documentNumber))
+                string documentNumber = txtNoDocument.Text.Trim();
+                if (!string.IsNullOrEmpty(documentNumber))
                 {
                     await GetDocumentsByNumberAsync(documentNumber);
                 }
@@ -156,7 +158,7 @@ namespace FELRD.Views.Pages
         }
 
 
-        private async Task GetDocumentsByNumberAsync(int documentNumber)
+        private async Task GetDocumentsByNumberAsync(string documentNumber)
         {
             await Task.Delay(200);
 
@@ -216,13 +218,19 @@ namespace FELRD.Views.Pages
         {
             var row = (sender as FrameworkElement)?.DataContext as TransactionModel;
             if (row != null)
-            {
-                MessageService.ShowInfo("Atención!", $"Descargar PDF del documento {row.SAEDocumentId}");
+            {                
                 // Aquí iría la lógica real de descarga
+                try
+                {
+                    InfileService.GetDocumentPdfInBrowser(row.url_pdf);
+                }
+                catch (Exception ex)
+                {
+                    MessageService.ShowError("Error!", $"Error al descargar PDF del documento {row.SAEDocumentId}");
+                }
+                
             }
         }
-
-
 
     }
 }
