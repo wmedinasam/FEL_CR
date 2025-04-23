@@ -77,7 +77,7 @@ namespace ServiceCore.Infile.Service.Tests
             string rnc = "132788419";
             string encf = "E310000000421";
             string codigoSeguridad = "mUkF4P";
-            infileService.GetDocumentPdfInBrowser(baseUrl, rnc, encf, codigoSeguridad);
+            InfileService.GetDocumentPdfInBrowser(baseUrl, rnc, encf, codigoSeguridad);
         }
     }
 }

@@ -30,5 +30,11 @@ namespace DTECore.Tests
         {
             testClass.testExportInvoice();
         }
+
+        [TestMethod()]
+        public void testtestCreditNote()
+        {
+            testClass.testCreditNote();
+        }
     }
 }
