@@ -32,13 +32,29 @@ namespace FELRD.Views
 
         #region Functions
 
-        private void CheckSubscription()
+
+        private bool GetSystemName(ResponseModel<ConfigurationModel> config)
+        {
+            return config.Object.Key.Sistema.Equals("FELRD");
+        }
+
+
+        private void CheckSubscription(ResponseModel<ConfigurationModel> config)
         {
             UnBlockControls();
             var responseDate = SuscriptionsService.GetServerDate();
             if (responseDate.Success)
             {
                 var serverDate = responseDate.Object;
+                var iscorrectSystemName = GetSystemName(config);
+                if (!iscorrectSystemName)
+                {
+                    BlockControls();
+                    MessageService.ShowWarning("Licencia No Encontrada", "El sistema no es FELRD, por favor contactate con Soporte Técnico para obtener mas información.");
+                    return;
+                }
+
+
                 if (!SuscriptionsService.isLifetimeLicence())
                 {
                     var isExpired = SuscriptionsService.isSuscriptionExpired(serverDate);
@@ -81,7 +97,16 @@ namespace FELRD.Views
 
             var responseConfiguration = config.GetConfiguration();
             if (responseConfiguration.Success)
-                CheckSubscription();
+            {
+                var isCorrectSystemName = GetSystemName(responseConfiguration);
+                if (!isCorrectSystemName)
+                {
+                    BlockControls();
+                }
+
+                CheckSubscription(responseConfiguration);
+            }
+
         }
         #endregion
 
