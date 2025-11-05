@@ -15,7 +15,7 @@ namespace ServiceCore.Infile.Service.Tests
     public class InfileServiceTests
     {
         InfileService infileService = new InfileService();
-        string url = "https://fe-webservice-test.infile.com.do/republica_dominicana/auth/login";
+        string url = "https://fe-webservice-test.infile.com.do/";
         string username = "infile-ws-test";
         string password = "5285D1A3";
         string key = "SK6FEAA903461486B5FDC2C3CA1824FD";

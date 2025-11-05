@@ -174,14 +174,27 @@
                         <DataGridTextColumn Foreground="#fff" Header="Docto" Binding="{Binding SAEDocumentId}"  />
                         <DataGridTextColumn Foreground="#fff" Header="Tipo" Binding="{Binding DocumentType}" />
                         <DataGridTextColumn Foreground="#fff" Header="UUID" Binding="{Binding UUID}" />
-                        <DataGridTextColumn Foreground="#fff" Header="No. Control" Binding="{Binding ControlNumber}" />
                         <DataGridTemplateColumn Header="Accion">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <!--<Button x:Name="btnConsultar" Content="{materialDesign:PackIcon Kind=FilePdf, Size=20}"  ToolTip="Descargar PDF"  Foreground="#74D5FA" Background="#030E18"  BorderThickness="1" Cursor="Arrow" Width="30" Height="25" HorizontalAlignment="Center" Padding="1,1,1,2"  CommandParameter="{Binding UUID}" Visibility="{Binding btnPDF}" Click="btnConsultar_Click">
+                                        <Button 
+                                            x:Name="btnConsultar" 
+                                            Content="{materialDesign:PackIcon Kind=FilePdf, Size=20}"  
+                                            ToolTip="Visualizar PDF"  
+                                            Foreground="#74D5FA" 
+                                            Background="#030E18"  
+                                            BorderThickness="1" 
+                                            Cursor="Arrow" 
+                                            Width="30" 
+                                            Height="25" 
+                                            HorizontalAlignment="Center" 
+                                            Padding="1,1,1,2"  
+                                            CommandParameter="{Binding UUID}" 
+                                            Visibility="{Binding btnPDF}" 
+                                            Click="btnConsultar_Click">
                                     </Button>
-                                    <Grid Width="10"></Grid>-->
+                                    <Grid Width="10"></Grid>
                                         <Button x:Name="btnAnular"
                                                 Foreground="#FAB3AE"
                                                 Background="#180605"

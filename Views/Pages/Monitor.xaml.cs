@@ -171,16 +171,24 @@ namespace FELRD.Views.Pages
             brush.BeginAnimation(SolidColorBrush.ColorProperty, animation);
         }
 
+        /// <summary>
+        /// Función encargada de obtener las transacciones procesadas y pendientes
+        /// </summary>
+        /// <returns></returns>
         private async Task GetTransactionsAsync()
         {
             transactionsResponse = await Task.Run(() => transactionModel.GetProcessed());
 
-            if (transactionsResponse.Success && canUserSign)
+            if (canUserSign)
             {
-                try
+                var pendings = await Task.Run(() => TransactionMethods.GetPendings());
+                if (!pendings.Success)
                 {
-                    var pendings = await Task.Run(() => TransactionMethods.GetPendings());
-
+                    HandleLogs.SaveLog("Debug", $"obtuve pendientes? resultado = {pendings.Object.Count} {pendings.Message}");
+                    return;
+                }
+                try
+                {                   
                     foreach (var pending in pendings.Object)
                     {
                         await Task.Run(() => TransactionMethods.Sign(pending));
@@ -191,8 +199,16 @@ namespace FELRD.Views.Pages
                     HandleLogs.SaveLog("Debug", "Problemas al firmar documento: " + ex.Message);
                 }
             }
+            else
+            {
+                HandleLogs.SaveLog("Debug", "No se pudo obtener transacciones pendientes: " + transactionsResponse.Message);
+            }
         }
 
+        /// <summary>
+        /// Función que obtiene por primera vez las transacciones procesadas y pendientes 
+        /// </summary>
+        /// <returns></returns>
         private async Task GetTransactionsFirstTimeAsync()
         {
             IsLoading = true;

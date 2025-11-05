@@ -1,4 +1,5 @@
 ﻿using FELRD.Controls;
+using FELRD.Helpers;
 using FELRD.Models;
 using FELRD.Services;
 using System;
@@ -132,6 +133,7 @@ namespace FELRD.Views
                         }
                         catch (Exception ex)
                         {
+                            HandleLogs.SaveLog("Debug", "Problemas al abrir el Dashboard inicial: " + ex.Message);
                             MessageBox.Show("ERROR AL ABRIR DASHBOARD: " + ex.Message + "\n\n" + ex.StackTrace);
                         }
                     }

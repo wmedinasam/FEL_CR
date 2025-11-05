@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Document.cs" />
+    <Compile Include="ECFEncabezadoTotales.cs" />
     <Compile Include="Models\Constructors.cs" />
     <Compile Include="Models\CreditNoteDocumentStrategy.cs" />
     <Compile Include="Models\ExportInvoiceDocumentStrategy.cs" />

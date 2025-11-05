@@ -20,19 +20,29 @@ namespace FELRD
         public static ResponseModel<List<TransactionModel>> GetPendings()
         {
             var model = new TransactionModel();
-            var responseGetPendingTransactions = model.GetPendings();
-
-            if (responseGetPendingTransactions.Success && responseGetPendingTransactions.Object.Count > 0)
+            try
             {
+                var responseGetPendingTransactions = model.GetPendings();
+
+                if (!responseGetPendingTransactions.Success && responseGetPendingTransactions.Object.Count == 0)
+                {
+                    responseGetPendingTransactions.Success = false;
+                    responseGetPendingTransactions.Message = "No fueron encontradas transacciones pendientes.";
+                }
+
                 return responseGetPendingTransactions;
             }
-
-            return new ResponseModel<List<TransactionModel>>
+            catch (Exception ex)
             {
-                Success = false,
-                Message = "No fueron encontradas transacciones pendientes.",
-                Object = new List<TransactionModel>()
-            };
+
+                return new ResponseModel<List<TransactionModel>>
+                {
+                    Success = false,
+                    Message = $"Error al intentar recuperar transacciones pendientes. Motivo: {ex.Message}",
+                    Object = new List<TransactionModel>()
+                };
+            }
+
         }
 
         /// <summary>
@@ -78,12 +88,21 @@ namespace FELRD
         /// <param name="document"></param>
         public static void Sign(TransactionModel document)
         {
+            InfileService infileService = new InfileService();
             try
             {
                 var saeDataTableResponse = SaeFelModel.GetSaeFelData(document.Company.Id, document.Subsidiary.Id, document.SAENumber, document.SAESerial, document.DocumentType, document.Company.DBSAE, document.Company.SuffixTable);
                 if (saeDataTableResponse.Object.Rows.Count == 0)
                 {
                     HandleLogs.SaveLog("Info", $"No se encontro data para documento interno: {document.SAESerial}-{document.SAENumber}.");
+                    return;
+                }
+
+                document.Status = "EN-PROCESO";
+                var responseChangeStatus = document.ActionTransaction("ChangeStatus", document);
+                if (!responseChangeStatus.Success)
+                {
+                    HandleLogs.SaveLog("Error", $"Error actualizando la  transaction: {document.SAESerial}-{document.SAENumber} por:  {responseChangeStatus.Message}");
                     return;
                 }
 
@@ -94,29 +113,36 @@ namespace FELRD
                     return;
                 }
 
+                // save XML to Path
+                HandleLogs.SaveXML( String.Format($"{document.SAESerial}-{document.SAENumber}-Request") ,xmlContent);
+
                 var requestToken = new RequestToken
                 {
                     rnc = document.Company.Certificador.Nit,
-                    llave = document.Company.Certificador.SecurityKey
+                    llave = document.Company.Certificador.Key
                 };
 
-                var token = new InfileService().GetToken(document.Company.Certificador.EndPoint, document.Company.Certificador.UsuarioWS, document.Company.Certificador.PasswordWS, document.Company.Certificador.Key, requestToken);
+                var token = infileService.GetToken(document.Company.Certificador.EndPoint, document.Company.Certificador.UsuarioWS, document.Company.Certificador.PasswordWS, document.Company.Certificador.SecurityKey, requestToken);
                 if (token.ToLower().Contains("error"))
                 {
                     // Error al obtener token
-                    HandleLogs.SaveLog("Error", "Error al obtener token.");
+                    HandleLogs.SaveLog("Error", $"Error al obtener token. {token}");
                     return;
                 }
 
-                var response = new InfileService().SendXmlDocument(document.Company.Certificador.EndPoint, token, xmlContent);
-                if (!response.Success && response.Object.cantidad_errores > 0)
+                // Validar que response.Object no sea null antes de acceder a cantidad_errores
+                var response = new ResponseModel<RootObject>();
+                response = infileService.SendXmlDocument(document.Company.Certificador.EndPoint, token, xmlContent);
+                if (!response.Success && response.Object != null && response.Object.cantidad_errores > 0)
                 {
                     // Transacción no firmada por algún error en el XML
                     HandleLogs.SaveLog("Error", $"Error de estructura del XML del documento interno: {document.SAESerial}-{document.SAENumber} por: {response.Message}");
-                    var responseActionTransactionWithError = document.ActionTransaction("Rejected", document);
+                    document.Status = "RECHAZADO";
+                    document.Result = response.Message;
+                    var responseActionTransactionWithError = document.ActionTransaction("ChangeStatusResult", document);
                     if (!responseActionTransactionWithError.Success)
                     {
-                        HandleLogs.SaveLog("Error", $"Error actualizando la  transaction: {document.SAESerial}-{document.SAENumber} por:  {responseActionTransactionWithError.Message}");
+                        HandleLogs.SaveLog("Error", $"Error actualizando la  transaction: {document.SAESerial}-{document.SAENumber} por: {responseActionTransactionWithError.Message}");
                         return;
                     }
                     return;
@@ -127,6 +153,8 @@ namespace FELRD
                 document.ReceivedStamp = response.Object.fecha.ToLongTimeString();
                 document.Sign = response.Object.codigo_seguridad;
                 document.url_pdf = response.Object.url_pdf.ToString();
+                document.ControlNumber = response.Object.codigo_seguridad;
+                document.Status = "ACEPTADO";
 
                 // Actualizar estado a firmado de la transacción
                 var responseActionPendingTransaction = document.ActionTransaction("Accepted", document);
@@ -134,7 +162,6 @@ namespace FELRD
                 {
                     HandleLogs.SaveLog("Error", $"Error actualizando la  transaction: {document.SAESerial}-{document.SAENumber} por:  {responseActionPendingTransaction.Message}");
                 }
-
             }
             catch (Exception ex)
             {

@@ -33,7 +33,8 @@ namespace DTECore
                             TipoeCF = tipoEcf,
                             eNCF = $"E{tipoEcf}{row["eNCF"].ToString().PadLeft(10, '0')}",
                             TipoIngresos = row["TipoIngresos"].ToString(),
-                            TipoPago = row["TipoPago"].ToString()
+                            TipoPago = row["TipoPago"].ToString(),
+                            IndicadorNotaCreditoSpecified = false
                         },
 
                         Emisor = new ECFEncabezadoEmisor
@@ -50,11 +51,20 @@ namespace DTECore
                             },
                             CorreoEmisor = row["CorreoEmisor"].ToString(),
                             WebSite = row["WebSite"].ToString(),
+                            WebSiteSpecified = String.IsNullOrEmpty(row["WebSite"].ToString()) ? false : true,
                             CodigoVendedor = row["CodigoVendedor"].ToString(),
+                            CodigoVendedorSpecified = String.IsNullOrEmpty(row["CodigoVendedor"].ToString()) ? false : true,
                             NumeroFacturaInterna = row["NumeroFacturaInterna"].ToString(),
+                            NumeroFacturaInternaSpecified = String.IsNullOrEmpty(row["NumeroFacturaInterna"].ToString()) ? false : true,
                             NumeroPedidoInterno = row["NumeroPedidoInterno"].ToString(),
+                            NumeroPedidoInternoSpecified = String.IsNullOrEmpty(row["NumeroPedidoInterno"].ToString()) ? false : true,
                             ZonaVenta = row["ZonaVenta"].ToString(),
+                            ZonaVentaSpecified = String.IsNullOrEmpty(row["ZonaVenta"].ToString()) ? false : true,
+                            RutaVenta = row["RutaVenta"].ToString(),
+                            RutaVentaSpecified = String.IsNullOrEmpty(row["RutaVenta"].ToString()) ? false : true,
                             FechaEmision = row["FechaEmision"].ToString(), // enviarlo como dd/MM/yyyy
+                            FechaEmisionSpecified = String.IsNullOrEmpty(row["FechaEmision"].ToString()) ? false : true,
+                            InformacionAdicionalComprador = row["InformacionAdicionalComprador"].ToString(),
                         },
 
                         Comprador = new ECFEncabezadoComprador
@@ -62,14 +72,22 @@ namespace DTECore
                             RNCComprador = Convert.ToUInt32(row["RNCComprador"].ToString()),
                             RazonSocialComprador = row["RazonSocialComprador"].ToString(),
                             ContactoComprador = row["ContactoComprador"].ToString(),
+                            ContactoCompradorSpecified = String.IsNullOrEmpty(row["ContactoComprador"].ToString()) ? false : true,
                             CorreoComprador = row["CorreoComprador"].ToString(),
+                            CorreoCompradorSpecified = String.IsNullOrEmpty(row["CorreoComprador"].ToString()) ? false : true,
                             DireccionComprador = row["DireccionComprador"].ToString(),
                             MunicipioComprador = row["MunicipioComprador"].ToString(),
+                            MunicipioCompradorSpecified = String.IsNullOrEmpty(row["MunicipioComprador"].ToString()) ? false : true,
                             ProvinciaComprador = row["ProvinciaComprador"].ToString(),
+                            ProvinciaCompradorSpecified = String.IsNullOrEmpty(row["ProvinciaComprador"].ToString()) ? false : true,
                             FechaEntrega = row["FechaEntrega"].ToString(),
+                            FechaEntregaSpecified = String.IsNullOrEmpty(row["FechaEntrega"].ToString()) ? false : true,
                             FechaOrdenCompra = row["FechaOrdenCompra"].ToString(),
+                            FechaOrdenCompraSpecified = String.IsNullOrEmpty(row["FechaOrdenCompra"].ToString()) ? false : true,
                             NumeroOrdenCompra = row["NumeroOrdenCompra"].ToString(),
+                            NumeroOrdenCompraSpecified = String.IsNullOrEmpty(row["NumeroOrdenCompra"].ToString()) ? false : true,
                             CodigoInternoComprador = row["CodigoInternoComprador"].ToString(),
+                            CodigoInternoCompradorSpecified = String.IsNullOrEmpty(row["CodigoInternoComprador"].ToString()) ? false : true,
                         },
 
                         Totales = new ECFEncabezadoTotales
@@ -85,6 +103,7 @@ namespace DTECore
                             ITBIS3 = Convert.ToDecimal(row["ITBIS3"].ToString()),
                             ITBIS3Specified = Convert.ToDecimal(row["ITBIS3"].ToString()) > 0,
                             TotalITBIS = Convert.ToDecimal(row["TotalITBIS"].ToString()),
+                            TotalITBISSpecified = Convert.ToDecimal(row["TotalITBIS"].ToString()) > 0,
                             TotalITBIS1 = Convert.ToDecimal(row["TotalITBIS1"].ToString()),
                             TotalITBIS1Specified = Convert.ToDecimal(row["TotalITBIS1"].ToString()) > 0,
                             TotalITBIS3 = Convert.ToDecimal(row["TotalITBIS3"].ToString()),
@@ -97,13 +116,14 @@ namespace DTECore
                     var sumMontoExento = 0m;
 
                     List<ECFItem> items = new List<ECFItem>();
+                    var index = 1;
                     foreach (DataRow itemRow in datos.Rows)
                     {
                         var descuentoMontoIsVsible = Math.Round(Convert.ToDecimal(itemRow["DescuentoMonto"].ToString()), 2) > 0 ? true : false;
 
                         ECFItem item = new ECFItem
                         {
-                            NumeroLinea = Convert.ToInt32(itemRow["NumeroLinea"].ToString()),
+                            NumeroLinea = index,
                             IndicadorFacturacion = Convert.ToInt32(itemRow["IndicadorFacturacion"].ToString()),
                             NombreItem = itemRow["NombreItem"].ToString(),
                             IndicadorBienoServicio = Convert.ToInt32(itemRow["IndicadorBienoServicio"].ToString()),
@@ -115,17 +135,20 @@ namespace DTECore
                             MontoItem = Math.Round(Convert.ToDecimal(itemRow["MontoItem"].ToString()), 2),
                         };
                         items.Add(item);
+                        index++;
                         sumMontoItem += item.MontoItem;
                         sumMontoExento += item.IndicadorFacturacion == 4 ? item.MontoItem : 0; // Sumar solo si el IndicadorFacturacion es 4
                     }
                     documento.DetallesItems = items.ToArray();
 
-                    // Validar si algún item tiene IndicadorFacturacion igual a 4
+                    // Validar si algï¿½n item tiene IndicadorFacturacion igual a 4
                     documento.Encabezado.Totales.MontoExentoSpecified = items.Any(i => i.IndicadorFacturacion == 4);
 
                     // llenado de totales
                     documento.Encabezado.Totales.MontoExento = sumMontoItem;
-                    documento.Encabezado.Totales.MontoTotal = sumMontoItem;
+                    documento.Encabezado.Totales.MontoGravadoTotal = sumMontoItem;
+                    documento.Encabezado.Totales.MontoGravadoI1 = documento.Encabezado.Totales.MontoGravadoTotal > 0 ? sumMontoItem : 0;
+                    documento.Encabezado.Totales.MontoTotal = sumMontoItem + documento.Encabezado.Totales.TotalITBIS1 + documento.Encabezado.Totales.TotalITBIS3;
 
                 }
 

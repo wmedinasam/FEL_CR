@@ -17,7 +17,7 @@ namespace WIS_Security
             ResponseModel<DateTime> responseDate = new ResponseModel<DateTime>();
             try
             {
-                var date = DateTime.UtcNow; // Use UTC to avoid regional settings
+                var date = DateTime.Now; // Use UTC to avoid regional settings
                 var formattedDate = date.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture);
 
                 responseDate.Success = true;
@@ -38,7 +38,7 @@ namespace WIS_Security
         /// <returns>Due Date inf Date Time format</returns>
         public static DateTime GetDueDate()
         {
-            string[] formatos = { "dd/MM/yyyy", "dd-MM-yyyy" };
+            string[] formatos = { "dd-MM-yyyy" };
             ConfigurationModel _configurationModel = new ConfigurationModel();
             HandleCfg handleCfg = new HandleCfg();
             var json = handleCfg.ReadCfg(_configurationModel.path);
@@ -66,9 +66,25 @@ namespace WIS_Security
         /// <returns></returns>
         public static int remainingDays(DateTime serverDate)
         {
-            var dueDate = GetDueDate();
-            var result = dueDate - serverDate;
-            return result.Days;
+            DateTime dueDate;
+            try
+            {
+                dueDate = GetDueDate();
+            }
+            catch
+            {
+                // Si GetDueDate falla, retornamos -1 para indicar error
+                return -1;
+            }
+
+            // Comparamos solo la parte de fecha (sin hora) para evitar problemas de precisión
+            var serverDateOnly = serverDate.Date;
+            var dueDateOnly = dueDate.Date;
+
+            if (dueDateOnly <= serverDateOnly)
+                return 0;
+
+            return (int)(dueDateOnly - serverDateOnly).TotalDays;
         }
 
         /// <summary>

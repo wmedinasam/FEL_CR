@@ -94,7 +94,7 @@ namespace DTECore
             fila1["CodigoInternoComprador"] = "10633440";
 
             fila1["MontoExento"] = 0;
-            fila1["MontoTotal"] = 0;
+            fila1["MontoTotal"] = 16520;
 
 
             fila1["NumeroLinea"] = 1;

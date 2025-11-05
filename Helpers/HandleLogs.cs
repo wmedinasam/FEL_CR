@@ -24,6 +24,16 @@ namespace FELRD.Helpers
             return path;
         }
 
+        public static string GetXMLPath()
+        {
+            var path = ConfigurationManager.AppSettings["XMLDirectory"];
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                path = AppDomain.CurrentDomain.BaseDirectory;
+            }
+            return path;
+        }
+
         public static String GetTimestamp(DateTime value)
         {
             return value.ToString("yyyyMMdd");
@@ -83,6 +93,28 @@ namespace FELRD.Helpers
             {
                 writetext.WriteLine(output);
             }
+        }
+       
+        public static void SaveXML(string document, string output)
+        {
+            string path = GetXMLPath();
+            var fullPath = System.IO.Path.Combine(path, "XML");
+            // validar existencia del path
+            if (!Directory.Exists(fullPath))
+            {
+                Directory.CreateDirectory(fullPath);
+            }
+
+            var filePath = System.IO.Path.Combine(fullPath, document + ".xml");
+
+            // Si el archivo existe, eliminarlo para conservar sólo el nuevo
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            // Escribir el nuevo contenido (crea el archivo si no existe)
+            File.WriteAllText(filePath, output, Encoding.UTF8);
         }
 
         public static string ReadLog(string path)

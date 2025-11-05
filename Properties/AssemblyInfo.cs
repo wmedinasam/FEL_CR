@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("FELRD")]
 [assembly: AssemblyDescription("Monitor para documentos electrónicos RDOM")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("WIS Developers")]
 [assembly: AssemblyProduct("Monitor FEL RDOM")]
 [assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("")]
@@ -48,5 +48,5 @@ using System.Windows;
 //      Número de compilación
 //      Revisión
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyFileVersion("1.0.0.1")]

@@ -216,20 +216,10 @@ namespace FELRD.Views.Pages
 
         private void BtnDownloadPDF_Click(object sender, RoutedEventArgs e)
         {
-            var row = (sender as FrameworkElement)?.DataContext as TransactionModel;
-            if (row != null)
-            {                
-                // Aquí iría la lógica real de descarga
-                try
-                {
-                    InfileService.GetDocumentPdfInBrowser(row.url_pdf);
-                }
-                catch (Exception ex)
-                {
-                    MessageService.ShowError("Error!", $"Error al descargar PDF del documento {row.SAEDocumentId}");
-                }
-                
-            }
+            var model = (sender as Button)?.DataContext as TransactionModel;
+            if (model == null) return;
+
+            InfileService.GetDocumentPdfInBrowser(model.url_pdf);
         }
 
     }

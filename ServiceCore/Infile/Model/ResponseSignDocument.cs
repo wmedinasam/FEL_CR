@@ -20,14 +20,33 @@ namespace ServiceCore.Infile.Model
         public int cantidad_errores { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Errores[] errores { get; set; }
+        public Errores[] errores { get; set; } = new Errores[0];
 
         public object url_pdf { get; set; }
+
+        public RootObject()
+        {
+            fecha = DateTime.Now;
+            resultado = false;
+            descripcion = string.Empty;
+            ambiente = string.Empty;
+            solicitud_id = string.Empty;
+            rnc_emisor = string.Empty;
+            rnc_comprador = string.Empty;
+            encf = string.Empty;
+            trackid = string.Empty;
+            codigo_seguridad = string.Empty;
+            secuencia_utilizada = string.Empty;
+            cantidad_errores = 0;
+            errores = null;
+        }
     }
 
     public class Errores
     {
         public string descripcion { get; set; }
     }
+
+
 }
 

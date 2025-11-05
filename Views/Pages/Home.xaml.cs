@@ -83,9 +83,9 @@ namespace FELRD.Views.Pages
                 var serverDate = responseDate.Object;
                 var dueDate = SuscriptionsService.GetDueDate().ToString();
                 SettingModel settingModel = new SettingModel();
-                string format = "M/d/yyyy h:mm:ss tt";
+                string format = "dd-MM-yyyy";
                 CultureInfo provider = CultureInfo.InvariantCulture;
-
+                // TODO revisar con una fecha de vencimiento del token que si lo muestre sin problema, el token tiene dd-MM-yyy
                 var isAboutToExpire = settingModel.isSuscriptionAboutToExpired(serverDate);
 
                 if (isAboutToExpire)
