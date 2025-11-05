@@ -105,11 +105,12 @@ namespace DTECore
                 };
 
                 List<ECFItem> items = new List<ECFItem>();
+                var index = 1;
                 foreach (DataRow itemRow in datos.Rows)
                 {
                     ECFItem item = new ECFItem
                     {
-                        NumeroLinea = Convert.ToInt32(itemRow["NumeroLinea"].ToString()),
+                        NumeroLinea = index,
                         IndicadorFacturacion = Convert.ToInt32(itemRow["IndicadorFacturacion"].ToString()),
                         NombreItem = itemRow["NombreItem"].ToString(),
                         IndicadorBienoServicio = Convert.ToInt32(itemRow["IndicadorBienoServicio"].ToString()),
@@ -119,6 +120,7 @@ namespace DTECore
                         MontoItem = Convert.ToDecimal(itemRow["MontoItem"].ToString()),
                     };
                     items.Add(item);
+                    index++;
                 }
                 documento.DetallesItems = items.ToArray();
             }

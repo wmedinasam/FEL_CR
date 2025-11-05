@@ -156,7 +156,7 @@ namespace FELRD.Models
                                     model.ReceivedStamp,
                                     model.url_pdf
                                     ).Tables[0];
-                }
+                }                
                 else
                 {
                     dt = transactionService.ActionTransaction(action,

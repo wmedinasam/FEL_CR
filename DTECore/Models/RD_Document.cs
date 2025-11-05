@@ -46,7 +46,7 @@ namespace DTECore
                 this.encabezadoField = value;
             }
         }
-       
+
         [System.Xml.Serialization.XmlArrayItemAttribute("Item", IsNullable = false)]
         public ECFItem[] DetallesItems
         {
@@ -204,6 +204,8 @@ namespace DTECore
 
         private int indicadorNotaCreditoField;
 
+        private bool indicadorNotaCreditoFieldSpecified;
+
         private string indicadorMontoGravadoField;
 
         private string tipoIngresosField;
@@ -257,7 +259,7 @@ namespace DTECore
             }
         }
 
-        [XmlElement(IsNullable =false)]
+        [XmlElement(IsNullable = false)]
         public int IndicadorNotaCredito
         {
             get
@@ -267,6 +269,19 @@ namespace DTECore
             set
             {
                 this.indicadorNotaCreditoField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool IndicadorNotaCreditoSpecified
+        {
+            get
+            {
+                return this.indicadorNotaCreditoFieldSpecified;
+            }
+            set
+            {
+                this.indicadorNotaCreditoFieldSpecified = value;
             }
         }
 
@@ -1089,17 +1104,39 @@ namespace DTECore
 
         private string webSiteField;
 
+        private bool webSiteFieldSpecified;
+
         private string codigoVendedorField;
+
+        private bool codigoVendedorSpecified;
 
         private string numeroFacturaInternaField;
 
+        private bool numeroFacturaInternaFieldSpecified;
+
         private string numeroPedidoInternoField;
+
+        private bool numeroPedidoInternoFieldSpecified;
 
         private string correoEmisorField;
 
+        private bool correoEmisorFieldSpecified;
+
         private string zonaVentaField;
 
+        private bool zonaVentaFieldSpecified;
+
+        private string rutaVentaField;
+
+        private bool rutaVentaFieldSpecified;
+
         private string fechaEmisionField;
+
+        private bool fechaEmisionFieldSpecified;
+
+        private string InformacionAdicionalCompradorField;
+
+        private bool informacionAdicionalCompradorFieldSpecified;
 
         [XmlElement(IsNullable = false)]
         public uint RNCEmisor
@@ -1205,6 +1242,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool WebSiteSpecified
+        {
+            get
+            {
+                return this.webSiteFieldSpecified;
+            }
+            set
+            {
+                this.webSiteFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string CodigoVendedor
         {
@@ -1215,6 +1265,19 @@ namespace DTECore
             set
             {
                 this.codigoVendedorField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool CodigoVendedorSpecified
+        {
+            get
+            {
+                return this.codigoVendedorSpecified;
+            }
+            set
+            {
+                this.codigoVendedorSpecified = value;
             }
         }
 
@@ -1231,6 +1294,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool NumeroFacturaInternaSpecified
+        {
+            get
+            {
+                return this.numeroFacturaInternaFieldSpecified;
+            }
+            set
+            {
+                this.numeroFacturaInternaFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string NumeroPedidoInterno
         {
@@ -1241,6 +1317,19 @@ namespace DTECore
             set
             {
                 this.numeroPedidoInternoField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool NumeroPedidoInternoSpecified
+        {
+            get
+            {
+                return this.numeroPedidoInternoFieldSpecified;
+            }
+            set
+            {
+                this.numeroPedidoInternoFieldSpecified = value;
             }
         }
 
@@ -1257,6 +1346,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool CorreoEmisorSpecified
+        {
+            get
+            {
+                return this.correoEmisorFieldSpecified;
+            }
+            set
+            {
+                this.correoEmisorFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string ZonaVenta
         {
@@ -1270,6 +1372,45 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool ZonaVentaSpecified
+        {
+            get
+            {
+                return this.zonaVentaFieldSpecified;
+            }
+            set
+            {
+                this.zonaVentaFieldSpecified = value;
+            }
+        }
+
+        [XmlElement(IsNullable =false)]
+        public string RutaVenta
+        {
+            get
+            {
+                return this.rutaVentaField;
+            }
+            set
+            {
+                this.rutaVentaField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool RutaVentaSpecified
+        {
+            get
+            {
+                return this.rutaVentaFieldSpecified;
+            }
+            set
+            {
+                this.rutaVentaFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string FechaEmision
         {
@@ -1280,6 +1421,45 @@ namespace DTECore
             set
             {
                 this.fechaEmisionField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool FechaEmisionSpecified
+        {
+            get
+            {
+                return this.fechaEmisionFieldSpecified;
+            }
+            set
+            {
+                this.fechaEmisionFieldSpecified = value;
+            }
+        }
+
+        [XmlElement(IsNullable = false)]
+        public string InformacionAdicionalComprador
+        {
+            get
+            {
+                return this.InformacionAdicionalCompradorField;
+            }
+            set
+            {
+                this.InformacionAdicionalCompradorField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool InformacionAdicionalCompradorSpecified
+        {
+            get
+            {
+                return this.informacionAdicionalCompradorFieldSpecified;
+            }
+            set
+            {
+                this.informacionAdicionalCompradorFieldSpecified = value;
             }
         }
     }
@@ -1320,27 +1500,49 @@ namespace DTECore
 
         private string contactoCompradorField;
 
+        private bool contactoCompradorFieldSpecified;
+
         private string correoCompradorField;
+
+        private bool correoCompradorFieldSpecified;
 
         private string direccionCompradorField;
 
         private string municipioCompradorField;
 
+        private bool municipioCompradorFieldSpecified;
+
         private string provinciaCompradorField;
+
+        private bool provinciaCompradorFieldSpecified;
 
         private string fechaEntregaField;
 
+        private bool fechaEntregaFieldSpecified;
+
         private string contactoEntregaField;
+
+        private bool contactoEntregaFieldSpecified;
 
         private string direccionEntregaField;
 
+        private bool direccionEntregaFieldSpecified;
+
         private string telefonoAdicionalField;
+
+        private bool telefonoAdicionalFieldSpecified;
 
         private string fechaOrdenCompraField;
 
+        private bool fechaOrdenCompraFieldSpecified;
+
         private string numeroOrdenCompraField;
 
+        private bool numeroOrdenCompraFieldSpecified;
+
         private string codigoInternoCompradorField;
+
+        private bool codigoInternoCompradorFieldSpecified;
 
         [XmlElement(IsNullable = false)]
         public uint RNCComprador
@@ -1381,6 +1583,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool ContactoCompradorSpecified
+        {
+            get
+            {
+                return this.contactoCompradorFieldSpecified;
+            }
+            set
+            {
+                this.contactoCompradorFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string CorreoComprador
         {
@@ -1391,6 +1606,19 @@ namespace DTECore
             set
             {
                 this.correoCompradorField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool CorreoCompradorSpecified
+        {
+            get
+            {
+                return this.correoCompradorFieldSpecified;
+            }
+            set
+            {
+                this.correoCompradorFieldSpecified = value;
             }
         }
 
@@ -1420,6 +1648,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool MunicipioCompradorSpecified
+        {
+            get
+            {
+                return this.municipioCompradorFieldSpecified;
+            }
+            set
+            {
+                this.municipioCompradorFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string ProvinciaComprador
         {
@@ -1430,6 +1671,19 @@ namespace DTECore
             set
             {
                 this.provinciaCompradorField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool ProvinciaCompradorSpecified
+        {
+            get
+            {
+                return this.provinciaCompradorFieldSpecified;
+            }
+            set
+            {
+                this.provinciaCompradorFieldSpecified = value;
             }
         }
 
@@ -1446,6 +1700,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool FechaEntregaSpecified
+        {
+            get
+            {
+                return this.fechaEntregaFieldSpecified;
+            }
+            set
+            {
+                this.fechaEntregaFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string ContactoEntrega
         {
@@ -1456,6 +1723,19 @@ namespace DTECore
             set
             {
                 this.contactoEntregaField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool ContactoEntregaSpecified
+        {
+            get
+            {
+                return this.contactoEntregaFieldSpecified;
+            }
+            set
+            {
+                this.contactoEntregaFieldSpecified = value;
             }
         }
 
@@ -1472,6 +1752,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool DireccionEntregaSpecified
+        {
+            get
+            {
+                return this.direccionEntregaFieldSpecified;
+            }
+            set
+            {
+                this.direccionEntregaFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string TelefonoAdicional
         {
@@ -1482,6 +1775,19 @@ namespace DTECore
             set
             {
                 this.telefonoAdicionalField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool TelefonoAdicionalSpecified
+        {
+            get
+            {
+                return this.telefonoAdicionalFieldSpecified;
+            }
+            set
+            {
+                this.telefonoAdicionalFieldSpecified = value;
             }
         }
 
@@ -1498,6 +1804,19 @@ namespace DTECore
             }
         }
 
+        [XmlIgnore]
+        public bool FechaOrdenCompraSpecified
+        {
+            get
+            {
+                return this.fechaOrdenCompraFieldSpecified;
+            }
+            set
+            {
+                this.fechaOrdenCompraFieldSpecified = value;
+            }
+        }
+
         [XmlElement(IsNullable = false)]
         public string NumeroOrdenCompra
         {
@@ -1508,6 +1827,19 @@ namespace DTECore
             set
             {
                 this.numeroOrdenCompraField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool NumeroOrdenCompraSpecified
+        {
+            get
+            {
+                return this.numeroOrdenCompraFieldSpecified;
+            }
+            set
+            {
+                this.numeroOrdenCompraFieldSpecified = value;
             }
         }
 
@@ -1523,14 +1855,27 @@ namespace DTECore
                 this.codigoInternoCompradorField = value;
             }
         }
+
+        [XmlIgnore]
+        public bool CodigoInternoCompradorSpecified
+        {
+            get
+            {
+                return this.codigoInternoCompradorFieldSpecified;
+            }
+            set
+            {
+                this.codigoInternoCompradorFieldSpecified = value;
+            }
+        }
     }
 
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+       
     public partial class ECFEncabezadoTotales
     {
+
+        private decimal montoTotalField;
+
         private decimal montoGravadoTotalField;
 
         private bool montoGravadoTotalSpecified;
@@ -1567,8 +1912,6 @@ namespace DTECore
 
         private bool totalITBIS3Specified;
 
-        private decimal montoTotalField;
-
         private decimal totalITBISRetenidoField;
 
         private bool totalITBISRetenidoSpecified;
@@ -1576,166 +1919,144 @@ namespace DTECore
         private decimal totalISRRetencionField;
 
         private bool totalISRRetencionSpecified;
-
-        [XmlElement(IsNullable = false)]
-        public decimal MontoExento
-        {
-            get { return this.montoExentoField; }
-            set { this.montoExentoField = value; }
-        }
-
-        [XmlIgnore]
-        public bool MontoExentoSpecified
-        {
-            get { return this.montoExentoSpecified; }
-            set { this.montoExentoSpecified = value; }
-        }
-
-        [XmlElement(IsNullable = false)]
-        public decimal MontoTotal
-        {
-            get { return this.montoTotalField; }
-            set { this.montoTotalField = value; }
-        }
-
-        [XmlElement(IsNullable = false)]
+        
         public decimal MontoGravadoTotal
         {
             get { return this.montoGravadoTotalField; }
             set { this.montoGravadoTotalField = value; }
         }
-
-        [XmlIgnore]
+        
         public bool MontoGravadoTotalSpecified
         {
             get { return this.montoGravadoTotalSpecified; }
             set { this.montoGravadoTotalSpecified = value; }
         }
 
-        [XmlElement(IsNullable = false)]
+        public decimal MontoExento
+        {
+            get { return this.montoExentoField; }
+            set { this.montoExentoField = value; }
+        }
+
+
+        public bool MontoExentoSpecified
+        {
+            get { return this.montoExentoSpecified; }
+            set { this.montoExentoSpecified = value; }
+        }
+        
         public decimal MontoGravadoI1
         {
             get { return this.montoGravadoI1Field; }
             set { this.montoGravadoI1Field = value; }
         }
 
-        [XmlIgnore]
         public bool MontoGravadoI1Specified
         {
             get { return this.montoGravadoI1Specified; }
             set { this.montoGravadoI1Specified = value; }
         }
 
-        [XmlElement(IsNullable = false)]
         public decimal MontoGravadoI3
         {
             get { return this.montoGravadoI3Field; }
             set { this.montoGravadoI3Field = value; }
         }
 
-        [XmlIgnore]
         public bool MontoGravadoI3Specified
         {
             get { return this.montoGravadoI3Specified; }
             set { this.montoGravadoI3Specified = value; }
         }
 
-        [XmlElement(IsNullable = false)]
         public decimal ITBIS1
         {
             get { return this.iTBIS1Field; }
             set { this.iTBIS1Field = value; }
         }
 
-        [XmlIgnore]
         public bool ITBIS1Specified
         {
             get { return this.iTBIS1Specified; }
             set { this.iTBIS1Specified = value; }
         }
 
-        [XmlElement(IsNullable = false)]
         public decimal ITBIS3
         {
             get { return this.iTBIS3Field; }
             set { this.iTBIS3Field = value; }
         }
 
-        [XmlIgnore]
         public bool ITBIS3Specified
         {
             get { return this.iTBIS3Specified; }
             set { this.iTBIS3Specified = value; }
         }
 
-        [XmlElement(IsNullable = false)]
         public decimal TotalITBIS
         {
             get { return this.totalITBISField; }
             set { this.totalITBISField = value; }
         }
 
-        [XmlIgnore]
         public bool TotalITBISSpecified
         {
             get { return this.totalITBISSpecified; }
             set { this.totalITBISSpecified = value; }
         }
 
-        [XmlElement(IsNullable = false)]
         public decimal TotalITBIS1
         {
             get { return this.totalITBIS1Field; }
             set { this.totalITBIS1Field = value; }
         }
 
-        [XmlIgnore]
         public bool TotalITBIS1Specified
         {
             get { return this.totalITBIS1Specified; }
             set { this.totalITBIS1Specified = value; }
         }
 
-        [XmlElement(IsNullable = false)]
         public decimal TotalITBIS3
         {
             get { return this.totalITBIS3Field; }
             set { this.totalITBIS3Field = value; }
         }
 
-        [XmlIgnore]
         public bool TotalITBIS3Specified
         {
             get { return this.totalITBIS3Specified; }
             set { this.totalITBIS3Specified = value; }
         }
 
-        [XmlElement(IsNullable = false)]
         public decimal TotalITBISRetenido
         {
             get { return this.totalITBISRetenidoField; }
             set { this.totalITBISRetenidoField = value; }
         }
 
-        [XmlIgnore]
         public bool TotalITBISRetenidoSpecified
         {
             get { return this.totalITBISRetenidoSpecified; }
             set { this.totalITBISRetenidoSpecified = value; }
         }
 
-        [XmlElement(IsNullable = false)]
         public decimal TotalISRRetencion
         {
             get { return this.totalISRRetencionField; }
             set { this.totalISRRetencionField = value; }
         }
 
-        [XmlIgnore]
         public bool TotalISRRetencionSpecified
         {
             get { return this.totalISRRetencionSpecified; }
             set { this.totalISRRetencionSpecified = value; }
+        }
+
+        public decimal MontoTotal
+        {
+            get { return this.montoTotalField; }
+            set { this.montoTotalField = value; }
         }
     }
 
