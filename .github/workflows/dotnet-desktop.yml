@@ -98,7 +98,7 @@ jobs:
     - name: Package executable
       run: |        
         mkdir output
-        xcopy FELRD\bin\Release output /E /Y
+        xcopy bin\Release output /E /Y
         Compress-Archive -Path output\* -DestinationPath FELRD-${{ env.VERSION }}.zip
         
     # Create GitHub Release 
