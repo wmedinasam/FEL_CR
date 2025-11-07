@@ -40,14 +40,12 @@ name: .NET Core Desktop
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
+    branches: [ "master" ]  
+    
 jobs:
 
   build:
-
+    
     strategy:
       matrix:
         configuration: [Release]
@@ -63,6 +61,19 @@ jobs:
       PLATFORM: "Any CPU"
 
     steps:
+    - name: Check if last commit is a merge
+      id: check_merge
+      run:  |
+        $commitMsg = git log -1 --pretty=%B
+        if ($commitMsg -match "Merge pull request") {
+          echo "is_merge=true" >> $env:GITHUB_ENV
+        } else {
+          echo "is_merge=false" >> $env:GITHUB_ENV
+        }
+    - name: Stop if not a merge
+      if: env.is_merge != 'true'
+      run: echo "Not a merge commit. Skipping release."
+    
     - name: Checkout
       uses: actions/checkout@v3
       with:
@@ -99,7 +110,9 @@ jobs:
       run: |        
         mkdir output
         xcopy bin\Release output /E /Y
-        Compress-Archive -Path output\* -DestinationPath FELRD-${{ env.VERSION }}.zip
+        # Filtrar archivos sin extensión .pdb
+        $files = Get-ChildItem -Path output -Recurse | Where-Object { $_.Extension -ne ".pdb" }
+        Compress-Archive -Path $files.FullName -DestinationPath FELRD-${{ env.VERSION }}.zip
         
     # Create GitHub Release 
     - name: Create GitHub Release
