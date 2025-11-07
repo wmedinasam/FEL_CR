@@ -50,3 +50,9 @@ Crear una nueva rama y subir el código, crear un nuevo pull request y será rev
 **Correcciones**
 
 - Se agregó un serializable para el nodo de totales como extensión para mantener el orden de las propiedades y formato de decimales cuando se necesite.
+
+#### v.1.0.0.2 - 05/11/2025
+
+**Correcciones**
+
+- Se modificó la lógica de la suma de los impuestos por linea y resultado colocado en los totales del XML.
