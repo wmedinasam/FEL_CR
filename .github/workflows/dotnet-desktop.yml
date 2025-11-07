@@ -107,6 +107,6 @@ jobs:
       with:
         tag_name: v${{ env.VERSION }}
         name: Release v${{ env.VERSION }}
-        files: MiApp-${{ env.VERSION }}.zip
+        files: FELRD-${{ env.VERSION }}.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
