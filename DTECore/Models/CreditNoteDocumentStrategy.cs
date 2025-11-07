@@ -172,6 +172,7 @@ namespace DTECore.Models
 
                     var sumMontoItem = 0m;
                     var sumMontoExento = 0m;
+                    var sumMontoImpuesto = 0m;
 
                     List<ECFItem> items = new List<ECFItem>();
                     foreach (DataRow itemRow in datos.Rows)
@@ -193,6 +194,7 @@ namespace DTECore.Models
                         items.Add(item);
                         sumMontoItem += item.MontoItem;
                         sumMontoExento += item.IndicadorFacturacion == 4 ? item.MontoItem : 0; // Sumar solo si el IndicadorFacturacion es 4
+                        sumMontoImpuesto += Convert.ToDecimal(itemRow["TotalITBIS"].ToString());
                     }
                     documento.DetallesItems = items.ToArray();
 
@@ -209,6 +211,10 @@ namespace DTECore.Models
 
                     // llenado de totales
                     documento.Encabezado.Totales.MontoExento = sumMontoItem;
+                    documento.Encabezado.Totales.MontoGravadoTotal = sumMontoItem;
+                    documento.Encabezado.Totales.TotalITBIS = sumMontoImpuesto;
+                    documento.Encabezado.Totales.TotalITBIS1 = documento.Encabezado.Totales.TotalITBIS > 0 ? sumMontoImpuesto : 0;
+                    documento.Encabezado.Totales.MontoGravadoI1 = documento.Encabezado.Totales.MontoGravadoTotal > 0 ? sumMontoItem : 0;
                     documento.Encabezado.Totales.MontoTotal = sumMontoItem + documento.Encabezado.Totales.TotalITBIS1 + documento.Encabezado.Totales.TotalITBIS3;
                 }
 

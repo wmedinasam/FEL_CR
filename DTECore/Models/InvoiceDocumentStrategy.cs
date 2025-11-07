@@ -114,12 +114,13 @@ namespace DTECore
 
                     var sumMontoItem = 0m;
                     var sumMontoExento = 0m;
+                    var sumMontoImpuesto = 0m;
 
                     List<ECFItem> items = new List<ECFItem>();
                     var index = 1;
                     foreach (DataRow itemRow in datos.Rows)
                     {
-                        var descuentoMontoIsVsible = Math.Round(Convert.ToDecimal(itemRow["DescuentoMonto"].ToString()), 2) > 0 ? true : false;
+                        var descuentoMontoIsVsible = Convert.ToDecimal(itemRow["DescuentoMonto"].ToString()) > 0 ? true : false;
 
                         ECFItem item = new ECFItem
                         {
@@ -129,15 +130,16 @@ namespace DTECore
                             IndicadorBienoServicio = Convert.ToInt32(itemRow["IndicadorBienoServicio"].ToString()),
                             CantidadItem = Math.Round(Convert.ToDecimal(itemRow["CantidadItem"].ToString()), 2),
                             UnidadMedida = Convert.ToInt32(itemRow["UnidadMedida"].ToString()),
-                            PrecioUnitarioItem = Math.Round(Convert.ToDecimal(itemRow["PrecioUnitarioItem"].ToString()), 2),
-                            DescuentoMonto = Math.Round(Convert.ToDecimal(itemRow["DescuentoMonto"].ToString()), 2),
+                            PrecioUnitarioItem = Convert.ToDecimal(itemRow["PrecioUnitarioItem"].ToString()),
+                            DescuentoMonto = Convert.ToDecimal(itemRow["DescuentoMonto"].ToString()),
                             DescuentoMontoSpecified = descuentoMontoIsVsible,
-                            MontoItem = Math.Round(Convert.ToDecimal(itemRow["MontoItem"].ToString()), 2),
+                            MontoItem = Convert.ToDecimal(itemRow["MontoItem"].ToString()),
                         };
                         items.Add(item);
                         index++;
                         sumMontoItem += item.MontoItem;
                         sumMontoExento += item.IndicadorFacturacion == 4 ? item.MontoItem : 0; // Sumar solo si el IndicadorFacturacion es 4
+                        sumMontoImpuesto += Convert.ToDecimal(itemRow["TotalITBIS"].ToString());
                     }
                     documento.DetallesItems = items.ToArray();
 
@@ -147,9 +149,10 @@ namespace DTECore
                     // llenado de totales
                     documento.Encabezado.Totales.MontoExento = sumMontoItem;
                     documento.Encabezado.Totales.MontoGravadoTotal = sumMontoItem;
+                    documento.Encabezado.Totales.TotalITBIS = sumMontoImpuesto;
+                    documento.Encabezado.Totales.TotalITBIS1 = documento.Encabezado.Totales.TotalITBIS > 0 ? sumMontoImpuesto : 0;
                     documento.Encabezado.Totales.MontoGravadoI1 = documento.Encabezado.Totales.MontoGravadoTotal > 0 ? sumMontoItem : 0;
-                    documento.Encabezado.Totales.MontoTotal = sumMontoItem + documento.Encabezado.Totales.TotalITBIS1 + documento.Encabezado.Totales.TotalITBIS3;
-
+                    documento.Encabezado.Totales.MontoTotal = sumMontoItem + documento.Encabezado.Totales.TotalITBIS1 + documento.Encabezado.Totales.TotalITBIS3;                    
                 }
 
                 response.Object = documento;
