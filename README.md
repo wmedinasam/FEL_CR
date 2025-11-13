@@ -56,3 +56,9 @@ Crear una nueva rama y subir el código, crear un nuevo pull request y será rev
 **Correcciones**
 
 - Se modificó la lógica de la suma de los impuestos por linea y resultado colocado en los totales del XML.
+
+#### v.1.0.0.3 - 13/11/2025
+
+**Correcciones**
+
+- Se agregó un nuevo tag en el nodo de Totales llamado "SaldoAnterior" para poder enviar en el request XML el descuento total de la factura.

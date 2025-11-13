@@ -57,6 +57,9 @@ namespace DTECore
             writer.WriteStartElement("MontoTotal");
             writer.WriteString(MontoTotal.ToString("0.00", CultureInfo.InvariantCulture));
             writer.WriteEndElement();
+
+            // 12: SaldoAnterior
+            WriteElementIf(writer, "SaldoAnterior", SaldoAnterior, SaldoAnteriorSpecified);
         }
 
         public void ReadXml(XmlReader reader)
@@ -119,6 +122,10 @@ namespace DTECore
                         break;
                     case "MontoTotal":
                         MontoTotal = val;
+                        break;
+                    case "SaldoAnterior":
+                        SaldoAnterior = val;
+                        SaldoAnteriorSpecified = true;
                         break;
                     default:
                         // Ignorar elementos desconocidos

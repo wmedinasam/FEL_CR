@@ -1919,7 +1919,11 @@ namespace DTECore
         private decimal totalISRRetencionField;
 
         private bool totalISRRetencionSpecified;
-        
+
+        private decimal saldoAnteriorField;
+
+        private bool saldoAnteriorSpecified;
+
         public decimal MontoGravadoTotal
         {
             get { return this.montoGravadoTotalField; }
@@ -2057,6 +2061,18 @@ namespace DTECore
         {
             get { return this.montoTotalField; }
             set { this.montoTotalField = value; }
+        }
+
+        public decimal SaldoAnterior
+        {
+            get { return this.saldoAnteriorField; }
+            set { this.saldoAnteriorField = value; }
+        }
+
+        public bool SaldoAnteriorSpecified
+        {
+            get { return this.saldoAnteriorSpecified; }
+            set { this.saldoAnteriorSpecified = value; }
         }
     }
 
