@@ -109,6 +109,8 @@ namespace DTECore
                             TotalITBIS3 = Convert.ToDecimal(row["TotalITBIS3"].ToString()),
                             TotalITBIS3Specified = Convert.ToDecimal(row["TotalITBIS3"].ToString()) > 0,
                             MontoTotal = Convert.ToDecimal(row["MontoTotal"].ToString()),
+                            SaldoAnterior = Convert.ToDecimal(row["SaldoAnterior"].ToString()),
+                            SaldoAnteriorSpecified = Convert.ToDecimal(row["SaldoAnterior"].ToString()) > 0,
                         }
                     };
 

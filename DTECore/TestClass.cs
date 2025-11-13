@@ -31,6 +31,8 @@ namespace DTECore
             datos.Columns.Add("NumeroPedidoInterno", typeof(string));
             datos.Columns.Add("ZonaVenta", typeof(string));
             datos.Columns.Add("FechaEmision", typeof(string));
+            datos.Columns.Add("RutaVenta", typeof(string));
+            datos.Columns.Add("InformacionAdicionalComprador", typeof(string));
 
             // Comprador
             datos.Columns.Add("RNCComprador", typeof(int));
@@ -47,7 +49,16 @@ namespace DTECore
 
             // totales
             datos.Columns.Add("MontoTotal", typeof(decimal));
+            datos.Columns.Add("MontoGravadoI1", typeof(decimal));
+            datos.Columns.Add("MontoGravadoI3", typeof(decimal));
+            datos.Columns.Add("ITBIS1", typeof(decimal));
+            datos.Columns.Add("ITBIS3", typeof(decimal));
+            datos.Columns.Add("TotalITBIS", typeof(decimal));
+            datos.Columns.Add("TotalITBIS1", typeof(decimal));
+            datos.Columns.Add("TotalITBIS3", typeof(decimal));
+            datos.Columns.Add("MontoGravadoTotal", typeof(decimal));
             datos.Columns.Add("MontoExento", typeof(decimal));
+            datos.Columns.Add("SaldoAnterior", typeof(decimal));
 
             // Detalle
             datos.Columns.Add("NumeroLinea", typeof(int));
@@ -81,6 +92,7 @@ namespace DTECore
             fila1["NumeroPedidoInterno"] = "123456789016";
             fila1["ZonaVenta"] = "NORTE";
             fila1["FechaEmision"] = "01-04-2020";
+            fila1["RutaVenta"] = "";
             fila1["RNCComprador"] = "131880681";
             fila1["RazonSocialComprador"] = "DOCUMENTOS ELECTRONICOS DE 03";
             fila1["ContactoComprador"] = "MARCOS LATIPLOL";
@@ -92,10 +104,19 @@ namespace DTECore
             fila1["FechaOrdenCompra"] = "10-11-2018";
             fila1["NumeroOrdenCompra"] = "4500352238";
             fila1["CodigoInternoComprador"] = "10633440";
+            fila1["InformacionAdicionalComprador"] = "PRUEBA DE INFORMACION ADICIONAL";
 
             fila1["MontoExento"] = 0;
+            fila1["MontoGravadoTotal"] = 16520;
+            fila1["MontoGravadoI1"] = 16520;
+            fila1["MontoGravadoI3"] = 0;
+            fila1["ITBIS1"] = 18;
+            fila1["ITBIS3"] = 0;
+            fila1["TotalITBIS"] = 18;
+            fila1["TotalITBIS1"] = 18;
+            fila1["TotalITBIS3"] = 0;
             fila1["MontoTotal"] = 16520;
-
+            fila1["SaldoAnterior"] = 0;
 
             fila1["NumeroLinea"] = 1;
             fila1["IndicadorFacturacion"] = 1;
@@ -162,7 +183,8 @@ namespace DTECore
             Document document = new Document(strategy);
 
             var response = document.MakeDocument(datos);            
-            string xml = Methods.SerializeObjectToXML(response.Object);
+            var xml = Methods.SerializeObjectToXML(response.Object);
+            var test = xml;
         }
 
         public void testFiscalCreditInvoice()
