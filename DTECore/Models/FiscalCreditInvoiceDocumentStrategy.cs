@@ -22,14 +22,15 @@ namespace DTECore
             if (datos.Rows.Count > 0)
             {
                 DataRow row = datos.Rows[0];
+                var tipoEcf = Convert.ToInt32(row["TipoeCF"].ToString());
                 documento.Encabezado = new ECFEncabezado
                 {
                     Version = row["Version"].ToString(),
-
+                    
                     IdDoc = new ECFEncabezadoIdDoc
                     {
-                        TipoeCF = Convert.ToInt32(row["TipoeCF"].ToString()),
-                        eNCF = row["eNCF"].ToString(),
+                        TipoeCF = tipoEcf,
+                        eNCF = $"E{tipoEcf}{row["eNCF"].ToString().PadLeft(10, '0')}",
                         FechaVencimientoSecuencia = row["FechaVencimientoSecuencia"].ToString(),
                         IndicadorMontoGravado = row["IndicadorMontoGravado"].ToString(),
                         TipoIngresos = row["TipoIngresos"].ToString(),

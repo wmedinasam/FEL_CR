@@ -62,3 +62,9 @@ Crear una nueva rama y subir el código, crear un nuevo pull request y será rev
 **Correcciones**
 
 - Se agregó un nuevo tag en el nodo de Totales llamado "SaldoAnterior" para poder enviar en el request XML el descuento total de la factura.
+
+#### v.1.0.0.4 - 24/11/2025
+
+**Correcciones**
+
+- Se le agrega la lógica al campo eNCF de las facturas fiscales como se usa en las facturas normales.

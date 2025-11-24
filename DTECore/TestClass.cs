@@ -233,11 +233,16 @@ namespace DTECore
 
             // totales
             datos.Columns.Add("MontoTotal", typeof(decimal));
-            datos.Columns.Add("MontoGravadoTotal", typeof(decimal));
             datos.Columns.Add("MontoGravadoI1", typeof(decimal));
+            datos.Columns.Add("MontoGravadoI3", typeof(decimal));
             datos.Columns.Add("ITBIS1", typeof(decimal));
+            datos.Columns.Add("ITBIS3", typeof(decimal));
             datos.Columns.Add("TotalITBIS", typeof(decimal));
             datos.Columns.Add("TotalITBIS1", typeof(decimal));
+            datos.Columns.Add("TotalITBIS3", typeof(decimal));
+            datos.Columns.Add("MontoGravadoTotal", typeof(decimal));
+            datos.Columns.Add("MontoExento", typeof(decimal));
+            datos.Columns.Add("SaldoAnterior", typeof(decimal));
 
             // Detalle
             datos.Columns.Add("NumeroLinea", typeof(int));
@@ -252,8 +257,8 @@ namespace DTECore
             // Agregar filas manualmente
             DataRow fila1 = datos.NewRow();
             fila1["Version"] = "1.0";
-            fila1["TipoeCF"] = 32;
-            fila1["eNCF"] = "E310000000401";
+            fila1["TipoeCF"] = 31;
+            fila1["eNCF"] = "401";
             fila1["FechaVencimientoSecuencia"] = "31-12-2025";
             fila1["IndicadorMontoGravado"] = 0;
             fila1["TipoIngresos"] = "01";
@@ -285,13 +290,18 @@ namespace DTECore
             fila1["FechaOrdenCompra"] = "10-11-2018";
             fila1["NumeroOrdenCompra"] = "4500352238";
             fila1["CodigoInternoComprador"] = "10633440";
-            
-            fila1["MontoTotal"] = 100;
-            fila1["MontoGravadoTotal"] = 101;
-            fila1["MontoGravadoI1"] = 102;
-            fila1["ITBIS1"] = 103;
-            fila1["TotalITBIS"] = 104;
-            fila1["TotalITBIS1"] = 105;
+
+            fila1["MontoExento"] = 0;
+            fila1["MontoGravadoTotal"] = 16520;
+            fila1["MontoGravadoI1"] = 16520;
+            fila1["MontoGravadoI3"] = 0;
+            fila1["ITBIS1"] = 18;
+            fila1["ITBIS3"] = 0;
+            fila1["TotalITBIS"] = 18;
+            fila1["TotalITBIS1"] = 18;
+            fila1["TotalITBIS3"] = 0;
+            fila1["MontoTotal"] = 16520;
+            fila1["SaldoAnterior"] = 0;
 
             fila1["NumeroLinea"] = 1;
             fila1["IndicadorFacturacion"] = 4;
