@@ -216,7 +216,8 @@ namespace DTECore
 
         private string TerminoPagoField;
 
-        private ECFEncabezadoIdDocTablaFormasPago[] tablaFormasPagoField;
+        // Cambiado: el array ahora contiene directamente los elementos FormaDePago
+        private ECFEncabezadoIdDocTablaFormasPagoFormaDePago[] tablaFormasPagoField;
 
         private string[] textField;
 
@@ -350,7 +351,9 @@ namespace DTECore
             }
         }
 
-        public ECFEncabezadoIdDocTablaFormasPago[] TablaFormasPago
+        // Serializa la colección como <TablaFormasPago><FormaDePago>...</FormaDePago>...</TablaFormasPago>
+        [System.Xml.Serialization.XmlArrayItemAttribute("FormaDePago", IsNullable = false)]
+        public ECFEncabezadoIdDocTablaFormasPagoFormaDePago[] TablaFormasPago
         {
             get
             {
@@ -1138,7 +1141,13 @@ namespace DTECore
 
         private bool informacionAdicionalCompradorFieldSpecified;
 
-        [XmlElement(IsNullable = false)]
+        private string informacionAdicionalEmisorField;
+
+        private bool informacionAdicionalEmisorSpecified;
+
+        // Orden explícito agregado para controlar la serialización XML
+        // Orden asignado en la secuencia que desea que aparezcan los elementos al serializar.
+        [XmlElement(Order = 0, IsNullable = false)]
         public uint RNCEmisor
         {
             get
@@ -1151,7 +1160,7 @@ namespace DTECore
             }
         }
 
-        [XmlElement(IsNullable = false)]
+        [XmlElement(Order = 1, IsNullable = false)]
         public string RazonSocialEmisor
         {
             get
@@ -1164,7 +1173,7 @@ namespace DTECore
             }
         }
 
-        [XmlElement(IsNullable = false)]
+        [XmlElement(Order = 2, IsNullable = false)]
         public string NombreComercial
         {
             get
@@ -1177,7 +1186,7 @@ namespace DTECore
             }
         }
 
-        [XmlElement(IsNullable = false)]
+        [XmlElement(Order = 3, IsNullable = false)]
         public string DireccionEmisor
         {
             get
@@ -1190,7 +1199,7 @@ namespace DTECore
             }
         }
 
-        [XmlElement(IsNullable = false)]
+        [XmlElement(Order = 4, IsNullable = false)]
         public string Municipio
         {
             get
@@ -1203,7 +1212,7 @@ namespace DTECore
             }
         }
 
-        [XmlElement(IsNullable = false)]
+        [XmlElement(Order = 5, IsNullable = false)]
         public string Provincia
         {
             get
@@ -1216,6 +1225,8 @@ namespace DTECore
             }
         }
 
+        // Para arrays se usa XmlArray con Order y XmlArrayItem para los elementos internos.
+        [System.Xml.Serialization.XmlArray(Order = 6)]
         [System.Xml.Serialization.XmlArrayItemAttribute("TelefonoEmisor", IsNullable = false)]
         public string[] TablaTelefonoEmisor
         {
@@ -1229,111 +1240,7 @@ namespace DTECore
             }
         }
 
-        [XmlElement(IsNullable = false)]
-        public string WebSite
-        {
-            get
-            {
-                return this.webSiteField;
-            }
-            set
-            {
-                this.webSiteField = value;
-            }
-        }
-
-        [XmlIgnore]
-        public bool WebSiteSpecified
-        {
-            get
-            {
-                return this.webSiteFieldSpecified;
-            }
-            set
-            {
-                this.webSiteFieldSpecified = value;
-            }
-        }
-
-        [XmlElement(IsNullable = false)]
-        public string CodigoVendedor
-        {
-            get
-            {
-                return this.codigoVendedorField;
-            }
-            set
-            {
-                this.codigoVendedorField = value;
-            }
-        }
-
-        [XmlIgnore]
-        public bool CodigoVendedorSpecified
-        {
-            get
-            {
-                return this.codigoVendedorSpecified;
-            }
-            set
-            {
-                this.codigoVendedorSpecified = value;
-            }
-        }
-
-        [XmlElement(IsNullable = false)]
-        public string NumeroFacturaInterna
-        {
-            get
-            {
-                return this.numeroFacturaInternaField;
-            }
-            set
-            {
-                this.numeroFacturaInternaField = value;
-            }
-        }
-
-        [XmlIgnore]
-        public bool NumeroFacturaInternaSpecified
-        {
-            get
-            {
-                return this.numeroFacturaInternaFieldSpecified;
-            }
-            set
-            {
-                this.numeroFacturaInternaFieldSpecified = value;
-            }
-        }
-
-        [XmlElement(IsNullable = false)]
-        public string NumeroPedidoInterno
-        {
-            get
-            {
-                return this.numeroPedidoInternoField;
-            }
-            set
-            {
-                this.numeroPedidoInternoField = value;
-            }
-        }
-
-        [XmlIgnore]
-        public bool NumeroPedidoInternoSpecified
-        {
-            get
-            {
-                return this.numeroPedidoInternoFieldSpecified;
-            }
-            set
-            {
-                this.numeroPedidoInternoFieldSpecified = value;
-            }
-        }
-
-        [XmlElement(IsNullable = false)]
+        [XmlElement(Order = 7, IsNullable = false)]
         public string CorreoEmisor
         {
             get
@@ -1359,7 +1266,111 @@ namespace DTECore
             }
         }
 
-        [XmlElement(IsNullable = false)]
+        [XmlElement(Order = 8, IsNullable = false)]
+        public string WebSite
+        {
+            get
+            {
+                return this.webSiteField;
+            }
+            set
+            {
+                this.webSiteField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool WebSiteSpecified
+        {
+            get
+            {
+                return this.webSiteFieldSpecified;
+            }
+            set
+            {
+                this.webSiteFieldSpecified = value;
+            }
+        }
+
+        [XmlElement(Order = 9, IsNullable = false)]
+        public string CodigoVendedor
+        {
+            get
+            {
+                return this.codigoVendedorField;
+            }
+            set
+            {
+                this.codigoVendedorField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool CodigoVendedorSpecified
+        {
+            get
+            {
+                return this.codigoVendedorSpecified;
+            }
+            set
+            {
+                this.codigoVendedorSpecified = value;
+            }
+        }
+
+        [XmlElement(Order = 10, IsNullable = false)]
+        public string NumeroFacturaInterna
+        {
+            get
+            {
+                return this.numeroFacturaInternaField;
+            }
+            set
+            {
+                this.numeroFacturaInternaField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool NumeroFacturaInternaSpecified
+        {
+            get
+            {
+                return this.numeroFacturaInternaFieldSpecified;
+            }
+            set
+            {
+                this.numeroFacturaInternaFieldSpecified = value;
+            }
+        }
+
+        [XmlElement(Order = 11, IsNullable = false)]
+        public string NumeroPedidoInterno
+        {
+            get
+            {
+                return this.numeroPedidoInternoField;
+            }
+            set
+            {
+                this.numeroPedidoInternoField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool NumeroPedidoInternoSpecified
+        {
+            get
+            {
+                return this.numeroPedidoInternoFieldSpecified;
+            }
+            set
+            {
+                this.numeroPedidoInternoFieldSpecified = value;
+            }
+        }
+        
+        [XmlElement(Order = 12, IsNullable = false)]
         public string ZonaVenta
         {
             get
@@ -1385,7 +1396,7 @@ namespace DTECore
             }
         }
 
-        [XmlElement(IsNullable =false)]
+        [XmlElement(Order = 13, IsNullable = false)]
         public string RutaVenta
         {
             get
@@ -1411,7 +1422,33 @@ namespace DTECore
             }
         }
 
-        [XmlElement(IsNullable = false)]
+        [XmlElement(Order = 14, IsNullable = false)]
+        public string InformacionAdicionalEmisor
+        {
+            get
+            {
+                return this.informacionAdicionalEmisorField;
+            }
+            set
+            {
+                this.informacionAdicionalEmisorField = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool InformacionAdicionalEmisorSpecified
+        {
+            get
+            {
+                return this.informacionAdicionalEmisorSpecified;
+            }
+            set
+            {
+                this.informacionAdicionalEmisorSpecified = value;
+            }
+        }
+
+        [XmlElement(Order = 15, IsNullable = false)]
         public string FechaEmision
         {
             get
@@ -1437,7 +1474,7 @@ namespace DTECore
             }
         }
 
-        [XmlElement(IsNullable = false)]
+        [XmlElement(Order = 16, IsNullable = false)]
         public string InformacionAdicionalComprador
         {
             get
@@ -1462,6 +1499,7 @@ namespace DTECore
                 this.informacionAdicionalCompradorFieldSpecified = value;
             }
         }
+        
     }
 
     /// <remarks/>

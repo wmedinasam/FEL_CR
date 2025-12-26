@@ -68,3 +68,14 @@ Crear una nueva rama y subir el código, crear un nuevo pull request y será rev
 **Correcciones**
 
 - Se le agrega la lógica al campo eNCF de las facturas fiscales como se usa en las facturas normales.
+
+#### v.1.0.0.5 - 26/12/2025
+
+**Correcciones**
+- Se corrige el nodo de TablaTelefonoReceptor ya que el serializado no estaba realizandose de manera correcta.
+
+#### v.1.0.0.6 - 26/12/2025
+
+**Correcciones**
+- Se añade una validación del campo TelefonoEmisor para que respete el formato de teléfono de RD (2{d}-d{2}-d{3}).
+- Se corrige el orden en que es serializado el nodo Receptor den encabezado para todos los tipos de documento.

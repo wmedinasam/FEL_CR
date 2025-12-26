@@ -4,9 +4,10 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 using System.Xml;
+using System.Xml.Serialization;
 using WIS_Security;
 
 namespace DTECore
@@ -22,6 +23,19 @@ namespace DTECore
             if (datos.Rows.Count > 0)
             {
                 DataRow row = datos.Rows[0];
+
+                // Validación del formato de TelefonoEmisor: d{3}-d{3}-d{4}
+                string telefonoEmisor = row["TelefonoEmisor"].ToString();
+                var telefonoPattern = new Regex(@"^\d{3}-\d{3}-\d{4}$", RegexOptions.Compiled);
+
+                if (string.IsNullOrWhiteSpace(telefonoEmisor) || !telefonoPattern.IsMatch(telefonoEmisor))
+                {
+                    response.Object = null;
+                    response.Success = false;
+                    response.Message = $"Formato inválido en 'TelefonoEmisor'. Se esperaba el formato d{{3}}-d{{3}}-d{{4}} (ej: 809-555-1234). Valor recibido: '{telefonoEmisor ?? "null"}'.";
+                    return response;
+                }
+
                 var tipoEcf = Convert.ToInt32(row["TipoeCF"].ToString());
                 documento.Encabezado = new ECFEncabezado
                 {
@@ -35,17 +49,14 @@ namespace DTECore
                         IndicadorMontoGravado = row["IndicadorMontoGravado"].ToString(),
                         TipoIngresos = row["TipoIngresos"].ToString(),
                         TipoPago = row["TipoPago"].ToString(),
-                        TablaFormasPago = new ECFEncabezadoIdDocTablaFormasPago[] 
-                        {
-                            new ECFEncabezadoIdDocTablaFormasPago
+                        TablaFormasPago = new ECFEncabezadoIdDocTablaFormasPagoFormaDePago[]
                             {
-                                FormaDePago = new ECFEncabezadoIdDocTablaFormasPagoFormaDePago
-                                {
-                                    FormaPago = row["FormaPago"].ToString(),
-                                    MontoPago = Convert.ToDecimal(row["MontoPago"].ToString())
-                                }
-                            }                            
-                        }
+                            new ECFEncabezadoIdDocTablaFormasPagoFormaDePago
+                            {
+                                FormaPago = row["FormaPago"].ToString(),
+                                MontoPago = Convert.ToDecimal(row["MontoPago"].ToString())
+                            }
+                            }
                     },
 
                     Emisor = new ECFEncabezadoEmisor
@@ -61,12 +72,23 @@ namespace DTECore
                             row["TelefonoEmisor"].ToString(),
                         },
                         CorreoEmisor = row["CorreoEmisor"].ToString(),
+                        CorreoEmisorSpecified = !string.IsNullOrEmpty(row["CorreoEmisor"].ToString()),
                         WebSite = row["WebSite"].ToString(),
+                        WebSiteSpecified = !string.IsNullOrEmpty(row["WebSite"].ToString()),
                         CodigoVendedor = row["CodigoVendedor"].ToString(),
+                        CodigoVendedorSpecified = !string.IsNullOrEmpty(row["CodigoVendedor"].ToString()),
                         NumeroFacturaInterna = row["NumeroFacturaInterna"].ToString(),
+                        NumeroFacturaInternaSpecified = !string.IsNullOrEmpty(row["NumeroFacturaInterna"].ToString()),
                         NumeroPedidoInterno = row["NumeroPedidoInterno"].ToString(),
+                        NumeroPedidoInternoSpecified = !string.IsNullOrEmpty(row["NumeroPedidoInterno"].ToString()),
                         ZonaVenta = row["ZonaVenta"].ToString(),
+                        ZonaVentaSpecified = !string.IsNullOrEmpty(row["ZonaVenta"].ToString()),
                         FechaEmision = row["FechaEmision"].ToString(), // enviarlo como dd/MM/yyyy
+                        FechaEmisionSpecified = !string.IsNullOrEmpty(row["FechaEmision"].ToString()),
+                        RutaVenta = row["RutaVenta"].ToString(),
+                        RutaVentaSpecified = !string.IsNullOrEmpty(row["RutaVenta"].ToString()),
+                        InformacionAdicionalEmisor = row["InformacionAdicionalEmisor"].ToString(),
+                        InformacionAdicionalEmisorSpecified = !string.IsNullOrEmpty(row["InformacionAdicionalEmisor"].ToString()),
                     },
 
                     Comprador = new ECFEncabezadoComprador

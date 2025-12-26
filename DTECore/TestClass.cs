@@ -1,5 +1,9 @@
 ﻿using DTECore.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Xml;
 
 namespace DTECore
 {
@@ -73,7 +77,7 @@ namespace DTECore
 
             // Agregar filas manualmente
             DataRow fila1 = datos.NewRow();
-            fila1["Version"] = "1.0"; 
+            fila1["Version"] = "1.0";
             fila1["TipoeCF"] = 32;
             fila1["TipoIngresos"] = "01";
             fila1["TipoPago"] = "1";
@@ -86,7 +90,7 @@ namespace DTECore
             fila1["Provincia"] = "320000";
             fila1["TelefonoEmisor"] = "32484480";
             fila1["CorreoEmisor"] = "test@test.com";
-            fila1["WebSite"] = "www.test.com"; 
+            fila1["WebSite"] = "www.test.com";
             fila1["CodigoVendedor"] = "AA0000000100000000010000000002000000000300000000050000000006";
             fila1["NumeroFacturaInterna"] = "123456789016";
             fila1["NumeroPedidoInterno"] = "123456789016";
@@ -98,9 +102,9 @@ namespace DTECore
             fila1["ContactoComprador"] = "MARCOS LATIPLOL";
             fila1["CorreoComprador"] = "contacto@test.com";
             fila1["DireccionComprador"] = "CALLE JACINTO DE LA CONCHA FELIZ ESQUINA 27 DE FEBRERO,FRENTE A DOMINO";
-            fila1["MunicipioComprador"] = "010100"; 
+            fila1["MunicipioComprador"] = "010100";
             fila1["ProvinciaComprador"] = "010000";
-            fila1["FechaEntrega"] = "10-10-2020"; 
+            fila1["FechaEntrega"] = "10-10-2020";
             fila1["FechaOrdenCompra"] = "10-11-2018";
             fila1["NumeroOrdenCompra"] = "4500352238";
             fila1["CodigoInternoComprador"] = "10633440";
@@ -182,7 +186,7 @@ namespace DTECore
             IDocumentStrategy strategy = new InvoiceDocumentStrategy();
             Document document = new Document(strategy);
 
-            var response = document.MakeDocument(datos);            
+            var response = document.MakeDocument(datos);
             var xml = Methods.SerializeObjectToXML(response.Object);
             var test = xml;
         }
@@ -217,6 +221,8 @@ namespace DTECore
             datos.Columns.Add("NumeroPedidoInterno", typeof(string));
             datos.Columns.Add("ZonaVenta", typeof(string));
             datos.Columns.Add("FechaEmision", typeof(string));
+            datos.Columns.Add("RutaVenta", typeof(string));
+            datos.Columns.Add("InformacionAdicionalEmisor", typeof(string));
 
             // Comprador
             datos.Columns.Add("RNCComprador", typeof(int));
@@ -279,6 +285,9 @@ namespace DTECore
             fila1["NumeroPedidoInterno"] = "123456789016";
             fila1["ZonaVenta"] = "NORTE";
             fila1["FechaEmision"] = "01-04-2020";
+            fila1["RutaVenta"] = "Ruta";
+            fila1["InformacionAdicionalEmisor"] = "PRUEBA DE INFORMACION ADICIONAL";
+
             fila1["RNCComprador"] = "131880681";
             fila1["RazonSocialComprador"] = "DOCUMENTOS ELECTRONICOS DE 03";
             fila1["ContactoComprador"] = "MARCOS LATIPLOL";
@@ -321,6 +330,10 @@ namespace DTECore
 
             var response = document.MakeDocument(datos);
             string xml = Methods.SerializeObjectToXML(response.Object);
+
+
+
+
         }
 
         public void testExportInvoice()
@@ -331,7 +344,7 @@ namespace DTECore
             datos.Columns.Add("Version", typeof(decimal)); // cambiar según catálogo de tipo de documentos
             datos.Columns.Add("TipoeCF", typeof(int));
             datos.Columns.Add("eNCF", typeof(int));
-            datos.Columns.Add("FechaVencimientoSecuencia", typeof(string));            
+            datos.Columns.Add("FechaVencimientoSecuencia", typeof(string));
             datos.Columns.Add("TipoIngresos", typeof(string));
             datos.Columns.Add("FechaLimitePago", typeof(string));
             datos.Columns.Add("TerminoPago", typeof(string));
@@ -646,6 +659,7 @@ namespace DTECore
             fila1["Municipio"] = "320301";
             fila1["Provincia"] = "320000";
             fila1["TelefonoEmisor"] = "32484480";
+            //fila1["TelefonoEmisor"] = "123-123-1234";
             fila1["CorreoEmisor"] = "test@test.com";
             fila1["WebSite"] = "www.test.com";
             fila1["CodigoVendedor"] = "AA0000000100000000010000000002000000000300000000050000000006";
@@ -728,6 +742,192 @@ namespace DTECore
 
             var response = document.MakeDocument(datos);
             string xml = Methods.SerializeObjectToXML(response.Object);
+        }
+
+        public void Emisor_Xml_Tags_Order_Is_Respected()
+        {
+            // Preparar DataTable igual que en testFiscalCreditInvoice
+            var datos = new DataTable();
+            // obtener datos del DataTable
+            // fake data
+            datos.Columns.Add("Version", typeof(decimal)); // cambiar según catálogo de tipo de documentos
+            datos.Columns.Add("TipoeCF", typeof(int));
+            datos.Columns.Add("eNCF", typeof(string));
+            datos.Columns.Add("FechaVencimientoSecuencia", typeof(string));
+            datos.Columns.Add("IndicadorMontoGravado", typeof(int));
+            datos.Columns.Add("TipoIngresos", typeof(string));
+            datos.Columns.Add("TipoPago", typeof(string));
+            datos.Columns.Add("FormaPago", typeof(string));
+            datos.Columns.Add("MontoPago", typeof(decimal));
+
+            // Emisor
+            datos.Columns.Add("RNCEmisor", typeof(int));
+            datos.Columns.Add("RazonSocialEmisor", typeof(string));
+            datos.Columns.Add("NombreComercial", typeof(string));
+            datos.Columns.Add("DireccionEmisor", typeof(string));
+            datos.Columns.Add("Municipio", typeof(string));
+            datos.Columns.Add("Provincia", typeof(string));
+            datos.Columns.Add("TelefonoEmisor", typeof(string));
+            datos.Columns.Add("CorreoEmisor", typeof(string));
+            datos.Columns.Add("WebSite", typeof(string));
+            datos.Columns.Add("CodigoVendedor", typeof(string));
+            datos.Columns.Add("NumeroFacturaInterna", typeof(string));
+            datos.Columns.Add("NumeroPedidoInterno", typeof(string));
+            datos.Columns.Add("ZonaVenta", typeof(string));
+            datos.Columns.Add("FechaEmision", typeof(string));
+            datos.Columns.Add("RutaVenta", typeof(string));
+            datos.Columns.Add("InformacionAdicionalEmisor", typeof(string));
+
+            // Comprador
+            datos.Columns.Add("RNCComprador", typeof(int));
+            datos.Columns.Add("RazonSocialComprador", typeof(string));
+            datos.Columns.Add("ContactoComprador", typeof(string));
+            datos.Columns.Add("CorreoComprador", typeof(string));
+            datos.Columns.Add("DireccionComprador", typeof(string));
+            datos.Columns.Add("MunicipioComprador", typeof(string));
+            datos.Columns.Add("ProvinciaComprador", typeof(string));
+            datos.Columns.Add("FechaEntrega", typeof(string));
+            datos.Columns.Add("FechaOrdenCompra", typeof(string));
+            datos.Columns.Add("NumeroOrdenCompra", typeof(string));
+            datos.Columns.Add("CodigoInternoComprador", typeof(string));
+
+            // totales
+            datos.Columns.Add("MontoTotal", typeof(decimal));
+            datos.Columns.Add("MontoGravadoI1", typeof(decimal));
+            datos.Columns.Add("MontoGravadoI3", typeof(decimal));
+            datos.Columns.Add("ITBIS1", typeof(decimal));
+            datos.Columns.Add("ITBIS3", typeof(decimal));
+            datos.Columns.Add("TotalITBIS", typeof(decimal));
+            datos.Columns.Add("TotalITBIS1", typeof(decimal));
+            datos.Columns.Add("TotalITBIS3", typeof(decimal));
+            datos.Columns.Add("MontoGravadoTotal", typeof(decimal));
+            datos.Columns.Add("MontoExento", typeof(decimal));
+            datos.Columns.Add("SaldoAnterior", typeof(decimal));
+
+            // Detalle
+            datos.Columns.Add("NumeroLinea", typeof(int));
+            datos.Columns.Add("IndicadorFacturacion", typeof(int));
+            datos.Columns.Add("NombreItem", typeof(string));
+            datos.Columns.Add("IndicadorBienoServicio", typeof(int));
+            datos.Columns.Add("CantidadItem", typeof(decimal));
+            datos.Columns.Add("UnidadMedida", typeof(int));
+            datos.Columns.Add("PrecioUnitarioItem", typeof(decimal));
+            datos.Columns.Add("MontoItem", typeof(decimal));
+
+            // Agregar filas manualmente (copiado de testFiscalCreditInvoice)
+            DataRow fila1 = datos.NewRow();
+            fila1["Version"] = "1.0";
+            fila1["TipoeCF"] = 31;
+            fila1["eNCF"] = "401";
+            fila1["FechaVencimientoSecuencia"] = "31-12-2025";
+            fila1["IndicadorMontoGravado"] = 0;
+            fila1["TipoIngresos"] = "01";
+            fila1["TipoPago"] = "1";
+            fila1["FormaPago"] = "1";
+            fila1["MontoPago"] = 100.00;
+            fila1["RNCEmisor"] = "132788419";
+            fila1["RazonSocialEmisor"] = "DOCUMENTOS ELECTRONICOS DE 02";
+            fila1["NombreComercial"] = "DOCUMENTOS ELECTRONICOS DE 02";
+            fila1["DireccionEmisor"] = "AVE. ISABEL AGUIAR NO. 269, ZONA INDUSTRIAL DE HERRERA";
+            fila1["Municipio"] = "320301";
+            fila1["Provincia"] = "320000";
+            //fila1["TelefonoEmisor"] = "32484480";
+            fila1["TelefonoEmisor"] = "123-123-1234";
+            fila1["CorreoEmisor"] = "test@test.com";
+            fila1["WebSite"] = "www.test.com";
+            fila1["CodigoVendedor"] = "AA0000000100000000010000000002000000000300000000050000000006";
+            fila1["NumeroFacturaInterna"] = "123456789016";
+            fila1["NumeroPedidoInterno"] = "123456789016";
+            fila1["ZonaVenta"] = "NORTE";
+            fila1["FechaEmision"] = "01-04-2020";
+            fila1["RutaVenta"] = "Ruta";
+            fila1["InformacionAdicionalEmisor"] = "PRUEBA DE INFORMACION ADICIONAL";
+
+            fila1["RNCComprador"] = "131880681";
+            fila1["RazonSocialComprador"] = "DOCUMENTOS ELECTRONICOS DE 03";
+            fila1["ContactoComprador"] = "MARCOS LATIPLOL";
+            fila1["CorreoComprador"] = "contacto@test.com";
+            fila1["DireccionComprador"] = "CALLE JACINTO DE LA CONCHA FELIZ ESQUINA 27 DE FEBRERO,FRENTE A DOMINO";
+            fila1["MunicipioComprador"] = "010100";
+            fila1["ProvinciaComprador"] = "010000";
+            fila1["FechaEntrega"] = "10-10-2020";
+            fila1["FechaOrdenCompra"] = "10-11-2018";
+            fila1["NumeroOrdenCompra"] = "4500352238";
+            fila1["CodigoInternoComprador"] = "10633440";
+
+            fila1["MontoExento"] = 0;
+            fila1["MontoGravadoTotal"] = 16520;
+            fila1["MontoGravadoI1"] = 16520;
+            fila1["MontoGravadoI3"] = 0;
+            fila1["ITBIS1"] = 18;
+            fila1["ITBIS3"] = 0;
+            fila1["TotalITBIS"] = 18;
+            fila1["TotalITBIS1"] = 18;
+            fila1["TotalITBIS3"] = 0;
+            fila1["MontoTotal"] = 16520;
+            fila1["SaldoAnterior"] = 0;
+
+            fila1["NumeroLinea"] = 1;
+            fila1["IndicadorFacturacion"] = 4;
+            fila1["NombreItem"] = "LECHE";
+            fila1["IndicadorBienoServicio"] = 1;
+            fila1["CantidadItem"] = 7500.00;
+            fila1["UnidadMedida"] = 47;
+            fila1["PrecioUnitarioItem"] = 40.00;
+            fila1["MontoItem"] = 300000.00;
+
+            datos.Rows.Add(fila1);
+
+            // Generar documento usando la misma estrategia
+            IDocumentStrategy strategy = new FiscalCreditInvoiceDocumentStrategy();
+            Document document = new Document(strategy);
+
+            var response = document.MakeDocument(datos);
+            Assert.IsNotNull(response, "Response es null");
+            Assert.IsTrue(response.Success || response.Object != null, "Respuesta inválida al generar documento");
+
+            string xml = Methods.SerializeObjectToXML(response.Object);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(xml), "XML serializado está vacío");
+
+            // Parsear XML y localizar nodo Emisor
+            var doc = new XmlDocument();
+            doc.LoadXml(xml);
+            XmlNode emisorNode = doc.SelectSingleNode("//Emisor");
+            Assert.IsNotNull(emisorNode, "Nodo 'Emisor' no encontrado en el XML");
+
+            // Lista esperada del orden de tags en Emisor (según columnas agregadas)
+            var expectedOrder = new[]
+            {
+                "RNCEmisor",
+                "RazonSocialEmisor",
+                "NombreComercial",
+                "DireccionEmisor",
+                "Municipio",
+                "Provincia",
+                "TablaTelefonoEmisor",
+                "CorreoEmisor",
+                "WebSite",
+                "CodigoVendedor",
+                "NumeroFacturaInterna",
+                "NumeroPedidoInterno",
+                "ZonaVenta",                
+                "RutaVenta",
+                "InformacionAdicionalEmisor",
+                "FechaEmision"
+            };
+
+            // Recoger nombres de elementos hijos en el orden en que aparecen
+            var actualOrder = new List<string>();
+            foreach (XmlNode child in emisorNode.ChildNodes)
+            {
+                if (child.NodeType == XmlNodeType.Element)
+                {
+                    actualOrder.Add(child.Name);
+                }
+            }
+
+            // Verificar que la secuencia de nombres coincide exactamente con la esperada
+            CollectionAssert.AreEqual(expectedOrder, actualOrder, "El orden de los tags dentro de 'Emisor' no coincide con el esperado.");
         }
     }
 }
