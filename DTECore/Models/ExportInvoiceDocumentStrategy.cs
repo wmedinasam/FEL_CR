@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WIS_Security;
 
@@ -20,8 +21,19 @@ namespace DTECore.Models
                 if (datos.Rows.Count > 0)
                 {
                     DataRow row = datos.Rows[0];
-                    var tipoEcf = Convert.ToInt32(row["TipoeCF"].ToString());
+                    // Validación del formato de TelefonoEmisor: d{3}-d{3}-d{4}
+                    string telefonoEmisor = row["TelefonoEmisor"].ToString();
+                    var telefonoPattern = new Regex(@"^\d{3}-\d{3}-\d{4}$", RegexOptions.Compiled);
 
+                    if (string.IsNullOrWhiteSpace(telefonoEmisor) || !telefonoPattern.IsMatch(telefonoEmisor))
+                    {
+                        response.Object = null;
+                        response.Success = false;
+                        response.Message = $"Formato inválido en 'TelefonoEmisor'. Se esperaba el formato d{{3}}-d{{3}}-d{{4}} (ej: 809-555-1234). Valor recibido: '{telefonoEmisor ?? "null"}'.";
+                        return response;
+                    }
+
+                    var tipoEcf = Convert.ToInt32(row["TipoeCF"].ToString());
                     documento.Encabezado = new ECFEncabezado
                     {
                         Version = row["Version"].ToString(),
@@ -36,15 +48,12 @@ namespace DTECore.Models
                             TerminoPago = row["TerminoPago"].ToString(),
                             TipoPago = row["TipoPago"].ToString(),
                             IndicadorNotaCreditoSpecified = false,
-                            TablaFormasPago = new ECFEncabezadoIdDocTablaFormasPago[]
+                            TablaFormasPago = new ECFEncabezadoIdDocTablaFormasPagoFormaDePago[]
                             {
-                            new ECFEncabezadoIdDocTablaFormasPago
+                            new ECFEncabezadoIdDocTablaFormasPagoFormaDePago
                             {
-                                FormaDePago = new ECFEncabezadoIdDocTablaFormasPagoFormaDePago
-                                {
-                                    FormaPago = row["FormaPago"].ToString(),
-                                    MontoPago = Convert.ToDecimal(row["MontoPago"].ToString())
-                                }
+                                FormaPago = row["FormaPago"].ToString(),
+                                MontoPago = Convert.ToDecimal(row["MontoPago"].ToString())
                             }
                             }
                         },
@@ -62,6 +71,7 @@ namespace DTECore.Models
                                         row["TelefonoEmisor"].ToString(),
                             },
                             CorreoEmisor = row["CorreoEmisor"].ToString(),
+                            CorreoEmisorSpecified = String.IsNullOrEmpty(row["CorreoEmisor"].ToString()) ? false : true,
                             WebSite = row["WebSite"].ToString(),
                             WebSiteSpecified = String.IsNullOrEmpty(row["WebSite"].ToString()) ? false : true,
                             CodigoVendedor = row["CodigoVendedor"].ToString(),

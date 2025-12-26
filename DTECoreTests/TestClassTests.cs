@@ -36,5 +36,11 @@ namespace DTECore.Tests
         {
             testClass.testCreditNote();
         }
+
+        [TestMethod]
+        public void Emisor_Xml_Tags_Order_Is_Respected()
+        {
+            testClass.Emisor_Xml_Tags_Order_Is_Respected();
+        }
     }
 }
