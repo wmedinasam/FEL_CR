@@ -1055,7 +1055,7 @@ namespace DTECore
 
         private string formaPagoField;
 
-        private decimal montoPagoField;
+        private string montoPagoField;
 
         [XmlElement(IsNullable = false)]
         public string FormaPago
@@ -1071,7 +1071,7 @@ namespace DTECore
         }
 
         [XmlElement(IsNullable = false)]
-        public decimal MontoPago
+        public string MontoPago
         {
             get
             {
