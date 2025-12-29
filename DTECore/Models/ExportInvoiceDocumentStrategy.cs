@@ -53,7 +53,7 @@ namespace DTECore.Models
                             new ECFEncabezadoIdDocTablaFormasPagoFormaDePago
                             {
                                 FormaPago = row["FormaPago"].ToString(),
-                                MontoPago = Convert.ToDecimal(row["MontoPago"].ToString())
+                                MontoPago = (Math.Truncate(double.Parse(row["MontoPago"].ToString()) * 100) / 100).ToString("F2")
                             }
                             }
                         },

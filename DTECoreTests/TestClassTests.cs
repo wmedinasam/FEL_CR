@@ -1,10 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DTECore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DTECore.Tests
 {
@@ -41,6 +35,14 @@ namespace DTECore.Tests
         public void Emisor_Xml_Tags_Order_Is_Respected()
         {
             testClass.Emisor_Xml_Tags_Order_Is_Respected();
+        }
+
+        [TestMethod]
+        public void MontoPago_ShouldTruncateToTwoDecimalsWithoutRounding()
+        {
+
+            testClass.MontoPago_ShouldTruncateToTwoDecimalsWithoutRounding();
+
         }
     }
 }

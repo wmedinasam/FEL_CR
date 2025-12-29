@@ -79,3 +79,8 @@ Crear una nueva rama y subir el código, crear un nuevo pull request y será rev
 **Correcciones**
 - Se añade una validación del campo TelefonoEmisor para que respete el formato de teléfono de RD (2{d}-d{2}-d{3}).
 - Se corrige el orden en que es serializado el nodo Receptor den encabezado para todos los tipos de documento.
+
+#### v.1.0.0.7 - 29/12/2025
+
+**Correcciones**
+- Se corrige el nodo de MontoPago dentro de la TablaFormasDePago para que siempre tenga 2 decimales truncados o si le falta un decimal le agregue un cero.

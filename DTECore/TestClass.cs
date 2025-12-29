@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace DTECore
 {
@@ -910,7 +911,7 @@ namespace DTECore
                 "CodigoVendedor",
                 "NumeroFacturaInterna",
                 "NumeroPedidoInterno",
-                "ZonaVenta",                
+                "ZonaVenta",
                 "RutaVenta",
                 "InformacionAdicionalEmisor",
                 "FechaEmision"
@@ -928,6 +929,140 @@ namespace DTECore
 
             // Verificar que la secuencia de nombres coincide exactamente con la esperada
             CollectionAssert.AreEqual(expectedOrder, actualOrder, "El orden de los tags dentro de 'Emisor' no coincide con el esperado.");
+        }
+
+        public void MontoPago_ShouldTruncateToTwoDecimalsWithoutRounding()
+        {
+            // Arrange
+            FiscalCreditInvoiceDocumentStrategy strategy = new FiscalCreditInvoiceDocumentStrategy();
+            DataTable datos = new DataTable();
+
+            // Crear columnas necesarias
+            datos.Columns.Add("Version", typeof(string));
+            datos.Columns.Add("TipoeCF", typeof(int));
+            datos.Columns.Add("eNCF", typeof(string));
+            datos.Columns.Add("FechaVencimientoSecuencia", typeof(string));
+            datos.Columns.Add("IndicadorMontoGravado", typeof(string));
+            datos.Columns.Add("TipoIngresos", typeof(string));
+            datos.Columns.Add("TipoPago", typeof(string));
+            datos.Columns.Add("FormaPago", typeof(string));
+            datos.Columns.Add("MontoPago", typeof(string));
+            datos.Columns.Add("TelefonoEmisor", typeof(string));
+            datos.Columns.Add("RNCEmisor", typeof(uint));
+            datos.Columns.Add("RazonSocialEmisor", typeof(string));
+            datos.Columns.Add("NombreComercial", typeof(string));
+            datos.Columns.Add("DireccionEmisor", typeof(string));
+            datos.Columns.Add("Municipio", typeof(string));
+            datos.Columns.Add("Provincia", typeof(string));
+            datos.Columns.Add("CorreoEmisor", typeof(string));
+            datos.Columns.Add("WebSite", typeof(string));
+            datos.Columns.Add("CodigoVendedor", typeof(string));
+            datos.Columns.Add("NumeroFacturaInterna", typeof(string));
+            datos.Columns.Add("NumeroPedidoInterno", typeof(string));
+            datos.Columns.Add("ZonaVenta", typeof(string));
+            datos.Columns.Add("RutaVenta", typeof(string));
+            datos.Columns.Add("InformacionAdicionalEmisor", typeof(string));
+            datos.Columns.Add("RNCComprador", typeof(uint));
+            datos.Columns.Add("RazonSocialComprador", typeof(string));
+            datos.Columns.Add("ContactoComprador", typeof(string));
+            datos.Columns.Add("CorreoComprador", typeof(string));
+            datos.Columns.Add("DireccionComprador", typeof(string));
+            datos.Columns.Add("MunicipioComprador", typeof(string));
+            datos.Columns.Add("ProvinciaComprador", typeof(string));
+            datos.Columns.Add("FechaEntrega", typeof(string));
+            datos.Columns.Add("FechaOrdenCompra", typeof(string));
+            datos.Columns.Add("NumeroOrdenCompra", typeof(string));
+            datos.Columns.Add("CodigoInternoComprador", typeof(string));
+            datos.Columns.Add("MontoGravadoTotal", typeof(decimal));
+            datos.Columns.Add("MontoGravadoI1", typeof(decimal));
+            datos.Columns.Add("MontoGravadoI3", typeof(decimal));
+            datos.Columns.Add("ITBIS1", typeof(decimal));
+            datos.Columns.Add("ITBIS3", typeof(decimal));
+            datos.Columns.Add("TotalITBIS", typeof(decimal));
+            datos.Columns.Add("TotalITBIS1", typeof(decimal));
+            datos.Columns.Add("TotalITBIS3", typeof(decimal));
+            datos.Columns.Add("MontoTotal", typeof(decimal));
+            datos.Columns.Add("IndicadorFacturacion", typeof(int));
+            datos.Columns.Add("NombreItem", typeof(string));
+            datos.Columns.Add("IndicadorBienoServicio", typeof(int));
+            datos.Columns.Add("CantidadItem", typeof(decimal));
+            datos.Columns.Add("UnidadMedida", typeof(int));
+            datos.Columns.Add("PrecioUnitarioItem", typeof(decimal));
+            datos.Columns.Add("MontoItem", typeof(decimal));
+            datos.Columns.Add("FechaEmision", typeof(string));
+
+            // Agregar una fila con un monto que debería truncarse sin redondeo
+            // Por ejemplo: 100.999 debería convertirse en 100.99 (truncado, no redondeado a 101.00)
+            DataRow fila = datos.NewRow();
+            fila["Version"] = "1.0";
+            fila["TipoeCF"] = 1;
+            fila["eNCF"] = "123456789";
+            fila["FechaVencimientoSecuencia"] = "31/12/2025";
+            fila["IndicadorMontoGravado"] = "1";
+            fila["TipoIngresos"] = "01";
+            fila["TipoPago"] = "01";
+            fila["FormaPago"] = "01";
+            fila["MontoPago"] = "100.9999"; // Este valor debe truncarse a 100.99
+            fila["TelefonoEmisor"] = "809-555-1234";
+            fila["RNCEmisor"] = 123456789;
+            fila["RazonSocialEmisor"] = "Test Company";
+            fila["NombreComercial"] = "Test";
+            fila["DireccionEmisor"] = "Calle 1";
+            fila["Municipio"] = "Santo Domingo";
+            fila["Provincia"] = "Santo Domingo";
+            fila["CorreoEmisor"] = "test@test.com";
+            fila["WebSite"] = "www.test.com";
+            fila["CodigoVendedor"] = "";
+            fila["NumeroFacturaInterna"] = "";
+            fila["NumeroPedidoInterno"] = "";
+            fila["ZonaVenta"] = "";
+            fila["RutaVenta"] = "";
+            fila["InformacionAdicionalEmisor"] = "";
+            fila["RNCComprador"] = 987654321;
+            fila["RazonSocialComprador"] = "Customer";
+            fila["ContactoComprador"] = "";
+            fila["CorreoComprador"] = "";
+            fila["DireccionComprador"] = "Calle 2";
+            fila["MunicipioComprador"] = "Santiago";
+            fila["ProvinciaComprador"] = "Santiago";
+            fila["FechaEntrega"] = "31/12/2025";
+            fila["FechaOrdenCompra"] = "31/12/2025";
+            fila["NumeroOrdenCompra"] = "";
+            fila["CodigoInternoComprador"] = "";
+            fila["MontoGravadoTotal"] = 100.99M;
+            fila["MontoGravadoI1"] = 0;
+            fila["MontoGravadoI3"] = 0;
+            fila["ITBIS1"] = 0;
+            fila["ITBIS3"] = 0;
+            fila["TotalITBIS"] = 0;
+            fila["TotalITBIS1"] = 0;
+            fila["TotalITBIS3"] = 0;
+            fila["MontoTotal"] = 100.99M;
+            fila["IndicadorFacturacion"] = 1;
+            fila["NombreItem"] = "Producto Test";
+            fila["IndicadorBienoServicio"] = 1;
+            fila["CantidadItem"] = 1;
+            fila["UnidadMedida"] = 1;
+            fila["PrecioUnitarioItem"] = 100.99M;
+            fila["MontoItem"] = 100.99M;
+            fila["Fechaemision"] = "01-04-2020";
+            datos.Rows.Add(fila);
+
+            // Act
+            var result = strategy.MakeDocument(datos);
+
+            // Assert
+            Assert.IsTrue(result.Success, result.Message);
+            Assert.IsNotNull(result.Object);
+            Assert.AreEqual("100.99", result.Object.Encabezado.IdDoc.TablaFormasPago[0].MontoPago,
+                "MontoPago debe ser truncado a 100.99 sin redondeo (100.999 -> 100.99)");
+
+            
+            Assert.IsNotNull(result, "Response es null");
+            Assert.IsTrue(result.Success || result.Object != null, "Respuesta inválida al generar documento");
+
+            string xml = Methods.SerializeObjectToXML(result.Object);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(xml), "XML serializado está vacío");
         }
     }
 }
