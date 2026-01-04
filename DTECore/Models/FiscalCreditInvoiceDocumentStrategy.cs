@@ -119,11 +119,14 @@ namespace DTECore
                         ITBIS3 = Convert.ToDecimal(row["ITBIS3"].ToString()),
                         ITBIS3Specified = Convert.ToDecimal(row["ITBIS3"].ToString()) > 0,
                         TotalITBIS = Convert.ToDecimal(row["TotalITBIS"].ToString()),
+                        TotalITBISSpecified = Convert.ToDecimal(row["TotalITBIS"].ToString()) > 0,
                         TotalITBIS1 = Convert.ToDecimal(row["TotalITBIS1"].ToString()),
                         TotalITBIS1Specified = Convert.ToDecimal(row["TotalITBIS1"].ToString()) > 0,
                         TotalITBIS3 = Convert.ToDecimal(row["TotalITBIS3"].ToString()),
                         TotalITBIS3Specified = Convert.ToDecimal(row["TotalITBIS3"].ToString()) > 0,
                         MontoTotal = Convert.ToDecimal(row["MontoTotal"].ToString()),
+                        SaldoAnterior = Convert.ToDecimal(row["SaldoAnterior"].ToString()),
+                        SaldoAnteriorSpecified = Convert.ToDecimal(row["SaldoAnterior"].ToString()) > 0,
                     }
                 };
 
