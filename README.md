@@ -84,3 +84,8 @@ Crear una nueva rama y subir el código, crear un nuevo pull request y será rev
 
 **Correcciones**
 - Se corrige el nodo de MontoPago dentro de la TablaFormasDePago para que siempre tenga 2 decimales truncados o si le falta un decimal le agregue un cero.
+
+#### v.1.0.0.8 - 30/12/2025
+
+**Correcciones**
+- Se añaden todos los tags en el nodo de totales de la factura de credito fiscal.
