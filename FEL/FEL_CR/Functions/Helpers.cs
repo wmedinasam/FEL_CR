@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FEL_CR.Models
+namespace FELCR.Models
 {
     public partial class Helpers
     {

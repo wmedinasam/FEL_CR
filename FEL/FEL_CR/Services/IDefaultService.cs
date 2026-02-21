@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FEL_CR.Services
+namespace FELCR.Services
 {
     public interface IDefaultService<T>
     {

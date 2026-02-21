@@ -1,4 +1,4 @@
-﻿using FEL_CR.Services;
+﻿using FELCR.Services;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WIS_Security;
 
-namespace FEL_CR.Models
+namespace FELCR.Models
 {
     public partial class UserModel
     {

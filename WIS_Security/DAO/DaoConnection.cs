@@ -41,7 +41,7 @@ namespace WIS_Security.DAO
             var json = config.ReadCfg(_configurationModel.path);
             _configurationModel = JsonConvert.DeserializeObject<ConfigurationModel>(json);
             string connection = string.Empty;
-            connection = $"Server={_configurationModel.Key.Instancia.DesencriptarDatos()};Database=FELRD; User Id={_configurationModel.User}; Password={_configurationModel.Password}; Timeout=5;";
+            connection = $"Server={_configurationModel.Key.Instancia.DesencriptarDatos()};Database=FELCR; User Id={_configurationModel.User}; Password={_configurationModel.Password}; Timeout=5;";
             return new SqlConnection(connection);
         }
 
@@ -57,7 +57,7 @@ namespace WIS_Security.DAO
         public static ResponseModel<object> TestConnection(string user, string password, string instance)
         {
             ResponseModel<object> response = new ResponseModel<object>();
-            SqlConnection cn = new SqlConnection("Server=" + instance.DesencriptarDatos() + "; Database=FELRD; User Id=" + user + "; Password=" + password + "");
+            SqlConnection cn = new SqlConnection("Server=" + instance.DesencriptarDatos() + "; Database=FELCR; User Id=" + user + "; Password=" + password + "");
             try
             {
                 cn.Open();
