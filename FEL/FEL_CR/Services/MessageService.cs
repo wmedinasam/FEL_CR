@@ -1,11 +1,11 @@
-﻿using FEL_CR.Controls;
+﻿using FELCR.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FEL_CR.Services
+namespace FELCR.Services
 {
     public static class MessageService
     {

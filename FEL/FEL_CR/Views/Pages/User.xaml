@@ -1,0 +1,142 @@
+﻿<Page x:Class="FELCR.Views.Pages.User"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:md="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+      xmlns:local="clr-namespace:FELCR.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      TextElement.Foreground="{DynamicResource PrimaryTextColor}"
+      Title="User">
+
+    <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}">
+        <Grid Margin="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Título -->
+            <Grid Grid.Row="0">
+                <materialDesign:PackIcon Kind="User"  Margin="20 10 0 0" Width="50" Height="50" Foreground="{DynamicResource PrimaryTextColor}"/>
+                <TextBlock Text="Usuarios" Margin="80 25 0 0" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryTextColor}" />
+            </Grid>
+
+
+            <!-- Cuerpo principal -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="1.1*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- FORMULARIO (Scroll independiente) -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.15*"/>
+                            <ColumnDefinition Width="0.85*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <materialDesign:PackIcon Kind="UserCircle" Margin="30,20" Width="30" Height="30" Grid.Column="0" Grid.Row="0" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtName" Grid.Column="1" Grid.Row="0" Margin="5,10"
+                             Style="{StaticResource CleanOutlinedTextBox}"
+                             materialDesign:HintAssist.Hint="Ingrese Nombre" 
+                             Height="55" MaxLength="100"/>
+
+                        <materialDesign:PackIcon Kind="Key" Margin="30,20" Width="30" Height="30" Grid.Column="0" Grid.Row="1" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtUsername" Grid.Column="1" Grid.Row="1" Margin="5,10"
+                             Style="{StaticResource CleanOutlinedTextBox}"
+                             materialDesign:HintAssist.Hint="Ingrese Usuario" 
+                             Height="55" MaxLength="100"/>
+
+                        <materialDesign:PackIcon Kind="Lock" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="2" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <PasswordBox x:Name="txtPassword" Grid.Column="1" Grid.Row="2" Margin="5,10"
+                                 Style="{StaticResource CleanOutlinedPasswordBox}"
+                                 materialDesign:HintAssist.Hint="Contraseña" Height="55" MaxLength="100"/>
+
+                        <materialDesign:PackIcon Kind="LockCheck" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="3" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <PasswordBox x:Name="txtConfirmPassword" Grid.Column="1" Grid.Row="3" Margin="5,10"
+                                 Style="{StaticResource CleanOutlinedPasswordBox}"
+                                 materialDesign:HintAssist.Hint="Confirmación" Height="55" MaxLength="100"/>
+
+                        <materialDesign:PackIcon Kind="UserBadge" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="4" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <ComboBox x:Name="cbRoles" Grid.Column="1" Grid.Row="4" Margin="5,10"
+                              Style="{StaticResource CleanOutlinedComboBox}"
+                              materialDesign:HintAssist.Hint="Seleccione Rol"/>
+
+                        <materialDesign:PackIcon Kind="ToggleSwitch" Margin="30 20" Width="30" Height="30" Grid.Column="0" Grid.Row="5" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="5,10">
+                            <ToggleButton x:Name="btnStatus"/>
+                            <TextBlock Text="Estado" FontSize="14" Margin="5,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryTextColor}"/>
+                        </StackPanel>
+
+                        <Button x:Name="btnAceptar" Content="Guardar"
+                            Grid.Column="1" Grid.Row="6"
+                            Style="{StaticResource SaveButtonStyle}"
+                            Margin="5,10" Width="250" Click="btnAceptar_Click"/>
+                    </Grid>
+                </ScrollViewer>
+
+                <!-- DATAGRID -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnNew" Content="Nuevo"
+                        Grid.Row="0"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource NewButtonStyle}" 
+                        Margin="5,10" Width="150" Click="btnNew_Click"/>
+
+                    <DataGrid x:Name="grdUser" Grid.Row="1" Margin="5,10"
+                          Background="{DynamicResource PrimaryBackgroundColor}"
+                          CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding FullName}"/>
+                            <DataGridCheckBoxColumn Header="Estatus" Binding="{Binding UserStatus}"/>
+                            <DataGridTemplateColumn Header="Acción">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button ToolTip="Editar Registro" Width="30" Height="25" Padding="0" Click="Button_Click">
+                                                <materialDesign:PackIcon Kind="Edit" Height="18" Width="14"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+            <Grid x:Name="LoaderOverlay"
+              Grid.Row="0"
+              Grid.RowSpan="2"
+              Background="#CC000000"
+              Visibility="Collapsed"
+              Panel.ZIndex="999">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Ellipse Style="{StaticResource CustomProgressRingStyle}" />
+                    <TextBlock Text="Cargando..." Foreground="White" FontSize="16" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</Page>

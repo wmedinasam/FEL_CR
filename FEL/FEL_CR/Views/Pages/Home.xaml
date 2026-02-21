@@ -1,0 +1,165 @@
+﻿<Page x:Class="FELCR.Views.Pages.Home"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FELCR.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Home" Loaded="Page_Loaded">
+    <Page.Resources>
+        <Storyboard x:Key="CardEntranceAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                 From="0" To="1" Duration="0:0:0.5"/>
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                 From="0.95" To="1" Duration="0:0:0.3"/>
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                 From="0.95" To="1" Duration="0:0:0.3"/>
+        </Storyboard>
+    </Page.Resources>
+    <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <!-- ✅ Bienvenida -->
+            <StackPanel Grid.Row="0">
+                <TextBlock HorizontalAlignment="Center"
+               Text="Bienvenido a su Sistema de Facturación Electrónica en Línea"
+               FontSize="25"
+               Foreground="{DynamicResource PrimaryTextColor}"
+               FontWeight="Bold"
+               Margin="0,10,0,0"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="Usted ha Iniciado Sesión como: "
+                   FontSize="25"
+                   Foreground="{DynamicResource PrimaryTextColor}"
+                   FontWeight="SemiBold"
+                   Margin="0,10,0,0"/>
+                    <TextBlock x:Name="txtUsuario"
+                   Text="Steeven Medina"
+                   FontSize="25"
+                   Foreground="{DynamicResource PrimaryTextColor}"
+                   FontWeight="SemiBold"
+                   Margin="0,10,0,0"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel x:Name="StackCards" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,0">
+
+                <!-- Documentos Emitidos -->
+                <materialDesign:Card x:Name="cardDocuments" Width="170" Height="260" Margin="0,10,15,0" UniformCornerRadius="15"
+                     materialDesign:ShadowAssist.ShadowDepth="Depth4" Style="{StaticResource GlowZoomCardStyle}">
+                    <materialDesign:Card.RenderTransform>
+                        <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                    </materialDesign:Card.RenderTransform>
+                    <materialDesign:Card.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF000428" Offset="0"/>
+                            <GradientStop Color="#FF004E92" Offset="0.5"/>
+                        </LinearGradientBrush>
+                    </materialDesign:Card.Background>
+                    <Grid Margin="10" VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon Grid.Row="0" Kind="FileDocument" Width="80" Height="80" Foreground="White" HorizontalAlignment="Center" Margin="0,10"/>
+                        <TextBlock x:Name="txtAccepted" Grid.Row="1" Text="{Binding Monitor.AcceptedCount}" TargetUpdated="TextBlock_TargetUpdated" FontSize="36" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Margin="0,5"/>
+                        <TextBlock Grid.Row="2" Text="Documentos&#x0a;Emitidos" FontSize="14" Foreground="White" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center" Width="150"/>
+                    </Grid>
+                </materialDesign:Card>
+
+                <!-- Documentos Rechazados -->
+                <materialDesign:Card x:Name="cardRejected" Width="170" Height="260" Margin="10,10,15,0" UniformCornerRadius="15"
+                     materialDesign:ShadowAssist.ShadowDepth="Depth4" Style="{StaticResource GlowZoomCardStyle}">
+                    <materialDesign:Card.RenderTransform>
+                        <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                    </materialDesign:Card.RenderTransform>
+                    <materialDesign:Card.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF190A05" Offset="0"/>
+                            <GradientStop Color="#FF870000" Offset="0.5"/>
+                        </LinearGradientBrush>
+                    </materialDesign:Card.Background>
+                    <Grid Margin="10" VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon Grid.Row="0" Kind="FileCancel" Width="80" Height="80" Foreground="White" HorizontalAlignment="Center" Margin="0,10"/>
+                        <TextBlock x:Name="txtRejected" Grid.Row="1" Text="{Binding Monitor.RejectedCount}" TargetUpdated="TextBlock_TargetUpdated"    FontSize="36" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Margin="0,5"/>
+                        <TextBlock Grid.Row="2" Text="Documentos Rechazados" FontSize="14" Foreground="White" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center" Width="150"/>
+                    </Grid>
+                </materialDesign:Card>
+
+                <!-- Sincronización -->
+                <materialDesign:Card x:Name="cardSync" Width="170" Height="260" Margin="10,10,15,0" UniformCornerRadius="15"
+                     materialDesign:ShadowAssist.ShadowDepth="Depth4" Style="{StaticResource GlowZoomCardStyle}">
+                    <materialDesign:Card.RenderTransform>
+                        <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                    </materialDesign:Card.RenderTransform>
+                    <materialDesign:Card.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF4F3C0C" Offset="0"/>
+                            <GradientStop Color="#FFFFB700" Offset="0.5"/>
+                        </LinearGradientBrush>
+                    </materialDesign:Card.Background>
+                    <Grid Margin="10" VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon Grid.Row="0" Kind="ClockOutline" Width="80" Height="80" Foreground="White" HorizontalAlignment="Center" Margin="0,10"/>
+                        <TextBlock x:Name="txtSync" Grid.Row="1" Text="{Binding Monitor.LastUpdated}" TargetUpdated="TextBlock_TargetUpdated"  FontWeight="Bold" FontSize="18" Foreground="White" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center" Width="150" Margin="0,5"/>
+                        <TextBlock Grid.Row="2" Text="Última Sincronización" FontSize="14" Foreground="White" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center" Width="150"/>
+                    </Grid>
+                </materialDesign:Card>
+
+                <!-- Estado de Licencia -->
+                <materialDesign:Card x:Name="cardLicence" Width="170" Height="260" Margin="10,10,15,0" UniformCornerRadius="15"
+                     materialDesign:ShadowAssist.ShadowDepth="Depth4" Background="{Binding Licence.LicenceBrush}" Style="{StaticResource GlowZoomCardStyle}">
+                    <materialDesign:Card.RenderTransform>
+                        <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                    </materialDesign:Card.RenderTransform>
+                    <Grid Margin="10" VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon Grid.Row="0" Kind="CertificateOutline" Width="80" Height="80" Foreground="White" HorizontalAlignment="Center" Margin="0,10"/>
+                        <TextBlock Grid.Row="1" Text="{Binding Licence.LicenceText}" FontSize="18" FontWeight="Bold" Foreground="White"
+                   TextAlignment="Center" TextWrapping="Wrap" Width="150" Margin="0,5"/>
+                        <TextBlock Grid.Row="2" Text="Estado de Licencia" FontSize="14" Foreground="White" HorizontalAlignment="Center"
+                   TextAlignment="Center" TextWrapping="Wrap" Width="150"/>
+                    </Grid>
+                </materialDesign:Card>
+
+            </StackPanel>
+            <Button Grid.Row="2" Visibility="Collapsed" Content="Simular Cambio" Click="TestChange_Click"/>
+
+            <Border Background="DarkRed"
+                Grid.Row="2"
+                Height="100"
+                Margin="0,10,0,0"
+                CornerRadius="8"
+                Visibility="{Binding Licence.AlertVisibility}">
+                <TextBlock Text="{Binding Licence.AlertText}"
+           Foreground="Yellow"
+           FontSize="24"
+           FontWeight="Bold"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"
+           TextAlignment="Center"
+           Padding="10,2"/>
+            </Border>
+        </Grid>
+    </Border>
+</Page>

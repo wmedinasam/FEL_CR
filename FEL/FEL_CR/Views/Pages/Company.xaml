@@ -1,0 +1,157 @@
+﻿<Page x:Class="FELCR.Views.Pages.Company"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:FELCR.Views.Pages"
+      xmlns:all="clr-namespace:FELCR"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="Company"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+    <Page.DataContext>
+        <local:CompanyValidations/>
+    </Page.DataContext>
+    <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}">
+        <Grid Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Grid Grid.Row="0">
+                <materialDesign:PackIcon Kind="Company" Margin="20 10 0 0" Width="50" Height="50" Foreground="{DynamicResource PrimaryTextColor}"/>
+                <TextBlock Text="Empresas" Margin="80 25 0 0" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+            </Grid>
+
+            <!-- Content -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="1.1*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Formulario con scroll -->
+                <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.15*"/>
+                            <ColumnDefinition Width="0.85*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Iconos y campos -->
+                        <materialDesign:PackIcon Kind="Company" Grid.Row="0" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtTaxId" Grid.Row="0" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="RNC Empresa" MaxLength="15"/>
+
+                        <materialDesign:PackIcon Kind="RenameBox" Grid.Row="1" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtName" Grid.Row="1" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Nombre Empresa" MaxLength="255"/>
+
+                        <materialDesign:PackIcon Kind="Home" Grid.Row="2" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtAddress" Grid.Row="2" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Dirección" MaxLength="100"/>
+
+                        <materialDesign:PackIcon Kind="GoogleStreetView" Grid.Row="3" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtMunicipality" Grid.Row="3" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Municipalidad" MaxLength="50"/>
+
+                        <materialDesign:PackIcon Kind="Home" Grid.Row="4" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtProvince" Grid.Row="4" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Provincia" MaxLength="50"/>
+
+                        <materialDesign:PackIcon Kind="Phone" Grid.Row="5" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtPhone" Grid.Row="5" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" 
+                             materialDesign:HintAssist.Hint="Teléfono" 
+                             MaxLength="50"                                                               
+                             >
+                            <TextBox.Text>
+                                <Binding Path="Phone" UpdateSourceTrigger="PropertyChanged" ValidatesOnExceptions="True">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <materialDesign:PackIcon Kind="CardAccountDetails" Grid.Row="6" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <ComboBox x:Name="cbCertifiers" Grid.Row="6" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedComboBox}" materialDesign:HintAssist.Hint="Seleccione Certificador"/>
+
+                        <materialDesign:PackIcon Kind="Folder" Grid.Row="7" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <Grid Grid.Row="7" Grid.Column="1" Margin="5,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80*"/>
+                                <ColumnDefinition Width="15*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="txtDTEFolder" Grid.Column="0" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Folder DTE" MaxLength="250"/>
+                            <Button x:Name="btnFolder" Grid.Column="1" Margin="5,0,0,0" Style="{StaticResource BrowseButtonStyle}" Click="BrowseCompanyFolder_Click">
+                                <materialDesign:PackIcon Kind="Folder" Width="20" Height="20"/>
+                            </Button>
+                        </Grid>
+
+                        <materialDesign:PackIcon Kind="Database" Grid.Row="8" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtDBSae" Grid.Row="8" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="BD SAE" MaxLength="50"/>
+
+                        <materialDesign:PackIcon Kind="DatabaseTick" Grid.Row="9" Grid.Column="0" Margin="30,20" Width="30" Height="30" Foreground="{DynamicResource PrimaryIconColor}"/>
+                        <TextBox x:Name="txtSuffixTable" Grid.Row="9" Grid.Column="1" Margin="5,10" Style="{StaticResource CleanOutlinedTextBox}" materialDesign:HintAssist.Hint="Sufijo BD SAE" MaxLength="2"/>
+
+
+
+                        <Grid Grid.Row="10" Grid.Column="1">
+                            <Button x:Name="btnAceptar" Grid.Row="10" Grid.Column="1" Margin="5,10" Style="{StaticResource SaveButtonStyle}" Content="Guardar" Width="250" Click="btnAceptar_Click"/>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+
+                <!-- Tabla -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnNew" Grid.Row="0" Content="Nuevo" Style="{StaticResource NewButtonStyle}" HorizontalAlignment="Left" Margin="5,10" Width="150" Click="btnNew_Click"/>
+
+                    <DataGrid x:Name="grdCompany" Grid.Row="1" Margin="5,10" Background="{DynamicResource PrimaryBackgroundColor}"
+                          CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nit" Binding="{Binding Nit}"/>
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding Name}"/>
+                            <DataGridTemplateColumn Header="Acción">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button ToolTip="Editar Registro" Width="30" Height="25" Padding="0" Click="Button_Click">
+                                                <materialDesign:PackIcon Kind="Edit" Height="18" Width="14"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+            <Grid x:Name="LoaderOverlay"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Background="#CC000000"
+                Visibility="Collapsed"
+                Panel.ZIndex="999">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Ellipse Style="{StaticResource CustomProgressRingStyle}" />
+                    <TextBlock Text="Cargando..." Foreground="White" FontSize="16" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</Page>

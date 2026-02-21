@@ -1,6 +1,7 @@
-﻿using FEL_CR;
-using FEL_CR.Models;
-using FEL_CR.Services;
+﻿using FELCR;
+using FELCR.Helpers;
+using FELCR.Models;
+using FELCR.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace FELCR.Views
 
         private bool GetSystemName(ResponseModel<ConfigurationModel> config)
         {
-            return config.Object.Key.Sistema.Equals("FELRD");
+            return config.Object.Key.Sistema.Equals("FELCR");
         }
 
 
@@ -60,7 +61,7 @@ namespace FELCR.Views
                 if (!iscorrectSystemName)
                 {
                     BlockControls();
-                    MessageService.ShowWarning("Licencia No Encontrada", "El sistema no es FELRD, por favor contactate con Soporte Técnico para obtener mas información.");
+                    MessageService.ShowWarning("Licencia No Encontrada", "El sistema no es FELCR, por favor contactate con Soporte Técnico para obtener mas información.");
                     return;
                 }
 
@@ -96,10 +97,10 @@ namespace FELCR.Views
             if (!file.CfgExists(config.path))
             {
                 MessageService.ShowWarning("Licencia No Encontrada", "No existe archivo de configuración, para iniciar el sistema debe configuralo primero.");
-                //Dashboard dashboard = new Dashboard(userModel, true);
-                //dashboard.ShowDialog();
-                //if (Application.Current != null)
-                //    Application.Current.Shutdown();
+                Dashboard dashboard = new Dashboard(userModel, true);
+               dashboard.ShowDialog();
+               if (Application.Current != null)
+                   Application.Current.Shutdown();
 
                 return;
 
@@ -122,45 +123,43 @@ namespace FELCR.Views
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(txtUsername.Text) && !String.IsNullOrWhiteSpace(txtPassword.Password))
-            {
-                UserModel userModel = new UserModel();
-                var response = userModel.GetUserByUserName(txtUsername.Text);
-
-                if (response.Success && response.Object != null)
-                {
-                    var decryptedPassword = response.Object.UserPassword.DesencriptarDatos();
-
-                    if (decryptedPassword == txtPassword.Password)
-                    {
-
-                        try
-                        {
-                            //Dashboard dashboard = new Dashboard(response.Object, false);
-                            //this.Hide();
-                            //dashboard.ShowDialog();
-                        }
-                        catch (Exception ex)
-                        {
-                            //HandleLogs.SaveLog("Debug", "Problemas al abrir el Dashboard inicial: " + ex.Message);
-                            MessageBox.Show("ERROR AL ABRIR DASHBOARD: " + ex.Message + "\n\n" + ex.StackTrace);
-                        }
-                    }
-                    else
-                    {
-                        MessageService.ShowError("Error de Sistema", "Usuario o contraseña inválidos.");
-                    }
-                }
-                else
-                {
-                    MessageService.ShowError("Error de Sistema", "Usuario o contraseña inválidos.");
-                }
-            }
-            else
+            // 1. Validación de entrada
+            if (String.IsNullOrWhiteSpace(txtUsername.Text) || String.IsNullOrWhiteSpace(txtPassword.Password))
             {
                 MessageService.ShowError("Error de validación", "Debe ingresar usuario y contraseña!");
+                return;
             }
 
+            // 2. Obtener usuario
+            var userModel = new UserModel();
+            var response = userModel.GetUserByUserName(txtUsername.Text);
+
+            if (!response.Success || response.Object == null)
+            {
+                MessageService.ShowError("Error de Sistema", "Usuario o contraseña inválidos.");
+                return;
+            }
+
+            // 3. Comparar contraseñas
+            var decryptedPassword = response.Object.UserPassword.DesencriptarDatos();
+            if (decryptedPassword != txtPassword.Password)
+            {
+                MessageService.ShowError("Error de Sistema", "Usuario o contraseña inválidos.");
+                return;
+            }
+
+            // 4. Abrir dashboard en bloque try/catch
+            try
+            {
+                var dashboard = new Dashboard(response.Object, false);
+                this.Hide();
+                dashboard.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                HandleLogs.SaveLog("Debug", "Problemas al abrir el Dashboard inicial: " + ex.Message);
+                MessageBox.Show("ERROR AL ABRIR DASHBOARD: " + ex.Message + "\n\n" + ex.StackTrace);
+            }
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)

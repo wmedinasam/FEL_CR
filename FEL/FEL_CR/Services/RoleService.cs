@@ -1,4 +1,4 @@
-﻿using FEL_CR.Models;
+﻿using FELCR.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WIS_Security.DAO;
 
-namespace FEL_CR.Services
+namespace FELCR.Services
 {
     public class RoleService : IDefaultService<RoleModel>
     {

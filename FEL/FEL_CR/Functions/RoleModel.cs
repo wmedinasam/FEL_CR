@@ -1,4 +1,4 @@
-﻿using FEL_CR.Services;
+﻿using FELCR.Services;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WIS_Security;
-using static FEL_CR.Models.Helpers;
+using static FELCR.Models.Helpers;
 
-namespace FEL_CR.Models
+namespace FELCR.Models
 {
     public partial class RoleModel
     {
