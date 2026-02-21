@@ -1,6 +1,4 @@
 <Solution>
   <Project Path="../WIS_Security/WIS_Security.csproj" Id="b622b39e-b365-461d-abc5-f0781734ebed" />
-  <Project Path="DTECore/DTECore.csproj" Id="e77effb6-e919-4f3d-b135-d00873326ebe" />
-  <Project Path="FEL_CR/FELCR.csproj" Id="cf2ae3a0-50b8-43cd-8471-18e3f9b9ed7d" />
-  <Project Path="ServiceCore/ServiceCore.csproj" Id="9b60b8ae-403b-480d-84bd-defd24c1b082" />
+  <Project Path="FEL_CR/FEL_CR.csproj" Id="cf2ae3a0-50b8-43cd-8471-18e3f9b9ed7d" />
 </Solution>

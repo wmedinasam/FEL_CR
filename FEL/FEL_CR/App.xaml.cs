@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace FELCR
+namespace FEL_CR
 {
     /// <summary>
     /// Lógica de interacción para App.xaml

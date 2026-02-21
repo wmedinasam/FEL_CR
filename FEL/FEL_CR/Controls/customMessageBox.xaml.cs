@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FELCR.Controls
+namespace FEL_CR.Controls
 {
     /// <summary>
     /// Interaction logic for customMessageBox.xaml
