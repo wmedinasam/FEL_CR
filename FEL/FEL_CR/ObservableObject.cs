@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FELCR
+namespace FEL_CR
 {
     public class ObservableObject : INotifyPropertyChanged
     {
